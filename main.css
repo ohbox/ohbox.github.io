@@ -664,7 +664,7 @@ body {
   margin-bottom: 50px; }
   /* line 901, /Users/user/Desktop/portfolio-new/main.scss */
   .section-title .divider {
-    width: 1px;
+    width: 0.5px;
     height: 80px;
     background: white;
     margin-bottom: 20px; }
