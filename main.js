@@ -220,6 +220,8 @@ const grid = document.getElementById("grid");
 
     window.addEventListener('DOMContentLoaded', observeAndAnimate);
 
+    observeAndAnimate();
+
 
 //smooth transition to anchor position & nav-item active//
 const navItems = document.querySelectorAll('.nav-item');
