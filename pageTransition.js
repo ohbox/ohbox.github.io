@@ -52,63 +52,6 @@ function loadPageModule(ns) {
   });
 }
 
-// barba.init({
-//   transitions: [
-//     {
-//       name: 'custom-transition',
-//       async leave({ current }) {
-//         // 遮罩 + 隨機圖片
-//         const img = document.getElementById('transition-image');
-//         const randomIndex = Math.floor(Math.random() * transitionImages.length);
-//         img.src = transitionImages[randomIndex];
-
-//         // 遮罩滑入（0.6s）
-//         const maskIn = gsap.to("#transition-mask", {
-//           x: '0%',
-//           duration: 0.6,
-//           ease: 'power2.inOut'
-//         });
-
-//         // 圖片淡入（0.4s, 延遲 0.5s）
-//         const imageFadeIn = gsap.fromTo("#transition-image", 
-//           { opacity: 0, scale: 0.8 },
-//           {
-//             opacity: 1,
-//             scale: 1.4,
-//             duration: 0.2,
-//             delay: 0.4,
-//             ease: 'power2.out'
-//           });
-
-//         // ✅ 延後進行頁面切換（總共等待 1.4 秒 → 蓋住畫面後再多等 0.8 秒）
-//         await Promise.all([
-//           maskIn,
-//           imageFadeIn,
-//           gsap.delayedCall(1.4, () => {}) // 原本 1.2 → 調整為更晚切頁
-//         ]);
-//       },
-
-      
-
-//       enter({ next }) {
-//         window.scrollTo(0, 0);
-
-//         // 遮罩滑出（維持不變）
-//         return gsap.to("#transition-mask", {
-//           x: '100%',
-//           duration: 0.6,
-//           ease: 'power2.inOut',
-//           onComplete: () => {
-//             gsap.set("#transition-mask", { x: '-100%' });
-//             gsap.set("#transition-image", { opacity: 0 });
-//           }
-//         });
-//       }
-//     }
-//   ]
-// });
-
-
 
 let isTransitioning = false;
 
@@ -177,7 +120,7 @@ barba.hooks.afterEnter(() => {
         .set("#transition-image", { opacity: 0, scale: 0.8 })
         .add(() => { isTransitioning = false; });
     });
-  }, 20);
+  }, 10);
 });
 
 
