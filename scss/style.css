@@ -2932,6 +2932,7 @@ footer .footer-content {
   justify-content: center;
   align-items: center;
   padding: 24px;
+  width:100%;
 }
 @media (max-width: 680px) {
   .projectContainer .custom-wrap {
