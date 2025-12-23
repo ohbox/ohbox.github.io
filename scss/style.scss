@@ -3033,6 +3033,7 @@ body.menu-open #scanOverlay{
         justify-content: center;
         align-items: center;
         padding: 24px;
+		width:100%;
 
         @include mobile{
             padding: 16px;
