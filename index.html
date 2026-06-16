@@ -16,6 +16,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js"></script>
   <script src="fx.js"></script>
+  <script src="about-dashboard.js"></script>
   <style>
     html {
       scroll-behavior: smooth;
@@ -276,6 +277,517 @@
         height: 30px;
         padding: 0 11px;
         font-size: 11px;
+      }
+    }
+
+    /* ============ About — Capability Dashboard ============ */
+
+    @keyframes cap-glow-breathe {
+
+      0%,
+      100% {
+        transform: scale(0.94);
+        opacity: 0.35;
+      }
+
+      50% {
+        transform: scale(1.08);
+        opacity: 0.65;
+      }
+    }
+
+    @keyframes cap-carousel-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* Grid */
+    .cap-dashboard-outer {
+      border: 0.8px solid rgba(255, 255, 255, 0.14);
+      padding: 6px;
+      margin-top: clamp(48px, 8vh, 88px);
+    }
+
+    .cap-dashboard {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .cap-col {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 0;
+      width: 100%;
+    }
+
+    .cap-panel {
+      background: rgba(255, 255, 255, 0.01);
+      border: 0.8px solid rgba(255, 255, 255, 0.04);
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    .cap-header-box {
+      flex-shrink: 0;
+      padding: clamp(12px, 2vw, 16px) clamp(12px, 2vw, 16px) 0;
+    }
+
+    .cap-content-box {
+      flex: 1;
+      display: flex;
+      min-height: 0;
+      min-width: 0;
+      width: 100%;
+      box-sizing: border-box;
+      padding: clamp(12px, 2vw, 16px) clamp(12px, 2vw, 16px);
+    }
+
+    .cap-panel--skills .cap-content-box {
+      padding: 0;
+    }
+
+    .cap-panel--capacity .cap-content-box {
+      padding: 0;
+    }
+
+    .cap-content-box--tight {
+      padding-top: 12px;
+    }
+
+    .cap-panel--capacity .cap-content-box--tight {
+      padding: 0;
+    }
+
+    .cap-content-box--carousel {
+      padding: clamp(12px, 2vw, 16px) clamp(12px, 2vw, 16px);
+      overflow: hidden;
+    }
+
+    .cap-panel--skills {
+      flex: 1;
+    }
+
+    /* Column 3: Strengths + Interests are content-height — they define the column height */
+    .cap-panel--strengths {
+      flex: none;
+      min-height: 0;
+    }
+
+    .cap-panel--interests {
+      flex: none;
+      min-height: 0;
+    }
+
+    /* Column 2: Language + Capacity fill the column 1:1 */
+    .cap-panel--language {
+      flex: 1;
+      min-height: 180px;
+    }
+
+    .cap-panel--capacity {
+      flex: 1;
+      min-height: 180px;
+    }
+
+    .cap-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: #F07040;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    /* Tablet: Skills spans full width on top; Language+Capacity and Strengths+Interests sit in 2 columns below */
+    @media (min-width: 601px) and (max-width: 980px) {
+      .cap-dashboard {
+        grid-template-columns: 1fr 1fr;
+      }
+      .cap-col:first-child {
+        grid-column: 1 / -1;
+      }
+      .cap-panel--skills {
+        flex: none;
+      }
+      .cap-panel--skills .cap-content-box {
+        min-height: clamp(200px, calc(610.97px - 41.94vw), 460px);
+      }
+      .cap-panel--language {
+        flex: 1;
+        height: auto;
+        min-height: 0;
+      }
+      .cap-panel--capacity {
+        flex: 1;
+        height: auto;
+        min-height: 0;
+      }
+      .cap-panel--strengths {
+        flex: none;
+        height: auto;
+        min-height: 0;
+      }
+      .cap-panel--interests {
+        flex: none;
+        height: auto;
+        min-height: 0;
+      }
+    }
+
+    /* Mobile: all panels stack individually */
+    @media (max-width: 600px) {
+      .cap-dashboard {
+        grid-template-columns: 1fr;
+      }
+      .cap-panel--skills {
+        flex: none;
+      }
+      .cap-panel--skills .cap-content-box {
+        min-height: clamp(200px, calc(610.97px - 41.94vw), 460px);
+      }
+      .cap-panel--language {
+        height: 260px;
+        min-height: 260px;
+        flex: none;
+      }
+      .cap-panel--capacity {
+        height: 260px;
+        min-height: 260px;
+        flex: none;
+      }
+      .cap-panel--strengths {
+        height: auto;
+        min-height: 0;
+        flex: none;
+      }
+      .cap-panel--interests {
+        height: auto;
+        min-height: 0;
+        flex: none;
+      }
+    }
+
+    /* 1. Skills & Expertise */
+    .cap-skills-body {
+      position: relative;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+      cursor: grab;
+    }
+
+    .cap-skills-body.is-dragging {
+      cursor: grabbing;
+    }
+
+    .cap-skills-glow {
+      position: absolute;
+      left: 50%;
+      bottom: -45%;
+      width: 140%;
+      height: 95%;
+      margin-left: -70%;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(240, 112, 64, 0.22), rgba(240, 112, 64, 0.07) 45%, transparent 78%);
+      filter: blur(32px);
+      opacity: 0.6;
+      pointer-events: none;
+      z-index: 1;
+      animation: cap-glow-breathe 7s ease-in-out infinite;
+    }
+
+    .cap-skills-particles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .cap-particle {
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .cap-skills-chips {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+    }
+
+    .cap-chip {
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: inline-flex;
+      align-items: center;
+      white-space: nowrap;
+      padding: 4px 8px;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0;
+      color: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.03);
+      border: 0.2px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+      will-change: transform;
+      opacity: 0;
+      animation: none;
+      user-select: none;
+    }
+
+    .cap-skills-chips--static {
+      position: static;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-content: flex-start;
+    }
+
+    .cap-skills-chips--static .cap-chip {
+      position: static;
+      opacity: 1;
+    }
+
+    /* 3. Strengths */
+    .cap-strength-list {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      min-width: 0;
+      width: 100%;
+    }
+
+    .cap-strength-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+
+    .cap-strength-label {
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(244, 242, 238, 0.85);
+      white-space: nowrap;
+    }
+
+    .cap-strength-level {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: #F07040;
+      flex-shrink: 0;
+    }
+
+    .cap-strength-row {
+      min-width: 0;
+      width: 100%;
+    }
+
+    .cap-tube {
+      display: flex;
+      align-items: center;
+      gap: 1px;
+      padding: 2px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 1px;
+      background: rgba(255, 255, 255, 0.02);
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
+      min-width: 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .cap-seg {
+      flex: 1;
+      height: 6px;
+      min-width: 2px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .cap-seg.filled {
+      background: #F07040;
+      box-shadow: 0 0 6px rgba(240, 112, 64, 0.55);
+    }
+
+    /* 4. Capacity */
+    .cap-capacity-body {
+      position: relative;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+      background: #0F0F12;
+      -webkit-mask-image: radial-gradient(
+        ellipse 50% 50% at 50% 50%,
+        black 0%,
+        black 86%,
+        transparent 92%
+      );
+      mask-image: radial-gradient(
+        ellipse 50% 50% at 50% 50%,
+        black 0%,
+        black 86%,
+        transparent 92%
+      );
+    }
+
+    /* Scale wrapper — hover on body, transform only on this inner layer */
+    .cap-capacity-media {
+      position: absolute;
+      inset: 0;
+      transform-origin: center center;
+      transform: scale(1) translateZ(0);
+      will-change: transform;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      transition: transform 0.3s ease-in;
+    }
+
+    .cap-capacity-body:hover .cap-capacity-media {
+      transform: scale(1.04) translateZ(0);
+    }
+
+    .cap-capacity-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    /* 5. Language */
+    .cap-lang-cards {
+      flex: 1;
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 16px;
+    }
+
+    .cap-lang-card {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      border: 0.4px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      box-shadow: inset 2px 2px 8px 0 rgba(0, 0, 0, 0.48);
+    }
+
+    .cap-lang-title {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: #F4F2EE;
+    }
+
+    .cap-lang-label {
+      margin: 1px 0 0;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      color: #F9B286;
+      text-transform: uppercase;
+    }
+
+    .cap-lang-chart {
+      position: relative;
+      width: min(106px, 100%);
+      aspect-ratio: 1;
+      height: auto;
+      margin: 8px auto;
+    }
+
+    .cap-lang-svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      transform: rotate(-90deg);
+    }
+
+    .cap-lang-tick {
+      fill: rgba(255, 255, 255, 0.12);
+    }
+
+    .cap-lang-track {
+      stroke: rgba(255, 255, 255, 0.06);
+      stroke-width: 16;
+    }
+
+    .cap-lang-progress {
+      stroke: #F07040;
+      stroke-width: 16;
+      stroke-linecap: butt;
+      filter: drop-shadow(0 0 8px rgba(240, 112, 64, 0.55));
+    }
+
+    .cap-lang-inner {
+      stroke: rgba(255, 255, 255, 0.12);
+      stroke-width: 1;
+    }
+
+    .cap-lang-value {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(14px, 2vw, 18px);
+      font-weight: 400;
+      color: #F4F2EE;
+    }
+
+    /* 6. Interests — infinite carousel */
+    .cap-interest-track {
+      display: flex;
+      gap: 12px;
+      width: max-content;
+      animation: cap-carousel-scroll 28s linear infinite;
+    }
+
+    .cap-interest-card {
+      flex: 0 0 auto;
+      width: 88px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.02);
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.48);
+      padding: 14px 8px;
+    }
+
+    .cap-interest-icon {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+    }
+
+    .cap-interest-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      color: rgba(244, 242, 238, 0.55);
+      text-align: center;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .cap-skills-glow,
+      .cap-capacity-video,
+      .cap-interest-track {
+        animation: none !important;
       }
     }
 
@@ -1104,6 +1616,24 @@
         display: none;
       }
     }
+
+    /* Quote keyword highlight — Box / inside */
+    [data-qkeyword] {
+      color: #F07040;
+      font-weight: 600;
+      opacity: 1;
+      transition: filter 0.45s ease, text-shadow 0.45s ease;
+    }
+    [data-qkeyword].qkw-dim {
+      filter: brightness(0.45);
+      text-shadow: none;
+    }
+    [data-qkeyword].qkw-active {
+      filter: brightness(1);
+      text-shadow:
+        0 0 12px rgba(240, 112, 64, 0.35),
+        0 0 24px rgba(240, 112, 64, 0.16);
+    }
   </style>
 </head>
 
@@ -1351,7 +1881,7 @@
             <div class="proc-svg-slot" data-svg-zone="true"
               style="flex:1;position:relative;overflow:hidden;background-color:#111115;padding:4px;">
               <div class="proc-inner-box"
-                style="width:100%;height:100%;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background-color:rgba(255,255,255,0.02);background-image:radial-gradient(circle,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:18px 18px;">
+                style="width:100%;height:100%;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background-color:rgba(255,255,255,0.02);background-image:radial-gradient(circle,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:10px 10px;">
                 <object class="process-svg process-svg-hover" type="image/svg+xml" data="image/process/S1-hover.svg"
                   aria-label="Research process"></object>
                 <object class="process-svg process-svg-load" type="image/svg+xml" data="image/process/S1-load.svg"
@@ -1380,7 +1910,7 @@
             <div class="proc-svg-slot" data-svg-zone="true"
               style="flex:1;position:relative;overflow:hidden;background-color:#111115;padding:4px;">
               <div class="proc-inner-box"
-                style="width:100%;height:100%;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background-color:rgba(255,255,255,0.02);background-image:radial-gradient(circle,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:18px 18px;">
+                style="width:100%;height:100%;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background-color:rgba(255,255,255,0.02);background-image:radial-gradient(circle,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:10px 10px;">
                 <object class="process-svg process-svg-hover" type="image/svg+xml" data="image/process/S2-hover.svg"
                   aria-label="Craft Visuals process"></object>
                 <object class="process-svg process-svg-load" type="image/svg+xml" data="image/process/S2-load.svg"
@@ -1409,7 +1939,7 @@
             <div class="proc-svg-slot" data-svg-zone="true"
               style="flex:1;position:relative;overflow:hidden;background-color:#111115;padding:4px;">
               <div class="proc-inner-box"
-                style="width:100%;height:100%;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background-color:rgba(255,255,255,0.02);background-image:radial-gradient(circle,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:18px 18px;">
+                style="width:100%;height:100%;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background-color:rgba(255,255,255,0.02);background-image:radial-gradient(circle,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:10px 10px;">
                 <object class="process-svg process-svg-hover" type="image/svg+xml" data="image/process/S3-hover.svg"
                   aria-label="Make Animation process"></object>
                 <object class="process-svg process-svg-load" type="image/svg+xml" data="image/process/S3-load.svg"
@@ -1438,7 +1968,7 @@
             <div class="proc-svg-slot" data-svg-zone="true"
               style="flex:1;position:relative;overflow:hidden;background-color:#111115;padding:4px;">
               <div class="proc-inner-box"
-                style="width:100%;height:100%;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background-color:rgba(255,255,255,0.02);background-image:radial-gradient(circle,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:18px 18px;">
+                style="width:100%;height:100%;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background-color:rgba(255,255,255,0.02);background-image:radial-gradient(circle,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:10px 10px;">
                 <object class="process-svg process-svg-hover" type="image/svg+xml" data="image/process/S4-hover.svg"
                   aria-label="Design Handoff process"></object>
                 <object class="process-svg process-svg-load" type="image/svg+xml" data="image/process/S4-load.svg"
@@ -1840,10 +2370,10 @@
         </div>
         <p data-quote="true"
           style="margin: clamp(28px,5vh,44px) 0 0 0; font-size: clamp(32px,5.2vw,68px); font-weight: 300; letter-spacing: -0.02em; line-height: 1.18; color: #F4F2EE; text-wrap: balance;">
-          <span data-qword="true">“Think</span> <span data-qword="true">outside</span> <span
-            data-qword="true">the</span> <span data-qword="true" style="color: #F07040; font-weight: 600;">Box,</span>
-          <span data-qword="true">but</span> <span data-qword="true">don’t</span> <span data-qword="true">forget</span>
-          <span data-qword="true" style="color: #F07040; font-weight: 600;">inside”</span>
+          <span data-qword=”true”>”Think</span> <span data-qword=”true”>outside</span> <span
+            data-qword=”true”>the</span> <span data-qword=”true” data-qkeyword=”true” class=”qkw-dim”>Box</span><span data-qword=”true”>,</span>
+          <span data-qword=”true”>but</span> <span data-qword=”true”>don’t</span> <span data-qword=”true”>forget</span>
+          <span data-qword=”true” data-qkeyword=”true” class=”qkw-dim”>inside</span><span data-qword=”true”>”</span>
         </p>
         <a href="#contact" data-magnetic="true" data-reveal="true" class="pfx-btn-lg pfx-mobile-full pfx-hov-7"
           style="display: inline-flex; align-items: center; justify-content: center; margin-top: clamp(36px,6vh,56px); font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.2em; color: #F4F2EE; border: 1px solid rgba(255,255,255,0.25); text-decoration: none; padding: 0 34px; transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;">LET'S
@@ -1895,33 +2425,19 @@
                 style="position:absolute; left:50%; bottom:-22%; width:78%; height:70%; border-radius:50%; background:radial-gradient(ellipse at center, rgba(240,112,64,0.36), rgba(240,112,64,0.14) 42%, transparent 72%); filter:blur(18px); pointer-events:none; z-index:1;"></span>
               <img src="image/about/portrait.png?v=2" alt="Tom Lin"
                 style="position: absolute; top: 8px; left: 50%; transform: translateX(-50%); height: calc(180%); width: auto; max-width: none; display: block; z-index:2;">
-              <div class="about-skill-layer" data-about-physics="true" aria-hidden="true">
-                <span class="about-skill-badge" data-skill-badge="UI Design"><img class="about-skill-icon"
-                    src="icon/design-curve.svg" alt="">UI Design</span>
-                <span class="about-skill-badge" data-skill-badge="AI Driven"><img class="about-skill-icon"
-                    src="icon/3dcube.svg" alt="">AI Driven</span>
-                <span class="about-skill-badge" data-skill-badge="UX Research"><img class="about-skill-icon"
-                    src="icon/file-search.svg" alt="">UX Research</span>
-                <span class="about-skill-badge" data-skill-badge="Storytelling"><img class="about-skill-icon"
-                    src="icon/message-chat-square.svg" alt="">Storytelling</span>
-                <span class="about-skill-badge" data-skill-badge="Vibe Design / Coding"><img class="about-skill-icon"
-                    src="icon/cpu-setting.svg" alt="">Vibe Design / Coding</span>
-                <span class="about-skill-badge" data-skill-badge="Micro-interaction"><img class="about-skill-icon"
-                    src="icon/intersect-circle.svg" alt="">Micro-interaction</span>
-              </div>
             </div>
             <div
               style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.09); border-top: none; font-family: 'Space Mono', monospace;">
               <div style="background: #0F0F12; padding: 14px 16px;"><span
                   style="display: block; font-size: 9px; letter-spacing: 0.24em; color: rgba(244,242,238,0.4);">NAME</span><span
-                  style="display: block; margin-top: 6px; font-size: 12px; color: #F4F2EE;">TOM (POHUNG) LIN</span>
+                  style="display: block; margin-top: 6px; font-size: 12px; color: #F4F2EE;">POHUNG LIN (TOM)</span>
               </div>
               <div style="background: #0F0F12; padding: 14px 16px;"><span
                   style="display: block; font-size: 9px; letter-spacing: 0.24em; color: rgba(244,242,238,0.4);">ROLE</span><span
                   style="display: block; margin-top: 6px; font-size: 12px; color: #F4F2EE;">UI/UX DESIGNER</span></div>
               <div style="background: #0F0F12; padding: 14px 16px;"><span
                   style="display: block; font-size: 9px; letter-spacing: 0.24em; color: rgba(244,242,238,0.4);">EXPERIENCE</span><span
-                  style="display: block; margin-top: 6px; font-size: 12px; color: #F4F2EE;">5+ YEARS</span></div>
+                  style="display: block; margin-top: 6px; font-size: 12px; color: #F4F2EE;">6+ YEARS</span></div>
               <div style="background: #0F0F12; padding: 14px 16px;"><span
                   style="display: block; font-size: 9px; letter-spacing: 0.24em; color: rgba(244,242,238,0.4);">BASE</span><span
                   style="display: block; margin-top: 6px; font-size: 12px; color: #F4F2EE;">TAIPEI, TAIWAN</span></div>
@@ -1942,11 +2458,7 @@
               Hi, I'm Tom Lin — good to meet you!</h3>
             <p data-reveal="true"
               style="margin: 22px 0 0 0; font-size: 16px; font-weight: 300; line-height: 1.8; color: rgba(244,242,238,0.62); text-wrap: pretty;">
-              With 6+ years in UI/UX design, I create user-centered digital products through a flexible process —
-              leading research, prototyping, and testing with purpose. I'm hands-on from discovery to delivery,
-              detail-oriented yet pragmatic — knowing when to polish and when to ship. I value design systems,
-              accessibility, and clear communication, which enables smooth collaboration with developers and product
-              teams from concept to hand-off.</p>
+              With 6+ years in UI/UX design, I create user-centered digital products through research, prototyping, and testing with purpose. I'm hands-on from discovery to delivery, detail-oriented yet pragmatic — knowing when to polish and when to ship. I use AI as part of my workflow for research synthesis, inspiration, prompting, rapid prototyping, and light coding, allowing me to explore faster and communicate ideas more clearly. I value design systems, accessibility, and smooth collaboration with developers and product teams from concept to hand-off.</p>
             <blockquote data-reveal="true"
               style="margin: 28px 0 0 0; padding: 0 0 0 22px; border-left: 1px solid #F07040; font-size: 18px; font-weight: 300; font-style: normal; line-height: 1.6; color: rgba(244,242,238,0.85);">
               “Good design starts with empathy and ends with impact.”</blockquote>
@@ -1957,188 +2469,56 @@
           </div>
         </div>
 
-        <!-- Skills / strengths / languages+interests -->
-        <div
-          style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px,100%), 1fr)); gap: 1px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.07); margin-top: clamp(48px,8vh,88px);">
-          <div data-reveal="true" style="background: #0F0F12; padding: clamp(26px,3vw,38px);">
-            <span
-              style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.3em; color: #F07040;">SKILLS
-              &amp; EXPERTISE</span>
-            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px;">
-              <span
-                style="font-size: 13px; font-weight: 300; color: rgba(244,242,238,0.7); border: 1px solid rgba(255,255,255,0.12); padding: 8px 13px;">User
-                research &amp; analysis</span>
-              <span
-                style="font-size: 13px; font-weight: 300; color: rgba(244,242,238,0.7); border: 1px solid rgba(255,255,255,0.12); padding: 8px 13px;">Organizing
-                information</span>
-              <span
-                style="font-size: 13px; font-weight: 300; color: rgba(244,242,238,0.7); border: 1px solid rgba(255,255,255,0.12); padding: 8px 13px;">Critical
-                thinking</span>
-              <span
-                style="font-size: 13px; font-weight: 300; color: rgba(244,242,238,0.7); border: 1px solid rgba(255,255,255,0.12); padding: 8px 13px;">User-centered
-                iteration</span>
-              <span
-                style="font-size: 13px; font-weight: 300; color: rgba(244,242,238,0.7); border: 1px solid rgba(255,255,255,0.12); padding: 8px 13px;">Design
-                handoff</span>
-              <span
-                style="font-size: 13px; font-weight: 300; color: rgba(244,242,238,0.7); border: 1px solid rgba(255,255,255,0.12); padding: 8px 13px;">Visual
-                assets creation</span>
-              <span
-                style="font-size: 13px; font-weight: 300; color: rgba(244,242,238,0.7); border: 1px solid rgba(255,255,255,0.12); padding: 8px 13px;">Wireframing</span>
-              <span
-                style="font-size: 13px; font-weight: 300; color: rgba(244,242,238,0.7); border: 1px solid rgba(255,255,255,0.12); padding: 8px 13px;">Responsive
-                &amp; adaptive design</span>
-              <span
-                style="font-size: 13px; font-weight: 300; color: rgba(244,242,238,0.7); border: 1px solid rgba(255,255,255,0.12); padding: 8px 13px;">Design
-                systems &amp; pattern libraries</span>
-              <span
-                style="font-size: 13px; font-weight: 300; color: rgba(244,242,238,0.7); border: 1px solid rgba(255,255,255,0.12); padding: 8px 13px;">Typography</span>
-              <span
-                style="font-size: 13px; font-weight: 300; color: rgba(244,242,238,0.7); border: 1px solid rgba(255,255,255,0.12); padding: 8px 13px;">Continuous
-                learning</span>
-              <span
-                style="font-size: 13px; font-weight: 300; color: rgba(244,242,238,0.7); border: 1px solid rgba(255,255,255,0.12); padding: 8px 13px;">HTML
-                / CSS basis</span>
-              <span
-                style="font-size: 13px; font-weight: 300; color: rgba(244,242,238,0.7); border: 1px solid rgba(255,255,255,0.12); padding: 8px 13px;">Usability
-                testing</span>
-              <span
-                style="font-size: 13px; font-weight: 300; color: rgba(244,242,238,0.7); border: 1px solid rgba(255,255,255,0.12); padding: 8px 13px;">Prototyping</span>
-              <span
-                style="font-size: 13px; font-weight: 300; color: rgba(244,242,238,0.7); border: 1px solid rgba(255,255,255,0.12); padding: 8px 13px;">Micro-animation
-                / interaction</span>
-              <span
-                style="font-size: 13px; font-weight: 300; color: rgba(244,242,238,0.7); border: 1px solid rgba(255,255,255,0.12); padding: 8px 13px;">High-fidelity
-                visual design</span>
-              <span
-                style="font-size: 13px; font-weight: 300; color: rgba(244,242,238,0.7); border: 1px solid rgba(255,255,255,0.12); padding: 8px 13px;">Mascot
-                design</span>
-            </div>
-          </div>
+        <!-- Capability Dashboard -->
+        <div class="cap-dashboard-outer">
+          <div class="cap-dashboard" data-cap-dashboard>
 
-          <div data-reveal="true" data-reveal-delay="0.08" style="background: #0F0F12; padding: clamp(26px,3vw,38px);">
-            <span
-              style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.3em; color: #F07040;">STRENGTHS</span>
-            <div style="display: flex; flex-direction: column; gap: 20px; margin-top: 26px;">
-              <div>
-                <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px;"><span
-                    style="font-size: 14px; font-weight: 400; color: rgba(244,242,238,0.85);">Critical
-                    Thinking</span><span
-                    style="font-family: 'Space Mono', monospace; font-size: 11px; color: #F07040;">LV.8</span></div>
-                <div style="height: 2px; background: rgba(255,255,255,0.1); margin-top: 9px;">
-                  <div data-bar="80"
-                    style="height: 100%; width: 80%; background: linear-gradient(90deg, #C05015, #F07040); box-shadow: 0 0 10px rgba(240,112,64,0.5);">
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px;"><span
-                    style="font-size: 14px; font-weight: 400; color: rgba(244,242,238,0.85);">Self-Disciplined</span><span
-                    style="font-family: 'Space Mono', monospace; font-size: 11px; color: #F07040;">LV.9</span></div>
-                <div style="height: 2px; background: rgba(255,255,255,0.1); margin-top: 9px;">
-                  <div data-bar="90"
-                    style="height: 100%; width: 90%; background: linear-gradient(90deg, #C05015, #F07040); box-shadow: 0 0 10px rgba(240,112,64,0.5);">
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px;"><span
-                    style="font-size: 14px; font-weight: 400; color: rgba(244,242,238,0.85);">Continuous
-                    Learning</span><span
-                    style="font-family: 'Space Mono', monospace; font-size: 11px; color: #F07040;">LV.7</span></div>
-                <div style="height: 2px; background: rgba(255,255,255,0.1); margin-top: 9px;">
-                  <div data-bar="70"
-                    style="height: 100%; width: 70%; background: linear-gradient(90deg, #C05015, #F07040); box-shadow: 0 0 10px rgba(240,112,64,0.5);">
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px;"><span
-                    style="font-size: 14px; font-weight: 400; color: rgba(244,242,238,0.85);">Problem
-                    Solving</span><span
-                    style="font-family: 'Space Mono', monospace; font-size: 11px; color: #F07040;">LV.8</span></div>
-                <div style="height: 2px; background: rgba(255,255,255,0.1); margin-top: 9px;">
-                  <div data-bar="80"
-                    style="height: 100%; width: 80%; background: linear-gradient(90deg, #C05015, #F07040); box-shadow: 0 0 10px rgba(240,112,64,0.5);">
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px;"><span
-                    style="font-size: 14px; font-weight: 400; color: rgba(244,242,238,0.85);">Collaboration</span><span
-                    style="font-family: 'Space Mono', monospace; font-size: 11px; color: #F07040;">LV.6</span></div>
-                <div style="height: 2px; background: rgba(255,255,255,0.1); margin-top: 9px;">
-                  <div data-bar="60"
-                    style="height: 100%; width: 60%; background: linear-gradient(90deg, #C05015, #F07040); box-shadow: 0 0 10px rgba(240,112,64,0.5);">
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px;"><span
-                    style="font-size: 14px; font-weight: 400; color: rgba(244,242,238,0.85);">Time-Management</span><span
-                    style="font-family: 'Space Mono', monospace; font-size: 11px; color: #F07040;">LV.8</span></div>
-                <div style="height: 2px; background: rgba(255,255,255,0.1); margin-top: 9px;">
-                  <div data-bar="80"
-                    style="height: 100%; width: 80%; background: linear-gradient(90deg, #C05015, #F07040); box-shadow: 0 0 10px rgba(240,112,64,0.5);">
+            <!-- Left: Skills & Expertise (full column height) -->
+            <div class="cap-col">
+              <div class="cap-panel cap-panel--skills" data-reveal="true" data-cap="skills">
+                <div class="cap-header-box"><span class="cap-title">Skills &amp; Expertise</span></div>
+                <div class="cap-content-box">
+                  <div class="cap-skills-body" data-cap-root="skills">
+                    <div class="cap-skills-glow" aria-hidden="true"></div>
+                    <div class="cap-skills-particles" data-cap-particles aria-hidden="true"></div>
+                    <div class="cap-skills-chips" data-cap-chips></div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div data-reveal="true" data-reveal-delay="0.16"
-            style="background: #0F0F12; padding: clamp(26px,3vw,38px); display: flex; flex-direction: column; gap: 34px;">
-            <div>
-              <span
-                style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.3em; color: #F07040;">LANGUAGE</span>
-              <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 22px;">
-                <div
-                  style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 12px;">
-                  <span style="font-size: 14px; color: rgba(244,242,238,0.85);">Chinese</span><span
-                    style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: rgba(244,242,238,0.45);">NATIVE</span>
+            <!-- Middle: Language (top) + Capacity (bottom) -->
+            <div class="cap-col">
+              <div class="cap-panel cap-panel--language" data-reveal="true" data-reveal-delay="0.08" data-cap="language">
+                <div class="cap-header-box"><span class="cap-title">Language</span></div>
+                <div class="cap-content-box">
+                  <div class="cap-lang-cards" data-cap-root="language"></div>
                 </div>
-                <div
-                  style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 12px;">
-                  <span style="font-size: 14px; color: rgba(244,242,238,0.85);">English</span><span
-                    style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: rgba(244,242,238,0.45);">ADVANCED</span>
+              </div>
+              <div class="cap-panel cap-panel--capacity" data-reveal="true" data-reveal-delay="0.12" data-cap="capacity">
+                <div class="cap-header-box"><span class="cap-title">Capacity</span></div>
+                <div class="cap-content-box cap-content-box--tight">
+                  <div class="cap-capacity-body" data-cap-root="capacity"></div>
                 </div>
               </div>
             </div>
-            <div>
-              <span
-                style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.3em; color: #F07040;">INTERESTS</span>
-              <div
-                style="display: grid; grid-template-columns: repeat(auto-fill, minmax(86px, 1fr)); gap: 10px; margin-top: 22px;">
-                <div class="pfx-hov-9"
-                  style="display: flex; flex-direction: column; align-items: center; gap: 10px; border: 1px solid rgba(255,255,255,0.1); padding: 16px 8px; transition: border-color 0.25s;">
-                  <img src="image/about/movie.png" alt="" style="width: 34px; height: 34px; object-fit: contain;"><span
-                    style="font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 0.18em; color: rgba(244,242,238,0.55);">MOVIE</span>
+
+            <!-- Right: Strengths (2/3) + Interests carousel (1/3) -->
+            <div class="cap-col">
+              <div class="cap-panel cap-panel--strengths" data-reveal="true" data-reveal-delay="0.04" data-cap="strengths">
+                <div class="cap-header-box"><span class="cap-title">Strengths</span></div>
+                <div class="cap-content-box">
+                  <div class="cap-strength-list" data-cap-root="strengths"></div>
                 </div>
-                <div class="pfx-hov-10"
-                  style="display: flex; flex-direction: column; align-items: center; gap: 10px; border: 1px solid rgba(255,255,255,0.1); padding: 16px 8px; transition: border-color 0.25s;">
-                  <img src="image/about/badminton.png" alt=""
-                    style="width: 34px; height: 34px; object-fit: contain;"><span
-                    style="font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 0.18em; color: rgba(244,242,238,0.55);">BADMINTON</span>
-                </div>
-                <div class="pfx-hov-11"
-                  style="display: flex; flex-direction: column; align-items: center; gap: 10px; border: 1px solid rgba(255,255,255,0.1); padding: 16px 8px; transition: border-color 0.25s;">
-                  <img src="image/about/travel.png" alt="" style="width: 34px; height: 34px; object-fit: contain;"><span
-                    style="font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 0.18em; color: rgba(244,242,238,0.55);">TRAVEL</span>
-                </div>
-                <div class="pfx-hov-12"
-                  style="display: flex; flex-direction: column; align-items: center; gap: 10px; border: 1px solid rgba(255,255,255,0.1); padding: 16px 8px; transition: border-color 0.25s;">
-                  <img src="image/about/pet.png" alt="" style="width: 34px; height: 34px; object-fit: contain;"><span
-                    style="font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 0.18em; color: rgba(244,242,238,0.55);">PETS</span>
-                </div>
-                <div class="pfx-hov-13"
-                  style="display: flex; flex-direction: column; align-items: center; gap: 10px; border: 1px solid rgba(255,255,255,0.1); padding: 16px 8px; transition: border-color 0.25s;">
-                  <img src="image/about/board-game.png" alt=""
-                    style="width: 34px; height: 34px; object-fit: contain;"><span
-                    style="font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 0.18em; color: rgba(244,242,238,0.55);">BOARD
-                    GAME</span>
+              </div>
+              <div class="cap-panel cap-panel--interests" data-reveal="true" data-reveal-delay="0.16" data-cap="interests">
+                <div class="cap-header-box"><span class="cap-title">Interests</span></div>
+                <div class="cap-content-box cap-content-box--carousel">
+                  <div class="cap-interest-track" data-cap-root="interests"></div>
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>
@@ -2583,12 +2963,40 @@
       }
 
       function quote() {
-        var words = document.querySelectorAll('[data-qword]');
+        /* Exclude [data-qkeyword] spans — they have their own brightness animation */
+        var words = document.querySelectorAll('[data-qword]:not([data-qkeyword])');
         if (!words.length) return;
-        gsap.fromTo(words, { opacity: 0.13 }, {
-          opacity: 1, stagger: 0.12, ease: 'none',
-          scrollTrigger: { trigger: '[data-quote]', start: 'top 78%', end: 'top 30%', scrub: true }
+        words.forEach(function (word) {
+          gsap.fromTo(word, { opacity: 0.13 }, {
+            opacity: 1,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: word,
+              start: 'top 60%',
+              end: 'top 40%',
+              scrub: true
+            }
+          });
         });
+      }
+
+      function keywordHighlight() {
+        var keywords = document.querySelectorAll('[data-qkeyword]');
+        if (!keywords.length) return;
+
+        function check() {
+          var triggerLine = window.innerHeight * 0.58;
+          keywords.forEach(function (kw) {
+            var top = kw.getBoundingClientRect().top;
+            var active = top < triggerLine;
+            kw.classList.toggle('qkw-active', active);
+            kw.classList.toggle('qkw-dim',   !active);
+          });
+        }
+
+        window.addEventListener('scroll', check, { passive: true });
+        window.addEventListener('resize', check, { passive: true });
+        check();
       }
 
       function bars() {
@@ -3263,11 +3671,13 @@
         testimonialCarousel();
         mobileNav();
         quote();
+        keywordHighlight();
         bars();
         workV2();
         navActive();
         heroClock();
         waitFor(function () { return !!window.Matter; }, initAboutPhysics);
+        waitFor(function () { return !!window.AboutDashboard; }, function () { window.AboutDashboard.init(cleanupFns); });
         if (window.THREE) { three(); contactParticles(); overlayParticles(); }
       });
 

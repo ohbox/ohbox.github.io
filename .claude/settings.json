@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sed -i '' 's/background-size:11px 11px;/background-size:10px 10px;/g' index.html && grep -c \"background-size:10px 10px\" index.html)",
+      "Read(//Applications/**)",
+      "Bash(npx --yes playwright --version)",
+      "Read(//tmp/**)",
+      "Read(//private/tmp/**)",
+      "Bash(node /tmp/shot37.js)",
+      "Bash(node /tmp/shot38.js)",
+      "Bash(node /tmp/shot39.js)",
+      "Bash(node /tmp/shot40.js)",
+      "Bash(node /tmp/shot41.js)"
+    ],
+    "additionalDirectories": [
+      "/Users/tom/Desktop/Antigravity/ohbox-github-pages",
+      "/tmp",
+      "/private/tmp"
+    ]
+  }
+}
