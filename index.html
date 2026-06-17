@@ -622,18 +622,18 @@
       flex: 1;
       min-height: 0;
       overflow: hidden;
-      background: #0F0F12;
+      background: #121112;
       -webkit-mask-image: radial-gradient(
         ellipse 50% 50% at 50% 50%,
         black 0%,
-        black 86%,
-        transparent 92%
+        black 64%,
+        transparent 99%
       );
       mask-image: radial-gradient(
         ellipse 50% 50% at 50% 50%,
         black 0%,
-        black 86%,
-        transparent 92%
+        black 64%,
+        transparent 99%
       );
     }
 
@@ -646,6 +646,7 @@
       will-change: transform;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
+      mix-blend-mode: lighten;
       transition: transform 0.3s ease-in;
     }
 

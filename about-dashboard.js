@@ -311,7 +311,7 @@
   var CAPACITY_VIDEO =
     '<div class="cap-capacity-media">' +
     '<video class="cap-capacity-video" autoplay muted loop playsinline preload="metadata" aria-label="AI chip animation">' +
-    '<source src="image/about/AI-chip.mp4" type="video/mp4">' +
+    '<source src="image/about/ai-chip-new.mp4" type="video/mp4">' +
     '</video>' +
     '</div>';
 
