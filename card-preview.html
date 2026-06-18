@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Badge Card Preview — OHBOX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0F0F10;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  padding: 60px 40px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ── page heading ──────────────────────────────────────────── */
+.page-title {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.28);
+}
+.page-title span { color: #F07040; }
+
+/* ── cards row ─────────────────────────────────────────────── */
+.cards-row {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.card-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.card-side-label {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.22);
+}
+
+/* ── badge shell ───────────────────────────────────────────── */
+.badge {
+  width: 248px;
+  height: 334px;
+  border-radius: 4px;
+  background: rgba(14,13,13,0.96);
+  box-shadow:
+    0 4px 16px rgba(0,0,0,0.48),
+    0 1px 2px rgba(0,0,0,0.32),
+    inset 0 0 0 0.6px rgba(255,255,255,0.07);
+  padding: 4px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* ── badge inner frame ─────────────────────────────────────── */
+.badge-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
+  background: #110F0F;
+  border: 0.6px solid rgba(255,255,255,0.24);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── front: portrait area ──────────────────────────────────── */
+.portrait-area {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: #0C0B0B;
+}
+
+.portrait-glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 105%,
+      rgba(200,95,30,0.30) 0%,
+      rgba(160,70,20,0.12) 40%,
+      transparent 72%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.portrait-fade {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 56px;
+  background: linear-gradient(to bottom, rgba(17,15,15,0) 0%, rgba(17,15,15,0.96) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.portrait-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* ── front: info grid ──────────────────────────────────────── */
+.info-grid {
+  height: 94px;
+  flex-shrink: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  border-top: 0.6px solid rgba(255,255,255,0.18);
+}
+
+.info-cell {
+  padding: 9px 9px 7px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 4px;
+}
+
+.info-cell:nth-child(1) {
+  border-right: 0.6px solid rgba(255,255,255,0.14);
+  border-bottom: 0.6px solid rgba(255,255,255,0.14);
+}
+.info-cell:nth-child(2) {
+  border-bottom: 0.6px solid rgba(255,255,255,0.14);
+}
+.info-cell:nth-child(3) {
+  border-right: 0.6px solid rgba(255,255,255,0.14);
+}
+
+.info-label {
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #E05A28;
+  line-height: 1;
+}
+
+.info-value {
+  font-size: 10.5px;
+  font-weight: 400;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.88);
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── back side ─────────────────────────────────────────────── */
+.badge-back-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 20px;
+}
+
+.back-logo {
+  width: 100px;
+  height: 100px;
+  display: block;
+  flex-shrink: 0;
+}
+
+.back-title {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1;
+}
+.back-oh  { color: rgba(255,255,255,0.88); }
+.back-box { color: #F07040; }
+
+/* ── export section ─────────────────────────────────────────── */
+.export-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.export-label {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+}
+
+.btn-row { display: flex; gap: 10px; }
+
+.btn {
+  padding: 9px 20px;
+  background: rgba(240,112,64,0.08);
+  border: 0.8px solid rgba(240,112,64,0.32);
+  color: rgba(240,112,64,0.85);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: inherit;
+  border-radius: 4px;
+  transition: background 0.2s, border-color 0.2s;
+}
+.btn:hover {
+  background: rgba(240,112,64,0.16);
+  border-color: rgba(240,112,64,0.5);
+  color: #F07040;
+}
+
+.export-note {
+  font-size: 9px;
+  color: rgba(255,255,255,0.18);
+  letter-spacing: 0.06em;
+  text-align: center;
+  max-width: 400px;
+  line-height: 1.6;
+}
+</style>
+</head>
+<body>
+
+<p class="page-title">OHBOX · <span>PROFILE BADGE CARD</span> · ASSET PREVIEW</p>
+
+<div class="cards-row">
+
+  <!-- FRONT CARD -->
+  <div class="card-wrap">
+    <div class="badge" id="frontCardEl">
+      <div class="badge-inner">
+        <div class="portrait-area">
+          <img class="portrait-img" src="image/about/portrait.png" alt="Portrait">
+          <div class="portrait-glow"></div>
+          <div class="portrait-fade"></div>
+        </div>
+        <div class="info-grid">
+          <div class="info-cell">
+            <span class="info-label">NAME</span>
+            <span class="info-value">PO-HUNG LIN</span>
+          </div>
+          <div class="info-cell">
+            <span class="info-label">ROLE</span>
+            <span class="info-value">UI/UX DESIGNER</span>
+          </div>
+          <div class="info-cell">
+            <span class="info-label">EXPERIENCE</span>
+            <span class="info-value">6+ YEARS</span>
+          </div>
+          <div class="info-cell">
+            <span class="info-label">BASE</span>
+            <span class="info-value">TAIPEI, TAIWAN</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span class="card-side-label">FRONT</span>
+  </div>
+
+  <!-- BACK CARD -->
+  <div class="card-wrap">
+    <div class="badge" id="backCardEl">
+      <div class="badge-inner">
+        <div class="badge-back-content">
+          <img class="back-logo" src="logo/logo.svg" alt="OHBOX">
+          <div class="back-title">
+            <span class="back-oh">OH</span><span class="back-box">BOX</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span class="card-side-label">BACK</span>
+  </div>
+
+</div>
+
+<!-- EXPORT -->
+<div class="export-section">
+  <p class="export-label">Export PNG Assets (3× · 744 × 1002 px)</p>
+  <div class="btn-row">
+    <button class="btn" id="btnFront">Export Front</button>
+    <button class="btn" id="btnBack">Export Back</button>
+    <button class="btn" id="btnBoth">Export Both</button>
+  </div>
+  <p class="export-note">
+    Saved files: <code>lanyard-card-front@3x.png</code> and <code>lanyard-card-back@3x.png</code>
+    — place in <code>image/about/</code> for use as lanyard textures.
+  </p>
+</div>
+
+<script>
+// ─────────────────────────────────────────────────────────────
+//  CANVAS PNG GENERATION — 3× (744 × 1002)
+// ─────────────────────────────────────────────────────────────
+
+const S   = 3;                   // scale factor
+const CW  = 248 * S;            // 744
+const CH  = 334 * S;            // 1002
+const PAD = 4   * S;            // 12   — shell padding
+const RO  = 4   * S;            // 12   — outer border-radius
+const RI  = 2   * S;            //  6   — inner border-radius
+const IGH = 94  * S;            // 282  — info grid height
+const BW  = 0.6 * S;            // 1.8  — border line width
+const ORANGE = '#E05A28';
+
+// inner frame dimensions
+const IX  = PAD;                 // 12
+const IY  = PAD;                 // 12
+const IW  = CW - PAD * 2;       // 720
+const IH  = CH - PAD * 2;       // 978
+const PAH = IH - IGH;           // 696  — portrait area height
+
+function rrPath(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x+r, y);
+  ctx.lineTo(x+w-r, y); ctx.arcTo(x+w, y, x+w, y+r, r);
+  ctx.lineTo(x+w, y+h-r); ctx.arcTo(x+w, y+h, x+w-r, y+h, r);
+  ctx.lineTo(x+r, y+h); ctx.arcTo(x, y+h, x, y+h-r, r);
+  ctx.lineTo(x, y+r); ctx.arcTo(x, y, x+r, y, r);
+  ctx.closePath();
+}
+
+function drawCardShell(ctx) {
+  // outer shell
+  ctx.fillStyle = '#0E0D0D';
+  rrPath(ctx, 0, 0, CW, CH, RO);
+  ctx.fill();
+
+  // outer glass border
+  ctx.strokeStyle = 'rgba(255,255,255,0.07)';
+  ctx.lineWidth = BW;
+  ctx.stroke();
+
+  // inner frame fill
+  ctx.fillStyle = '#110F0F';
+  rrPath(ctx, IX, IY, IW, IH, RI);
+  ctx.fill();
+
+  // inner frame border
+  ctx.strokeStyle = 'rgba(255,255,255,0.24)';
+  ctx.lineWidth = BW;
+  ctx.stroke();
+}
+
+async function loadImg(src) {
+  return new Promise(res => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload  = () => res(img);
+    img.onerror = () => res(null);
+    img.src = src;
+  });
+}
+
+async function generateFront() {
+  const cv  = document.createElement('canvas');
+  cv.width  = CW; cv.height = CH;
+  const ctx = cv.getContext('2d');
+
+  drawCardShell(ctx);
+
+  // clip to inner frame for all content
+  ctx.save();
+  rrPath(ctx, IX, IY, IW, IH, RI);
+  ctx.clip();
+
+  // ── portrait background
+  ctx.fillStyle = '#0C0B0B';
+  ctx.fillRect(IX, IY, IW, PAH);
+
+  // ── orange/brown radial glow from bottom center
+  const glowGrad = ctx.createRadialGradient(
+    IX + IW * 0.5, IY + PAH + IW * 0.1, 0,
+    IX + IW * 0.5, IY + PAH + IW * 0.1, IW * 0.85
+  );
+  glowGrad.addColorStop(0.00, 'rgba(200,90,28,0.32)');
+  glowGrad.addColorStop(0.35, 'rgba(160,65,18,0.12)');
+  glowGrad.addColorStop(0.70, 'rgba(100,40,10,0.04)');
+  glowGrad.addColorStop(1.00, 'rgba(0,0,0,0)');
+  ctx.fillStyle = glowGrad;
+  ctx.fillRect(IX, IY, IW, PAH);
+
+  // ── portrait image (cover, top-aligned)
+  const portrait = await loadImg('image/about/portrait.png');
+  if (portrait) {
+    const imgAspect = portrait.naturalWidth / portrait.naturalHeight;
+    const areaAspect = IW / PAH;
+    let dW, dH;
+    if (imgAspect < areaAspect) {
+      // image is taller proportionally — fill width
+      dW = IW; dH = IW / imgAspect;
+    } else {
+      // image is wider — fill height
+      dH = PAH; dW = PAH * imgAspect;
+    }
+    // top-aligned
+    ctx.drawImage(portrait, IX + (IW - dW) / 2, IY, dW, dH);
+  }
+
+  // ── bottom fade: portrait into info
+  const fadeGrad = ctx.createLinearGradient(0, IY + PAH - PAH * 0.25, 0, IY + PAH);
+  fadeGrad.addColorStop(0, 'rgba(17,15,15,0)');
+  fadeGrad.addColorStop(1, 'rgba(17,15,15,0.97)');
+  ctx.fillStyle = fadeGrad;
+  ctx.fillRect(IX, IY + PAH - PAH * 0.25, IW, PAH * 0.25);
+
+  // ── info grid background
+  const GY = IY + PAH;
+  ctx.fillStyle = '#0F0D0D';
+  ctx.fillRect(IX, GY, IW, IGH);
+
+  // ── info grid lines
+  const CX = IX + IW / 2; // vertical center
+  const MY = GY + IGH / 2; // horizontal midpoint
+
+  ctx.strokeStyle = 'rgba(255,255,255,0.18)';
+  ctx.lineWidth = BW;
+  ctx.beginPath(); ctx.moveTo(IX, GY); ctx.lineTo(IX + IW, GY); ctx.stroke();
+
+  ctx.strokeStyle = 'rgba(255,255,255,0.14)';
+  ctx.beginPath(); ctx.moveTo(CX, GY); ctx.lineTo(CX, GY + IGH); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(IX, MY); ctx.lineTo(IX + IW, MY); ctx.stroke();
+
+  // ── cell content
+  const CPX = 8 * S;  // cell padding X
+  const CPY = 9 * S;  // cell padding Y
+  const LH  = 5 * S;  // gap between label and value
+
+  const fields = [
+    { label: 'NAME',       value: 'PO-HUNG LIN',    c: 0, r: 0 },
+    { label: 'ROLE',       value: 'UI/UX DESIGNER', c: 1, r: 0 },
+    { label: 'EXPERIENCE', value: '6+ YEARS',        c: 0, r: 1 },
+    { label: 'BASE',       value: 'TAIPEI, TAIWAN',  c: 1, r: 1 },
+  ];
+
+  const colW = IW / 2;
+  const rowH = IGH / 2;
+
+  ctx.textBaseline = 'top';
+  fields.forEach(f => {
+    const fx = IX + f.c * colW + CPX;
+    const fy = GY + f.r * rowH + CPY;
+
+    // label
+    ctx.font = `500 ${8 * S}px 'Inter', system-ui`;
+    ctx.fillStyle = ORANGE;
+    ctx.letterSpacing = `${8 * S * 0.16 * 0.6}px`;
+    ctx.fillText(f.label, fx, fy);
+
+    // value
+    ctx.font = `400 ${10.5 * S}px 'Inter', system-ui`;
+    ctx.fillStyle = 'rgba(255,255,255,0.88)';
+    ctx.letterSpacing = `${10.5 * S * 0.11 * 0.5}px`;
+    ctx.fillText(f.value, fx, fy + 8 * S + LH);
+  });
+
+  ctx.restore();
+
+  // ── punch hole (transparent circle at card top)
+  const HX = CW / 2, HY = IY + 12 * S;
+  ctx.globalCompositeOperation = 'destination-out';
+  ctx.beginPath(); ctx.arc(HX, HY, 5 * S, 0, Math.PI * 2); ctx.fill();
+  ctx.globalCompositeOperation = 'source-over';
+  ctx.strokeStyle = 'rgba(255,255,255,0.14)';
+  ctx.lineWidth = BW;
+  ctx.beginPath(); ctx.arc(HX, HY, 5 * S, 0, Math.PI * 2); ctx.stroke();
+
+  return cv;
+}
+
+async function generateBack() {
+  const cv  = document.createElement('canvas');
+  cv.width  = CW; cv.height = CH;
+  const ctx = cv.getContext('2d');
+
+  drawCardShell(ctx);
+
+  ctx.save();
+  rrPath(ctx, IX, IY, IW, IH, RI);
+  ctx.clip();
+
+  ctx.fillStyle = '#0C0B0B';
+  ctx.fillRect(IX, IY, IW, IH);
+
+  // subtle center vignette light
+  const vGrad = ctx.createRadialGradient(
+    IX + IW / 2, IY + IH * 0.46, 0,
+    IX + IW / 2, IY + IH * 0.46, IW * 0.65
+  );
+  vGrad.addColorStop(0,   'rgba(50,30,20,0.18)');
+  vGrad.addColorStop(0.5, 'rgba(30,18,10,0.06)');
+  vGrad.addColorStop(1,   'rgba(0,0,0,0)');
+  ctx.fillStyle = vGrad;
+  ctx.fillRect(IX, IY, IW, IH);
+
+  const logo = await loadImg('logo/logo.svg');
+  const LSZ  = 100 * S; // logo size
+  const LX   = IX + (IW - LSZ) / 2;
+  const LY   = IY + IH * 0.28;
+
+  if (logo) {
+    ctx.drawImage(logo, LX, LY, LSZ, LSZ);
+  }
+
+  // OHBOX text
+  const TY = LY + LSZ + 16 * S;
+  ctx.textBaseline = 'top';
+  ctx.letterSpacing = `${17 * S * 0.12 * 0.5}px`;
+  ctx.font = `600 ${17 * S}px 'Inter', system-ui`;
+
+  const ohW  = ctx.measureText('OH').width;
+  const bxW  = ctx.measureText('BOX').width;
+  const totW = ohW + bxW;
+  const TX   = IX + (IW - totW) / 2;
+
+  ctx.fillStyle = 'rgba(255,255,255,0.88)';
+  ctx.fillText('OH', TX, TY);
+  ctx.fillStyle = '#F07040';
+  ctx.fillText('BOX', TX + ohW, TY);
+
+  ctx.restore();
+
+  // punch hole
+  const HX = CW / 2, HY = IY + 12 * S;
+  ctx.globalCompositeOperation = 'destination-out';
+  ctx.beginPath(); ctx.arc(HX, HY, 5 * S, 0, Math.PI * 2); ctx.fill();
+  ctx.globalCompositeOperation = 'source-over';
+  ctx.strokeStyle = 'rgba(255,255,255,0.14)';
+  ctx.lineWidth = BW;
+  ctx.beginPath(); ctx.arc(HX, HY, 5 * S, 0, Math.PI * 2); ctx.stroke();
+
+  return cv;
+}
+
+function saveCanvas(cv, filename) {
+  const a = document.createElement('a');
+  a.download = filename;
+  a.href = cv.toDataURL('image/png');
+  a.click();
+}
+
+document.getElementById('btnFront').addEventListener('click', async () => {
+  const cv = await generateFront();
+  saveCanvas(cv, 'lanyard-card-front@3x.png');
+});
+
+document.getElementById('btnBack').addEventListener('click', async () => {
+  const cv = await generateBack();
+  saveCanvas(cv, 'lanyard-card-back@3x.png');
+});
+
+document.getElementById('btnBoth').addEventListener('click', async () => {
+  const [front, back] = await Promise.all([generateFront(), generateBack()]);
+  saveCanvas(front, 'lanyard-card-front@3x.png');
+  setTimeout(() => saveCanvas(back, 'lanyard-card-back@3x.png'), 200);
+});
+</script>
+</body>
+</html>

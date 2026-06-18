@@ -841,6 +841,13 @@
       box-sizing: border-box;
     }
 
+    /* ─── Contact links grid: 3-col → 1-col, no 2-col intermediate ─── */
+    .contact-grid-outer { container-type: inline-size; }
+    .contact-links-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+    @container (max-width: 961px) {
+      .contact-links-grid { grid-template-columns: 1fr !important; }
+    }
+
     .pfx-btn-lg {
       height: 48px;
       box-sizing: border-box;
@@ -1636,6 +1643,108 @@
         0 0 24px rgba(240, 112, 64, 0.16);
     }
   </style>
+
+  <!-- ─── About: lanyard badge ─── -->
+  <style>
+    .ab-lc {
+      position: relative;
+      width: 100%;
+      height: 620px;
+      background: #0F0F10;
+      border: 0.8px solid rgba(255,255,255,0.22);
+      overflow: hidden;
+      user-select: none;
+      -webkit-user-select: none;
+      cursor: grab;
+    }
+    .ab-lc:active { cursor: grabbing; }
+    .ab-lc::before {
+      content: '';
+      position: absolute;
+      top: -1px; left: -1px;
+      width: 28px; height: 28px;
+      border-top: 2px solid rgba(240,112,64,0.92);
+      border-left: 2px solid rgba(240,112,64,0.92);
+      z-index: 20;
+      pointer-events: none;
+    }
+    .ab-lc::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; right: -1px;
+      width: 28px; height: 28px;
+      border-bottom: 2px solid rgba(240,112,64,0.92);
+      border-right: 2px solid rgba(240,112,64,0.92);
+      z-index: 20;
+      pointer-events: none;
+    }
+    .ab-c-tr {
+      position: absolute; top: -1px; right: -1px;
+      width: 28px; height: 28px;
+      border-top: 2px solid rgba(240,112,64,0.92);
+      border-right: 2px solid rgba(240,112,64,0.92);
+      z-index: 20; pointer-events: none;
+    }
+    .ab-c-bl {
+      position: absolute; bottom: -1px; left: -1px;
+      width: 28px; height: 28px;
+      border-bottom: 2px solid rgba(240,112,64,0.92);
+      border-left: 2px solid rgba(240,112,64,0.92);
+      z-index: 20; pointer-events: none;
+    }
+    .ab-lbl {
+      position: absolute;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.13em;
+      color: rgba(255,255,255,0.42);
+      text-transform: uppercase;
+      z-index: 20;
+      pointer-events: none;
+      font-family: 'Space Mono', monospace;
+    }
+    .ab-lbl-tl { top: 18px; left: 22px; }
+    .ab-lbl-tr { top: 18px; right: 22px; }
+    .ab-lbl-bl { bottom: 18px; left: 22px; display: flex; align-items: center; gap: 8px; }
+    .ab-dot {
+      position: relative;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #F07040;
+      box-shadow: 0 0 7px rgba(240,112,64,0.55);
+      flex-shrink: 0;
+    }
+    .ab-dot::before,
+    .ab-dot::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      background: rgba(240,112,64,0.6);
+      transform: translate(-50%, -50%) scale(1);
+      animation: ab-dot-ripple 2.4s ease-out infinite;
+    }
+    .ab-dot::after { animation-delay: 1.2s; }
+    @keyframes ab-dot-ripple {
+      0%   { transform: translate(-50%, -50%) scale(1);   opacity: 0.7; }
+      100% { transform: translate(-50%, -50%) scale(3.5); opacity: 0; }
+    }
+    #ab-cv {
+      display: block;
+      position: absolute;
+      top: 0; left: 0;
+      pointer-events: none;
+    }
+  </style>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
 </head>
 
 <body>
@@ -2398,62 +2507,21 @@
           Who I Am<span style="color: #F07040;">.</span></h2>
 
         <div
-          style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px,100%), 1fr)); gap: clamp(28px,4vw,64px); margin-top: clamp(40px,6vh,72px); align-items: start;">
-          <!-- Profile card -->
-          <div data-reveal="true"
-            style="position: relative; border: 1px solid rgba(255,255,255,0.09); background: #0F0F12; padding: clamp(24px,3vw,36px); max-width: 480px;">
-            <div aria-hidden="true"
-              style="position: absolute; top: -1px; left: -1px; width: 14px; height: 14px; border-top: 1px solid #F07040; border-left: 1px solid #F07040;">
-            </div>
-            <div aria-hidden="true"
-              style="position: absolute; top: -1px; right: -1px; width: 14px; height: 14px; border-top: 1px solid #F07040; border-right: 1px solid #F07040;">
-            </div>
-            <div aria-hidden="true"
-              style="position: absolute; bottom: -1px; left: -1px; width: 14px; height: 14px; border-bottom: 1px solid #F07040; border-left: 1px solid #F07040;">
-            </div>
-            <div aria-hidden="true"
-              style="position: absolute; bottom: -1px; right: -1px; width: 14px; height: 14px; border-bottom: 1px solid #F07040; border-right: 1px solid #F07040;">
-            </div>
-            <div style="display: flex; align-items: center; justify-content: space-between;">
-              <span
-                style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.3em; color: rgba(244,242,238,0.45);">PROFILE</span>
-              <span
-                style="font-family: 'Space Mono', monospace; font-size: 11px; color: rgba(244,242,238,0.45);">ID.0408</span>
-            </div>
-            <div class="about-portrait-frame"
-              style="margin-top: 22px; position: relative; overflow: hidden; height: 320px; background: #131316; border: 1px solid rgba(255,255,255,0.09);">
-              <span class="about-portrait-glow" aria-hidden="true"
-                style="position:absolute; left:50%; bottom:-22%; width:78%; height:70%; border-radius:50%; background:radial-gradient(ellipse at center, rgba(240,112,64,0.36), rgba(240,112,64,0.14) 42%, transparent 72%); filter:blur(18px); pointer-events:none; z-index:1;"></span>
-              <img src="image/about/portrait.png?v=2" alt="Tom Lin"
-                style="position: absolute; top: 8px; left: 50%; transform: translateX(-50%); height: calc(180%); width: auto; max-width: none; display: block; z-index:2;">
-            </div>
-            <div
-              style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.09); border-top: none; font-family: 'Space Mono', monospace;">
-              <div style="background: #0F0F12; padding: 14px 16px;"><span
-                  style="display: block; font-size: 9px; letter-spacing: 0.24em; color: rgba(244,242,238,0.4);">NAME</span><span
-                  style="display: block; margin-top: 6px; font-size: 12px; color: #F4F2EE;">POHUNG LIN (TOM)</span>
-              </div>
-              <div style="background: #0F0F12; padding: 14px 16px;"><span
-                  style="display: block; font-size: 9px; letter-spacing: 0.24em; color: rgba(244,242,238,0.4);">ROLE</span><span
-                  style="display: block; margin-top: 6px; font-size: 12px; color: #F4F2EE;">UI/UX DESIGNER</span></div>
-              <div style="background: #0F0F12; padding: 14px 16px;"><span
-                  style="display: block; font-size: 9px; letter-spacing: 0.24em; color: rgba(244,242,238,0.4);">EXPERIENCE</span><span
-                  style="display: block; margin-top: 6px; font-size: 12px; color: #F4F2EE;">6+ YEARS</span></div>
-              <div style="background: #0F0F12; padding: 14px 16px;"><span
-                  style="display: block; font-size: 9px; letter-spacing: 0.24em; color: rgba(244,242,238,0.4);">BASE</span><span
-                  style="display: block; margin-top: 6px; font-size: 12px; color: #F4F2EE;">TAIPEI, TAIWAN</span></div>
-            </div>
-            <div style="display: flex; align-items: center; gap: 10px; margin-top: 18px;">
-              <span
-                style="width: 7px; height: 7px; border-radius: 50%; background: #F07040; animation: pfx-pulse 1.8s ease-in-out infinite;"></span>
-              <span
-                style="font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.22em; color: rgba(244,242,238,0.5);">OPEN
-                TO NEW PROJECTS</span>
+          style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(324px,100%), 1fr)); gap: clamp(28px,4vw,64px); margin-top: clamp(40px,6vh,72px); align-items: start;">
+          <!-- Lanyard badge -->
+          <div data-reveal="true" style="width: 100%;">
+            <div class="ab-lc" id="ab-lc">
+              <div class="ab-c-tr"></div>
+              <div class="ab-c-bl"></div>
+              <span class="ab-lbl ab-lbl-tl">PROFILE</span>
+              <span class="ab-lbl ab-lbl-tr">ID. 0408</span>
+              <div class="ab-lbl ab-lbl-bl"><span class="ab-dot"></span>OPEN TO NEW PROJECTS</div>
+              <canvas id="ab-cv"></canvas>
             </div>
           </div>
 
           <!-- Bio -->
-          <div>
+          <div style="width: 100%;">
             <h3 data-reveal="true"
               style="margin: 0; font-size: clamp(24px,2.6vw,34px); font-weight: 500; letter-spacing: -0.02em; line-height: 1.2;">
               Hi, I'm Tom Lin — good to meet you!</h3>
@@ -2707,8 +2775,9 @@
           style="margin: 26px 0 0 0; max-width: 480px; font-size: 16px; font-weight: 300; line-height: 1.7; color: rgba(244,242,238,0.6); text-wrap: pretty;">
           Get in touch with me about a project, a collaboration, or just to say hello.</p>
 
-        <div
-          style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px,100%), 1fr)); gap: 1px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.07); margin-top: clamp(40px,6vh,64px);">
+        <div class="contact-grid-outer">
+        <div class="contact-links-grid"
+          style="display: grid; gap: 1px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.07); margin-top: clamp(40px,6vh,64px);">
           <a href="tel:+886900777190" data-reveal="true" class="pfx-btn-xl pfx-hov-15"
             style="display: flex; align-items: center; gap: 18px; background: #0F0F12; padding: 0 28px; text-decoration: none; color: #F4F2EE; transition: background 0.25s;">
             <img src="image/contact/phone.png" alt="" style="width: 38px; height: 38px; object-fit: contain;">
@@ -2734,6 +2803,7 @@
                 Taiwan</span></span>
           </div>
         </div>
+        </div><!-- /.contact-grid-outer -->
 
         <div style="display: flex; justify-content: center; padding: clamp(56px,10vh,110px) 0;">
           <a href="mailto:ohbox0408@gmail.com" data-magnetic="true" data-cursor="HELLO" data-reveal="true"
@@ -3687,6 +3757,312 @@
         cleanupFns.forEach(function (fn) { fn(); });
       });
     });
+  </script>
+
+  <!-- ─── About: interactive lanyard badge ─── -->
+  <script type="module">
+  import * as THREE from 'three';
+  import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+  const RAPIER = await import('https://cdn.jsdelivr.net/npm/@dimforge/rapier3d-compat@0.12.0/rapier.es.js');
+  await RAPIER.init();
+
+  const gltfLoader = new GLTFLoader();
+  const texLoader  = new THREE.TextureLoader();
+
+  function loadGLTF(url) {
+    return new Promise((res, rej) => gltfLoader.load(url, res, undefined, rej));
+  }
+  function loadTex(url) {
+    return new Promise(res => texLoader.load(url, res));
+  }
+
+  const [gltf, lanyardTex, frontTex, backTex] = await Promise.all([
+    loadGLTF('lanyard/card.glb'),
+    loadTex('lanyard/lanyard.png'),
+    loadTex('image/about/card-front.png?v=20260618d'),
+    loadTex('image/about/card-back.png?v=20260618d'),
+  ]);
+
+  const nodes = {}, materials = {};
+  gltf.scene.traverse(obj => {
+    if (obj.name) nodes[obj.name] = obj;
+    if (obj.isMesh && obj.material && obj.material.name) {
+      materials[obj.material.name] = obj.material;
+    }
+  });
+
+  const FRONT_UV = { x: 0,   y: 0, w: 0.5,  h: 0.755 };
+  const BACK_UV  = { x: 0.5, y: 0, w: 0.5,  h: 0.757 };
+
+  function buildCardMap() {
+    const base = materials.base?.map;
+    if (!base?.image) return base ?? null;
+    const W = base.image.width, H = base.image.height;
+    const cv  = document.createElement('canvas');
+    cv.width  = W; cv.height = H;
+    const ctx = cv.getContext('2d');
+    ctx.drawImage(base.image, 0, 0, W, H);
+    ctx.fillStyle = '#0C0B0B';
+    ctx.fillRect(0,                         0, Math.ceil(FRONT_UV.w * W), Math.ceil(FRONT_UV.h * H) + 6);
+    ctx.fillRect(Math.floor(BACK_UV.x * W), 0, Math.ceil(BACK_UV.w  * W), Math.ceil(BACK_UV.h  * H) + 6);
+    const fit = (img, r) => {
+      if (!img) return;
+      const rx = r.x*W, ry = r.y*H, rw = r.w*W, rh = r.h*H;
+      const sc = Math.max(rw / img.width, rh / img.height);
+      const dw = img.width*sc, dh = img.height*sc;
+      ctx.save();
+      ctx.beginPath(); ctx.rect(rx, ry, rw, rh); ctx.clip();
+      ctx.drawImage(img, rx + (rw-dw)/2, ry + (rh-dh)/2, dw, dh);
+      ctx.restore();
+    };
+    fit(frontTex.image, FRONT_UV);
+    fit(backTex.image,  BACK_UV);
+    const map = new THREE.CanvasTexture(cv);
+    map.colorSpace  = THREE.SRGBColorSpace;
+    map.flipY       = base.flipY;
+    map.anisotropy  = 16;
+    map.needsUpdate = true;
+    return map;
+  }
+
+  const cardMap = buildCardMap();
+
+  const lc   = document.getElementById('ab-lc');
+  const cvEl = document.getElementById('ab-cv');
+  const H_PX = 620;
+  let   W_PX = lc.clientWidth || 560;
+
+  const renderer = new THREE.WebGLRenderer({ canvas: cvEl, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(W_PX, H_PX);
+  renderer.setClearColor(0x000000, 0);
+  renderer.toneMapping         = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 0.8;
+  renderer.outputColorSpace    = THREE.SRGBColorSpace;
+
+  const scene  = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(22, W_PX / H_PX, 0.1, 200);
+  camera.position.set(0.10, 0.25, 9.5);
+
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+  scene.add(ambientLight);
+  const keyLight = new THREE.DirectionalLight(0xffffff, 2);
+  keyLight.position.set(0, 2, 6);
+  scene.add(keyLight);
+  const fillLight = new THREE.DirectionalLight(0xffffff, 1.3);
+  fillLight.position.set(-4, 4, 3);
+  scene.add(fillLight);
+
+  const metalMat = (materials.metal ?? new THREE.MeshStandardMaterial({
+    color: 0x888888, metalness: 0.9, roughness: 0.3
+  })).clone();
+
+  const cardMat = new THREE.MeshPhysicalMaterial({
+    map:      cardMap,
+    clearcoat: 0,
+    roughness: 0.9,
+    metalness: 0,
+  });
+
+  const cardMesh  = new THREE.Mesh(nodes.card?.geometry,  cardMat);
+  const clipMesh  = new THREE.Mesh(nodes.clip?.geometry,  metalMat.clone());
+  const clampMesh = new THREE.Mesh(nodes.clamp?.geometry, metalMat);
+  if (clipMesh.material) clipMesh.material.roughness = 0.3;
+
+  const cardInner = new THREE.Group();
+  cardInner.scale.set(2.25, 2.25, 2.25);
+  cardInner.position.set(0, -1.2, -0.05);
+  cardInner.add(cardMesh, clipMesh, clampMesh);
+
+  const cardVisual = new THREE.Group();
+  cardVisual.add(cardInner);
+  scene.add(cardVisual);
+
+  const world = new RAPIER.World({ x: 0, y: -42, z: 0 });
+  const GY = 3.5;
+
+  function dynBody(x, y) {
+    return RAPIER.RigidBodyDesc.dynamic()
+      .setTranslation(x, y, 0)
+      .setLinearDamping(4.5)
+      .setAngularDamping(4.5);
+  }
+
+  const fixedBody = world.createRigidBody(RAPIER.RigidBodyDesc.fixed().setTranslation(0, GY, 0));
+  const j1Body = world.createRigidBody(dynBody(0.5, GY));
+  world.createCollider(RAPIER.ColliderDesc.ball(0.1), j1Body);
+  const j2Body = world.createRigidBody(dynBody(1.0, GY));
+  world.createCollider(RAPIER.ColliderDesc.ball(0.1), j2Body);
+  const j3Body = world.createRigidBody(dynBody(1.5, GY));
+  world.createCollider(RAPIER.ColliderDesc.ball(0.1), j3Body);
+  const cardBody = world.createRigidBody(dynBody(2.0, GY));
+  world.createCollider(RAPIER.ColliderDesc.cuboid(0.8, 1.125, 0.01), cardBody);
+
+  const O = { x: 0, y: 0, z: 0 };
+  world.createImpulseJoint(RAPIER.JointData.rope(0.6, O, O), fixedBody, j1Body, true);
+  world.createImpulseJoint(RAPIER.JointData.rope(0.6, O, O), j1Body,    j2Body, true);
+  world.createImpulseJoint(RAPIER.JointData.rope(0.6, O, O), j2Body,    j3Body, true);
+  world.createImpulseJoint(
+    RAPIER.JointData.spherical(O, { x: 0, y: 1.5, z: 0 }),
+    j3Body, cardBody, true
+  );
+
+  lanyardTex.wrapS      = lanyardTex.wrapT = THREE.RepeatWrapping;
+  lanyardTex.colorSpace = THREE.SRGBColorSpace;
+
+  const SEGS   = 32;
+  const BAND_W = 0.06;
+  const bPos = new Float32Array(SEGS * 2 * 3);
+  const bUV  = new Float32Array(SEGS * 2 * 2);
+  const bIdx = [];
+  for (let i = 0; i < SEGS - 1; i++) {
+    const b = i * 2;
+    bIdx.push(b, b+2, b+1,  b+1, b+2, b+3);
+  }
+  const bandGeo    = new THREE.BufferGeometry();
+  const bandPosBuf = new THREE.BufferAttribute(bPos, 3);
+  bandPosBuf.setUsage(THREE.DynamicDrawUsage);
+  bandGeo.setAttribute('position', bandPosBuf);
+  bandGeo.setAttribute('uv', new THREE.BufferAttribute(bUV, 2));
+  bandGeo.setIndex(bIdx);
+  const bandMesh = new THREE.Mesh(
+    bandGeo,
+    new THREE.MeshBasicMaterial({ map: lanyardTex, side: THREE.DoubleSide, depthTest: false })
+  );
+  bandMesh.frustumCulled = false;
+  bandMesh.renderOrder   = -1;
+  scene.add(bandMesh);
+
+  const curve = new THREE.CatmullRomCurve3([
+    new THREE.Vector3(), new THREE.Vector3(),
+    new THREE.Vector3(), new THREE.Vector3()
+  ]);
+  curve.curveType = 'chordal';
+
+  function updateBand(pts) {
+    const n = pts.length;
+    for (let i = 0; i < n; i++) {
+      const p   = pts[i];
+      const nxt = pts[Math.min(i+1, n-1)];
+      const prv = pts[Math.max(i-1, 0)];
+      let   tx  = nxt.x - prv.x, ty = nxt.y - prv.y;
+      const len = Math.sqrt(tx*tx + ty*ty) || 1;
+      const px  = -ty/len * BAND_W,  py = tx/len * BAND_W;
+      const bi  = i * 6;
+      bPos[bi]   = p.x+px; bPos[bi+1] = p.y+py; bPos[bi+2] = 0.01;
+      bPos[bi+3] = p.x-px; bPos[bi+4] = p.y-py; bPos[bi+5] = 0.01;
+      const t   = i / (n-1);
+      bUV[i*4]  = t*4; bUV[i*4+1] = 0;
+      bUV[i*4+2]= t*4; bUV[i*4+3] = 1;
+    }
+    bandPosBuf.needsUpdate = true;
+  }
+
+  const raycaster = new THREE.Raycaster();
+  const hitPlane  = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+  let   dragging  = false;
+  const dragOff   = new THREE.Vector3();
+
+  function screenToWorld(cx, cy) {
+    const r = lc.getBoundingClientRect();
+    raycaster.setFromCamera(
+      new THREE.Vector2(((cx - r.left) / r.width) * 2 - 1, -((cy - r.top) / r.height) * 2 + 1),
+      camera
+    );
+    const pt = new THREE.Vector3();
+    raycaster.ray.intersectPlane(hitPlane, pt);
+    return pt;
+  }
+
+  function nearCard(pt) {
+    const t = cardBody.translation();
+    return Math.abs(pt.x - t.x) < 2.5 && Math.abs(pt.y - t.y) < 3.5;
+  }
+
+  lc.addEventListener('pointerdown', e => {
+    const pt = screenToWorld(e.clientX, e.clientY);
+    if (!nearCard(pt)) return;
+    const t = cardBody.translation();
+    dragOff.set(pt.x - t.x, pt.y - t.y, 0);
+    dragging = true;
+    cardBody.setBodyType(RAPIER.RigidBodyType.KinematicPositionBased, true);
+    e.target.setPointerCapture(e.pointerId);
+  });
+
+  window.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    const pt = screenToWorld(e.clientX, e.clientY);
+    cardBody.setNextKinematicTranslation({ x: pt.x - dragOff.x, y: pt.y - dragOff.y, z: 0 });
+    [j1Body, j2Body, j3Body, fixedBody].forEach(b => b.wakeUp());
+  });
+
+  window.addEventListener('pointerup', () => {
+    if (!dragging) return;
+    dragging = false;
+    cardBody.setBodyType(RAPIER.RigidBodyType.Dynamic, true);
+  });
+
+  const j1Lerp = new THREE.Vector3(), j2Lerp = new THREE.Vector3();
+  let lerpReady = false;
+  let prevT     = 0;
+  const MAX_SPD = 50, MIN_SPD = 0;
+
+  function loop(t) {
+    requestAnimationFrame(loop);
+    const dt = Math.min((t - prevT) / 1000, 1/30);
+    prevT = t;
+
+    if (!dragging) {
+      const breezeAmp = 0.001 + (Math.sin(t * 0.000317) * 0.6 + Math.sin(t * 0.000571) * 0.4) * 0.0002;
+      const br = ( Math.sin(t * 0.00072) * 0.65 + Math.sin(t * 0.00119) * 0.35 ) * breezeAmp;
+      const bv = { x: br, y: 0, z: 0 };
+      j1Body.applyImpulse(bv, true);
+      j2Body.applyImpulse(bv, true);
+      j3Body.applyImpulse(bv, true);
+      cardBody.applyImpulse(bv, true);
+      const rotCoeff = 0.3 + (Math.sin(t * 0.000413) * 0.6 + Math.sin(t * 0.000731) * 0.4) * 0.1;
+      cardBody.applyTorqueImpulse({ x: 0, y: br * rotCoeff, z: 0 }, true);
+    }
+
+    world.step();
+
+    const tr = cardBody.translation(), qt = cardBody.rotation();
+    cardVisual.position.set(tr.x, tr.y, tr.z);
+    cardVisual.quaternion.set(qt.x, qt.y, qt.z, qt.w);
+
+    if (!dragging) {
+      const av = cardBody.angvel(), ro = cardBody.rotation();
+      cardBody.setAngvel({ x: av.x, y: av.y - ro.y * 0.05, z: av.z }, true);
+    }
+
+    const j1t = j1Body.translation(), j2t = j2Body.translation();
+    const j3t = j3Body.translation(), ft  = fixedBody.translation();
+    const j1v = new THREE.Vector3(j1t.x, j1t.y, j1t.z);
+    const j2v = new THREE.Vector3(j2t.x, j2t.y, j2t.z);
+    if (!lerpReady) { j1Lerp.copy(j1v); j2Lerp.copy(j2v); lerpReady = true; }
+    const d1 = Math.max(0.1, Math.min(1, j1Lerp.distanceTo(j1v)));
+    const d2 = Math.max(0.1, Math.min(1, j2Lerp.distanceTo(j2v)));
+    j1Lerp.lerp(j1v, dt * (MIN_SPD + d1 * (MAX_SPD - MIN_SPD)));
+    j2Lerp.lerp(j2v, dt * (MIN_SPD + d2 * (MAX_SPD - MIN_SPD)));
+
+    curve.points[0].set(j3t.x, j3t.y, j3t.z);
+    curve.points[1].copy(j2Lerp);
+    curve.points[2].copy(j1Lerp);
+    curve.points[3].set(ft.x, ft.y, ft.z);
+
+    updateBand(curve.getPoints(SEGS - 1));
+    renderer.render(scene, camera);
+  }
+
+  requestAnimationFrame(loop);
+
+  new ResizeObserver(() => {
+    W_PX = lc.clientWidth;
+    renderer.setSize(W_PX, H_PX);
+    camera.aspect = W_PX / H_PX;
+    camera.updateProjectionMatrix();
+  }).observe(lc);
   </script>
 </body>
 

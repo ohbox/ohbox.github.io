@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lanyard Test — OHBOX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0F0F10;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 0 48px;
+  gap: 16px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  overflow-y: auto;
+}
+
+.lc {
+  position: relative;
+  max-width: 560px;
+  width: 100%;
+  height: 620px;
+  background: #0F0F10;
+  border: 0.8px solid rgba(255,255,255,0.22);
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+}
+.lc:active { cursor: grabbing; }
+
+/* four-corner orange accents */
+.lc::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: -1px;
+  width: 28px; height: 28px;
+  border-top: 2px solid rgba(240,112,64,0.92);
+  border-left: 2px solid rgba(240,112,64,0.92);
+  z-index: 20;
+  pointer-events: none;
+}
+.lc::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; right: -1px;
+  width: 28px; height: 28px;
+  border-bottom: 2px solid rgba(240,112,64,0.92);
+  border-right: 2px solid rgba(240,112,64,0.92);
+  z-index: 20;
+  pointer-events: none;
+}
+.c-tr {
+  position: absolute; top: -1px; right: -1px;
+  width: 28px; height: 28px;
+  border-top: 2px solid rgba(240,112,64,0.92);
+  border-right: 2px solid rgba(240,112,64,0.92);
+  z-index: 20; pointer-events: none;
+}
+.c-bl {
+  position: absolute; bottom: -1px; left: -1px;
+  width: 28px; height: 28px;
+  border-bottom: 2px solid rgba(240,112,64,0.92);
+  border-left: 2px solid rgba(240,112,64,0.92);
+  z-index: 20; pointer-events: none;
+}
+
+.lbl {
+  position: absolute;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.13em;
+  color: rgba(255,255,255,0.42);
+  text-transform: uppercase;
+  z-index: 20;
+  pointer-events: none;
+}
+.lbl-tl { top: 18px; left: 22px; }
+.lbl-tr { top: 18px; right: 22px; }
+.lbl-bl {
+  bottom: 18px; left: 22px;
+  display: flex; align-items: center; gap: 8px;
+}
+
+.dot {
+  position: relative;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #F07040;
+  box-shadow: 0 0 7px rgba(240,112,64,0.55);
+  flex-shrink: 0;
+}
+.dot::before,
+.dot::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  background: rgba(240,112,64,0.6);
+  transform: translate(-50%, -50%) scale(1);
+  animation: dotRipple 2.4s ease-out infinite;
+}
+.dot::after {
+  animation-delay: 1.2s;
+}
+@keyframes dotRipple {
+  0%   { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+  100% { transform: translate(-50%, -50%) scale(3.5); opacity: 0; }
+}
+
+#cv {
+  display: block;
+  position: absolute;
+  top: 0; left: 0;
+  pointer-events: none;
+}
+
+/* ── Control panel ── */
+.ctrl-panel {
+  width: 560px;
+  background: #111113;
+  border: 0.8px solid rgba(255,255,255,0.1);
+  padding: 20px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.ctrl-section { display: flex; flex-direction: column; gap: 7px; }
+.ctrl-head {
+  font-size: 9px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: #F07040;
+  padding-bottom: 6px;
+  border-bottom: 0.5px solid rgba(240,112,64,0.22);
+  margin-bottom: 2px;
+}
+.ctrl-row {
+  display: grid;
+  grid-template-columns: 112px 1fr 46px;
+  align-items: center;
+  gap: 10px;
+}
+.ctrl-row label {
+  font-size: 11px; color: rgba(255,255,255,0.45); font-weight: 400;
+}
+.ctrl-row input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%; height: 2px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 1px; outline: none; cursor: pointer;
+}
+.ctrl-row input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 11px; height: 11px; border-radius: 50%;
+  background: #F07040; cursor: pointer;
+  box-shadow: 0 0 5px rgba(240,112,64,0.55);
+}
+.ctrl-row .val {
+  font-size: 11px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  color: rgba(255,255,255,0.65);
+  text-align: right;
+}
+.ctrl-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 4px;
+}
+.copy-btn {
+  background: rgba(240,112,64,0.08);
+  border: 0.8px solid rgba(240,112,64,0.35);
+  color: rgba(240,112,64,0.85);
+  padding: 7px 14px;
+  font-size: 10px; font-family: 'Inter', system-ui; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: pointer; transition: background 0.15s;
+}
+.copy-btn:hover { background: rgba(240,112,64,0.18); }
+.ctrl-hint {
+  font-size: 10px; color: rgba(255,255,255,0.22);
+  letter-spacing: 0.05em;
+}
+</style>
+</head>
+<body>
+
+<div class="lc" id="lc">
+  <div class="c-tr"></div>
+  <div class="c-bl"></div>
+  <span class="lbl lbl-tl">PROFILE</span>
+  <span class="lbl lbl-tr">ID. 0408</span>
+  <div class="lbl lbl-bl"><span class="dot"></span>OPEN TO NEW PROJECTS</div>
+  <canvas id="cv"></canvas>
+</div>
+
+<div class="ctrl-panel">
+
+  <div class="ctrl-section">
+    <div class="ctrl-head">Camera</div>
+    <div class="ctrl-row">
+      <label>Distance (z)</label>
+      <input type="range" id="c-z" min="5" max="40" step="0.5" value="9.5">
+      <span class="val" id="c-z-v">9.5</span>
+    </div>
+    <div class="ctrl-row">
+      <label>FOV</label>
+      <input type="range" id="c-fov" min="8" max="60" step="1" value="22">
+      <span class="val" id="c-fov-v">22</span>
+    </div>
+  </div>
+
+  <div class="ctrl-section">
+    <div class="ctrl-head">Lighting</div>
+    <div class="ctrl-row">
+      <label>Ambient</label>
+      <input type="range" id="l-amb" min="0" max="8" step="0.1" value="0.5">
+      <span class="val" id="l-amb-v">0.50</span>
+    </div>
+    <div class="ctrl-row">
+      <label>Key Light</label>
+      <input type="range" id="l-key" min="0" max="8" step="0.1" value="2">
+      <span class="val" id="l-key-v">2.00</span>
+    </div>
+    <div class="ctrl-row">
+      <label>Fill Light</label>
+      <input type="range" id="l-fill" min="0" max="4" step="0.1" value="1.3">
+      <span class="val" id="l-fill-v">1.30</span>
+    </div>
+    <div class="ctrl-row">
+      <label>Exposure</label>
+      <input type="range" id="l-exp" min="0.3" max="3" step="0.05" value="0.8">
+      <span class="val" id="l-exp-v">0.80</span>
+    </div>
+  </div>
+
+  <div class="ctrl-section">
+    <div class="ctrl-head">Card Material</div>
+    <div class="ctrl-row">
+      <label>Roughness</label>
+      <input type="range" id="m-rough" min="0" max="1" step="0.01" value="0.9">
+      <span class="val" id="m-rough-v">0.90</span>
+    </div>
+    <div class="ctrl-row">
+      <label>Metalness</label>
+      <input type="range" id="m-metal" min="0" max="1" step="0.01" value="0">
+      <span class="val" id="m-metal-v">0.00</span>
+    </div>
+    <div class="ctrl-row">
+      <label>Clearcoat</label>
+      <input type="range" id="m-coat" min="0" max="1" step="0.01" value="0">
+      <span class="val" id="m-coat-v">0.00</span>
+    </div>
+  </div>
+
+  <div class="ctrl-section">
+    <div class="ctrl-head">Physics</div>
+    <div class="ctrl-row">
+      <label>Gravity Y</label>
+      <input type="range" id="p-grav" min="-80" max="-5" step="1" value="-42">
+      <span class="val" id="p-grav-v">-42</span>
+    </div>
+    <div class="ctrl-row">
+      <label>Damping</label>
+      <input type="range" id="p-damp" min="0" max="20" step="0.5" value="4.5">
+      <span class="val" id="p-damp-v">4.5</span>
+    </div>
+  </div>
+
+  <div class="ctrl-footer">
+    <button class="copy-btn" id="copy-btn">Copy Current Values</button>
+    <span class="ctrl-hint">drag card to interact</span>
+  </div>
+
+  <div style="border-top:0.5px solid rgba(255,255,255,0.08);padding-top:12px;display:flex;flex-direction:column;gap:4px;">
+    <span style="font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:#F07040;font-weight:600;">Card Geometry</span>
+    <span id="card-ratio-out" style="font-size:11px;font-family:'SF Mono','Fira Code',monospace;color:rgba(255,255,255,0.6);">loading…</span>
+  </div>
+
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  Bootstrap: load Rapier WASM then everything else
+// ─────────────────────────────────────────────────────────────────────────────
+const RAPIER = await import('https://cdn.jsdelivr.net/npm/@dimforge/rapier3d-compat@0.12.0/rapier.es.js');
+await RAPIER.init();
+
+const gltfLoader = new GLTFLoader();
+const texLoader  = new THREE.TextureLoader();
+
+function loadGLTF(url) {
+  return new Promise((res, rej) => gltfLoader.load(url, res, undefined, rej));
+}
+function loadTex(url) {
+  return new Promise(res => texLoader.load(url, res));
+}
+
+const [gltf, lanyardTex, frontTex, backTex] = await Promise.all([
+  loadGLTF('lanyard/card.glb'),
+  loadTex('lanyard/lanyard.png'),
+  loadTex('image/about/card-front.png?v=20260618d'),
+  loadTex('image/about/card-back.png?v=20260618d'),
+]);
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  Extract nodes / materials from GLB  (mirrors useGLTF from drei)
+// ─────────────────────────────────────────────────────────────────────────────
+const nodes = {}, materials = {};
+gltf.scene.traverse(obj => {
+  if (obj.name) nodes[obj.name] = obj;
+  if (obj.isMesh && obj.material && obj.material.name) {
+    materials[obj.material.name] = obj.material;
+  }
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  Composite card texture atlas
+//  front → left half  (FRONT_UV_RECT)
+//  back  → right half (BACK_UV_RECT)
+//  (same logic as React Bits Band component)
+// ─────────────────────────────────────────────────────────────────────────────
+const FRONT_UV = { x: 0,   y: 0, w: 0.5,  h: 0.755 };
+const BACK_UV  = { x: 0.5, y: 0, w: 0.5,  h: 0.757 };
+
+function buildCardMap() {
+  const base = materials.base?.map;
+  if (!base?.image) return base ?? null;
+
+  const W = base.image.width, H = base.image.height;
+  const cv  = document.createElement('canvas');
+  cv.width  = W; cv.height = H;
+  const ctx = cv.getContext('2d');
+  ctx.drawImage(base.image, 0, 0, W, H);   // keep original baked atlas underneath
+
+  // Paint dark bg over card-face halves so base-atlas edge content can't bleed through
+  ctx.fillStyle = '#0C0B0B';
+  ctx.fillRect(0,                         0, Math.ceil(FRONT_UV.w * W), Math.ceil(FRONT_UV.h * H) + 6);
+  ctx.fillRect(Math.floor(BACK_UV.x * W), 0, Math.ceil(BACK_UV.w  * W), Math.ceil(BACK_UV.h  * H) + 6);
+
+  const fit = (img, r) => {
+    if (!img) return;
+    const rx = r.x*W, ry = r.y*H, rw = r.w*W, rh = r.h*H;
+    const sc = Math.max(rw / img.width, rh / img.height);
+    const dw = img.width*sc, dh = img.height*sc;
+    ctx.save();
+    ctx.beginPath(); ctx.rect(rx, ry, rw, rh); ctx.clip();
+    ctx.drawImage(img, rx + (rw-dw)/2, ry + (rh-dh)/2, dw, dh);
+    ctx.restore();
+  };
+
+  fit(frontTex.image, FRONT_UV);
+  fit(backTex.image,  BACK_UV);
+
+  const map = new THREE.CanvasTexture(cv);
+  map.colorSpace  = THREE.SRGBColorSpace;
+  map.flipY       = base.flipY;
+  map.anisotropy  = 16;
+  map.needsUpdate = true;
+  return map;
+}
+
+const cardMap = buildCardMap();
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  Three.js renderer / scene / camera
+//  camera position [0, 0, 26]  fov 20  — matches cameraDistance=26 in React Bits
+// ─────────────────────────────────────────────────────────────────────────────
+const H_PX = 620;
+let   W_PX = 560;
+const cvEl = document.getElementById('cv');
+W_PX = cvEl.parentElement.clientWidth || 560;
+
+const renderer = new THREE.WebGLRenderer({ canvas: cvEl, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(W_PX, H_PX);
+renderer.setClearColor(0x000000, 0);
+renderer.toneMapping         = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.8;
+renderer.outputColorSpace    = THREE.SRGBColorSpace;
+
+const scene  = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(22, W_PX / H_PX, 0.1, 200);
+camera.position.set(0.10, 0.25, 9.5);
+
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+scene.add(ambientLight);
+
+// Front key light — illuminates the card face without washing it out
+const keyLight = new THREE.DirectionalLight(0xffffff, 2);
+keyLight.position.set(0, 2, 6);
+scene.add(keyLight);
+
+// Subtle fill from upper-left for depth
+const fillLight = new THREE.DirectionalLight(0xffffff, 1.3);
+fillLight.position.set(-4, 4, 3);
+scene.add(fillLight);
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  Card visual hierarchy  (mirrors React Bits JSX structure exactly)
+//
+//  cardVisual  ← synced to Rapier cardBody transform every frame
+//    └─ cardInner  (scale 2.25, position [0,-1.2,-0.05] in card-body local)
+//        ├─ cardMesh   (card.geometry  + composite map)
+//        ├─ clipMesh   (clip.geometry  + metal material)
+//        └─ clampMesh  (clamp.geometry + metal material)
+// ─────────────────────────────────────────────────────────────────────────────
+const metalMat = (materials.metal ?? new THREE.MeshStandardMaterial({
+  color: 0x888888, metalness: 0.9, roughness: 0.3
+})).clone();
+
+const cardMat = new THREE.MeshPhysicalMaterial({
+  map:      cardMap,
+  clearcoat: 0,
+  roughness: 0.9,
+  metalness: 0,
+});
+if (cardMap) cardMat['map-anisotropy'] = 16;
+
+const cardMesh  = new THREE.Mesh(nodes.card?.geometry,  cardMat);
+const clipMesh  = new THREE.Mesh(nodes.clip?.geometry,  metalMat.clone());
+const clampMesh = new THREE.Mesh(nodes.clamp?.geometry, metalMat);
+if (clipMesh.material) clipMesh.material.roughness = 0.3;
+
+// ── compute card face dimensions from geometry bounding box ──
+if (nodes.card?.geometry) {
+  nodes.card.geometry.computeBoundingBox();
+  const bb  = nodes.card.geometry.boundingBox;
+  const gW  = (bb.max.x - bb.min.x);
+  const gH  = (bb.max.y - bb.min.y);
+  const vW  = (gW * 2.25).toFixed(3);   // visual width after scale
+  const vH  = (gH * 2.25).toFixed(3);   // visual height after scale
+  const rat = (gW / gH).toFixed(4);
+  const el  = document.getElementById('card-ratio-out');
+  if (el) el.textContent = `${vW} × ${vH} units  |  W:H = ${rat}  (~${Math.round(+rat*1000)/10} : 100)`;
+}
+
+const cardInner = new THREE.Group();
+cardInner.scale.set(2.25, 2.25, 2.25);
+cardInner.position.set(0, -1.2, -0.05);
+cardInner.add(cardMesh, clipMesh, clampMesh);
+
+const cardVisual = new THREE.Group();
+cardVisual.add(cardInner);
+scene.add(cardVisual);
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  Rapier physics world  (gravity, rigid bodies, joints)
+//  Structure is a 1-to-1 port of the React Bits Band component
+// ─────────────────────────────────────────────────────────────────────────────
+const world = new RAPIER.World({ x: 0, y: -42, z: 0 });
+
+const GY = 3.5; // group position y — same as <group position={[0,4,0]}> in React Bits
+
+function dynBody(x, y) {
+  return RAPIER.RigidBodyDesc.dynamic()
+    .setTranslation(x, y, 0)
+    .setLinearDamping(4.5)
+    .setAngularDamping(4.5);
+}
+
+const fixedBody = world.createRigidBody(
+  RAPIER.RigidBodyDesc.fixed().setTranslation(0, GY, 0)
+);
+
+const j1Body = world.createRigidBody(dynBody(0.5, GY));
+world.createCollider(RAPIER.ColliderDesc.ball(0.1), j1Body);
+
+const j2Body = world.createRigidBody(dynBody(1.0, GY));
+world.createCollider(RAPIER.ColliderDesc.ball(0.1), j2Body);
+
+const j3Body = world.createRigidBody(dynBody(1.5, GY));
+world.createCollider(RAPIER.ColliderDesc.ball(0.1), j3Body);
+
+const cardBody = world.createRigidBody(dynBody(2.0, GY));
+world.createCollider(RAPIER.ColliderDesc.cuboid(0.8, 1.125, 0.01), cardBody);
+
+// rope joints — exactly as in React Bits:
+//   useRopeJoint(fixed, j1, [[0,0,0],[0,0,0],1])
+//   useRopeJoint(j1,    j2, [[0,0,0],[0,0,0],1])
+//   useRopeJoint(j2,    j3, [[0,0,0],[0,0,0],1])
+const O = { x: 0, y: 0, z: 0 };
+world.createImpulseJoint(RAPIER.JointData.rope(0.6, O, O), fixedBody, j1Body, true);
+world.createImpulseJoint(RAPIER.JointData.rope(0.6, O, O), j1Body,    j2Body, true);
+world.createImpulseJoint(RAPIER.JointData.rope(0.6, O, O), j2Body,    j3Body, true);
+
+// spherical joint — exactly as in React Bits:
+//   useSphericalJoint(j3, card, [[0,0,0],[0,1.5,0]])
+world.createImpulseJoint(
+  RAPIER.JointData.spherical(O, { x: 0, y: 1.5, z: 0 }),
+  j3Body, cardBody, true
+);
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  Lanyard band — ribbon mesh driven by CatmullRom curve over the 4 joints
+// ─────────────────────────────────────────────────────────────────────────────
+lanyardTex.wrapS      = lanyardTex.wrapT = THREE.RepeatWrapping;
+lanyardTex.colorSpace = THREE.SRGBColorSpace;
+
+const SEGS   = 32;
+const BAND_W = 0.06;
+
+const bPos = new Float32Array(SEGS * 2 * 3);
+const bUV  = new Float32Array(SEGS * 2 * 2);
+const bIdx = [];
+for (let i = 0; i < SEGS - 1; i++) {
+  const b = i * 2;
+  bIdx.push(b, b+2, b+1,  b+1, b+2, b+3);
+}
+
+const bandGeo    = new THREE.BufferGeometry();
+const bandPosBuf = new THREE.BufferAttribute(bPos, 3);
+bandPosBuf.setUsage(THREE.DynamicDrawUsage);
+bandGeo.setAttribute('position', bandPosBuf);
+bandGeo.setAttribute('uv', new THREE.BufferAttribute(bUV, 2));
+bandGeo.setIndex(bIdx);
+
+const bandMesh = new THREE.Mesh(
+  bandGeo,
+  new THREE.MeshBasicMaterial({ map: lanyardTex, side: THREE.DoubleSide, depthTest: false })
+);
+bandMesh.frustumCulled = false;
+bandMesh.renderOrder   = -1;
+scene.add(bandMesh);
+
+const curve = new THREE.CatmullRomCurve3([
+  new THREE.Vector3(), new THREE.Vector3(),
+  new THREE.Vector3(), new THREE.Vector3()
+]);
+curve.curveType = 'chordal';
+
+function updateBand(pts) {
+  const n = pts.length;
+  for (let i = 0; i < n; i++) {
+    const p   = pts[i];
+    const nxt = pts[Math.min(i+1, n-1)];
+    const prv = pts[Math.max(i-1, 0)];
+    let   tx  = nxt.x - prv.x, ty = nxt.y - prv.y;
+    const len = Math.sqrt(tx*tx + ty*ty) || 1;
+    const px  = -ty/len * BAND_W,  py = tx/len * BAND_W;
+    const bi  = i * 6;
+    bPos[bi]   = p.x+px; bPos[bi+1] = p.y+py; bPos[bi+2] = 0.01;
+    bPos[bi+3] = p.x-px; bPos[bi+4] = p.y-py; bPos[bi+5] = 0.01;
+    const t   = i / (n-1);
+    bUV[i*4]  = t*4; bUV[i*4+1] = 0;
+    bUV[i*4+2]= t*4; bUV[i*4+3] = 1;
+  }
+  bandPosBuf.needsUpdate = true;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  Drag interaction  (pointer events on the .lc container)
+// ─────────────────────────────────────────────────────────────────────────────
+const lc        = document.getElementById('lc');
+const raycaster = new THREE.Raycaster();
+const hitPlane  = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+let   dragging  = false;
+const dragOff   = new THREE.Vector3();
+
+function screenToWorld(cx, cy) {
+  const r = lc.getBoundingClientRect();
+  raycaster.setFromCamera(
+    new THREE.Vector2(((cx - r.left) / r.width) * 2 - 1, -((cy - r.top) / r.height) * 2 + 1),
+    camera
+  );
+  const pt = new THREE.Vector3();
+  raycaster.ray.intersectPlane(hitPlane, pt);
+  return pt;
+}
+
+function nearCard(pt) {
+  const t = cardBody.translation();
+  return Math.abs(pt.x - t.x) < 2.5 && Math.abs(pt.y - t.y) < 3.5;
+}
+
+lc.addEventListener('pointerdown', e => {
+  const pt = screenToWorld(e.clientX, e.clientY);
+  if (!nearCard(pt)) return;
+  const t = cardBody.translation();
+  dragOff.set(pt.x - t.x, pt.y - t.y, 0);
+  dragging = true;
+  cardBody.setBodyType(RAPIER.RigidBodyType.KinematicPositionBased, true);
+  e.target.setPointerCapture(e.pointerId);
+});
+
+window.addEventListener('pointermove', e => {
+  if (!dragging) return;
+  const pt = screenToWorld(e.clientX, e.clientY);
+  cardBody.setNextKinematicTranslation({
+    x: pt.x - dragOff.x,
+    y: pt.y - dragOff.y,
+    z: 0
+  });
+  [j1Body, j2Body, j3Body, fixedBody].forEach(b => b.wakeUp());
+});
+
+window.addEventListener('pointerup', () => {
+  if (!dragging) return;
+  dragging = false;
+  cardBody.setBodyType(RAPIER.RigidBodyType.Dynamic, true);
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  Animation loop — mirrors React Bits useFrame logic
+// ─────────────────────────────────────────────────────────────────────────────
+const j1Lerp = new THREE.Vector3(), j2Lerp = new THREE.Vector3();
+let lerpReady = false;
+let prevT     = 0;
+const MAX_SPD = 50, MIN_SPD = 0;
+
+function loop(t) {
+  requestAnimationFrame(loop);
+  const dt = Math.min((t - prevT) / 1000, 1/30);
+  prevT = t;
+
+  // ── idle breeze: pendulum mode — apply the same lateral impulse to every
+  //    dynamic body so the entire chain rotates around the fixed anchor as
+  //    a single pivot, rather than bending at each rope joint.
+  //    Two overlapping frequencies → organic, non-metronomic feel.
+  if (!dragging) {
+    const breezeAmp = 0.001 + (Math.sin(t * 0.000317) * 0.6 + Math.sin(t * 0.000571) * 0.4) * 0.0002;
+    const br = ( Math.sin(t * 0.00072) * 0.65
+               + Math.sin(t * 0.00119) * 0.35 ) * breezeAmp;
+    const bv = { x: br, y: 0, z: 0 };
+    j1Body.applyImpulse(bv, true);
+    j2Body.applyImpulse(bv, true);
+    j3Body.applyImpulse(bv, true);
+    cardBody.applyImpulse(bv, true);
+    // Y-axis rotation in phase with swing
+    const rotCoeff = 0.3 + (Math.sin(t * 0.000413) * 0.6 + Math.sin(t * 0.000731) * 0.4) * 0.1;
+    cardBody.applyTorqueImpulse({ x: 0, y: br * rotCoeff, z: 0 }, true);
+  }
+
+  world.step();
+
+  // sync card visual with physics body
+  const tr = cardBody.translation(), qt = cardBody.rotation();
+  cardVisual.position.set(tr.x, tr.y, tr.z);
+  cardVisual.quaternion.set(qt.x, qt.y, qt.z, qt.w);
+
+  // anti y-spin: card.setAngvel({ x, y: y - rot.y*0.25, z })  (same as React Bits)
+  if (!dragging) {
+    const av = cardBody.angvel(), ro = cardBody.rotation();
+    cardBody.setAngvel({ x: av.x, y: av.y - ro.y * 0.05, z: av.z }, true);
+  }
+
+  // lerped joint positions for smooth catmull curve  (same as React Bits)
+  const j1t = j1Body.translation(), j2t = j2Body.translation();
+  const j3t = j3Body.translation(), ft  = fixedBody.translation();
+
+  const j1v = new THREE.Vector3(j1t.x, j1t.y, j1t.z);
+  const j2v = new THREE.Vector3(j2t.x, j2t.y, j2t.z);
+
+  if (!lerpReady) { j1Lerp.copy(j1v); j2Lerp.copy(j2v); lerpReady = true; }
+
+  const d1 = Math.max(0.1, Math.min(1, j1Lerp.distanceTo(j1v)));
+  const d2 = Math.max(0.1, Math.min(1, j2Lerp.distanceTo(j2v)));
+  j1Lerp.lerp(j1v, dt * (MIN_SPD + d1 * (MAX_SPD - MIN_SPD)));
+  j2Lerp.lerp(j2v, dt * (MIN_SPD + d2 * (MAX_SPD - MIN_SPD)));
+
+  curve.points[0].set(j3t.x, j3t.y, j3t.z);
+  curve.points[1].copy(j2Lerp);
+  curve.points[2].copy(j1Lerp);
+  curve.points[3].set(ft.x, ft.y, ft.z);
+
+  updateBand(curve.getPoints(SEGS - 1));
+
+  renderer.render(scene, camera);
+}
+
+requestAnimationFrame(loop);
+
+new ResizeObserver(() => {
+  W_PX = lc.clientWidth;
+  renderer.setSize(W_PX, H_PX);
+  camera.aspect = W_PX / H_PX;
+  camera.updateProjectionMatrix();
+}).observe(lc);
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  Live control panel
+// ─────────────────────────────────────────────────────────────────────────────
+function wire(id, fn) {
+  const el  = document.getElementById(id);
+  const out = document.getElementById(id + '-v');
+  el.addEventListener('input', () => {
+    const v = parseFloat(el.value);
+    out.textContent = Number.isInteger(+el.step) && el.step >= 1
+      ? String(v)
+      : v.toFixed(2);
+    fn(v);
+  });
+}
+
+wire('c-z',    v => { camera.position.z = v; });
+wire('c-fov',  v => { camera.fov = v; camera.updateProjectionMatrix(); });
+
+wire('l-amb',  v => { ambientLight.intensity = v; });
+wire('l-key',  v => { keyLight.intensity = v; });
+wire('l-fill', v => { fillLight.intensity = v; });
+wire('l-exp',  v => { renderer.toneMappingExposure = v; });
+
+wire('m-rough', v => { cardMat.roughness  = v; cardMat.needsUpdate = true; });
+wire('m-metal', v => { cardMat.metalness  = v; cardMat.needsUpdate = true; });
+wire('m-coat',  v => { cardMat.clearcoat  = v; cardMat.needsUpdate = true; });
+
+wire('p-grav',  v => { world.gravity.y = v; });
+wire('p-damp',  v => {
+  for (const b of [j1Body, j2Body, j3Body, cardBody]) {
+    b.setLinearDamping(v);
+    b.setAngularDamping(v);
+  }
+});
+
+document.getElementById('copy-btn').addEventListener('click', () => {
+  const snap = [
+    `camera z:     ${document.getElementById('c-z').value}`,
+    `camera fov:   ${document.getElementById('c-fov').value}`,
+    `ambient:      ${document.getElementById('l-amb').value}`,
+    `key light:    ${document.getElementById('l-key').value}`,
+    `fill light:   ${document.getElementById('l-fill').value}`,
+    `exposure:     ${document.getElementById('l-exp').value}`,
+    `roughness:    ${document.getElementById('m-rough').value}`,
+    `metalness:    ${document.getElementById('m-metal').value}`,
+    `clearcoat:    ${document.getElementById('m-coat').value}`,
+    `gravity y:    ${document.getElementById('p-grav').value}`,
+    `damping:      ${document.getElementById('p-damp').value}`,
+  ].join('\n');
+  navigator.clipboard.writeText(snap).then(() => {
+    const btn = document.getElementById('copy-btn');
+    const prev = btn.textContent;
+    btn.textContent = 'Copied ✓';
+    setTimeout(() => { btn.textContent = prev; }, 1600);
+  });
+});
+</script>
+</body>
+</html>

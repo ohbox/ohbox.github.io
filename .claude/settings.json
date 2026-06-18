@@ -10,7 +10,21 @@
       "Bash(node /tmp/shot38.js)",
       "Bash(node /tmp/shot39.js)",
       "Bash(node /tmp/shot40.js)",
-      "Bash(node /tmp/shot41.js)"
+      "Bash(node /tmp/shot41.js)",
+      "Bash(open \"http://localhost:8899/test.html\")",
+      "Bash(node -e ' *)",
+      "Bash(git -C /Users/tom/Desktop/Antigravity/ohbox-github-pages diff --name-only)",
+      "Bash(git -C /Users/tom/Desktop/Antigravity/ohbox-github-pages status --short)",
+      "Bash(python3 -c ' *)",
+      "Bash(curl -s -o /dev/null -w \"card-preview: %{http_code}\\\\n\" \"http://localhost:8899/card-preview.html\")",
+      "Bash(curl -s -o /dev/null -w \"test: %{http_code}\\\\n\" \"http://localhost:8899/test.html\")",
+      "Bash(open \"http://localhost:8899/card-preview.html\")",
+      "Bash(pkill -f \"http.server 8899\")",
+      "Bash(python3 -m http.server 8899)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"http://localhost:8899/card-preview.html\")",
+      "Bash(open \"http://localhost:8899/card-preview.html?v=2\")",
+      "WebFetch(domain:reactbits.dev)",
+      "WebFetch(domain:github.com)"
     ],
     "additionalDirectories": [
       "/Users/tom/Desktop/Antigravity/ohbox-github-pages",
