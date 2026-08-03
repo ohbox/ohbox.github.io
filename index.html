@@ -36,6 +36,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js"></script>
   <script src="fx.js"></script>
   <script src="about-dashboard.js"></script>
+  <script src="i18n.js"></script>
   <style>
     html {
       scroll-behavior: smooth;
@@ -1263,6 +1264,75 @@
       .pfx-hamburger-btn {
         display: flex;
       }
+
+      .pfx-lang-toggle-mobile {
+        display: inline-flex !important;
+      }
+    }
+
+    /* ---- Language switch (EN / 中) ---- */
+    .pfx-nav-lang-group,
+    .pfx-mobile-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pfx-lang-toggle {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      height: 28px;
+      padding: 2px;
+      box-sizing: border-box;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: #0F0F12;
+      cursor: pointer;
+      flex-shrink: 0;
+      -webkit-tap-highlight-color: transparent;
+      transition: border-color 0.2s ease;
+    }
+
+    .pfx-lang-toggle:hover {
+      border-color: rgba(240, 112, 64, 0.55);
+    }
+
+    .pfx-lang-toggle-thumb {
+      position: absolute;
+      top: 2px;
+      bottom: 2px;
+      left: 2px;
+      width: 26px;
+      background: #F07040;
+      transition: transform 0.28s cubic-bezier(0.65, 0, 0.35, 1);
+      z-index: 0;
+    }
+
+    .pfx-lang-toggle[data-lang-active="zh"] .pfx-lang-toggle-thumb {
+      transform: translateX(26px);
+    }
+
+    .pfx-lang-toggle-opt {
+      position: relative;
+      z-index: 1;
+      width: 26px;
+      text-align: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      color: rgba(244, 242, 238, 0.5);
+      transition: color 0.28s ease;
+      user-select: none;
+    }
+
+    .pfx-lang-toggle[data-lang-active="en"] .pfx-lang-toggle-opt[data-lang-opt="en"],
+    .pfx-lang-toggle[data-lang-active="zh"] .pfx-lang-toggle-opt[data-lang-opt="zh"] {
+      color: #0C0C0E;
+      font-weight: 700;
+    }
+
+    .pfx-lang-toggle-mobile {
+      display: none;
     }
 
     .pfx-mobile-overlay {
@@ -1784,17 +1854,17 @@
         </a>
         <nav class="pfx-main-nav"
           style="display: flex; align-items: center; gap: clamp(14px,2.5vw,32px); flex-wrap: wrap; justify-content: flex-end;">
-          <a href="#process" data-nav-link="process" class="pfx-btn-md"
+          <a href="#process" data-nav-link="process" data-i18n="nav.process" class="pfx-btn-md"
             style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.22em; color: rgba(244,242,238,0.65); text-decoration: none;">PROCESS</a>
-          <a href="#work" data-nav-link="work" class="pfx-btn-md"
+          <a href="#work" data-nav-link="work" data-i18n="nav.work" class="pfx-btn-md"
             style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.22em; color: rgba(244,242,238,0.65); text-decoration: none;">WORK</a>
-          <a href="#about" data-nav-link="about" class="pfx-btn-md"
+          <a href="#about" data-nav-link="about" data-i18n="nav.about" class="pfx-btn-md"
             style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.22em; color: rgba(244,242,238,0.65); text-decoration: none;">ABOUT</a>
-          <a href="#feedback" data-nav-link="feedback" class="pfx-btn-md"
+          <a href="#feedback" data-nav-link="feedback" data-i18n="nav.feedback" class="pfx-btn-md"
             style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.22em; color: rgba(244,242,238,0.65); text-decoration: none;">FEEDBACK</a>
-          <a href="#contact" data-nav-link="contact" class="pfx-btn-md"
+          <a href="#contact" data-nav-link="contact" data-i18n="nav.contact" class="pfx-btn-md"
             style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.22em; color: rgba(244,242,238,0.65); text-decoration: none;">CONTACT</a>
-          <a href="mailto:ohbox0408@gmail.com" class="pfx-btn-md pfx-hov-1"
+          <a href="mailto:ohbox0408@gmail.com" data-i18n="nav.chat" class="pfx-btn-md pfx-hov-1"
             style="display:inline-flex;align-items:center;justify-content:center;font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.2em; color: #0C0C0E; background: #F07040; text-decoration: none; padding: 0 18px; transition: background 0.2s;">LET'S
             CHAT</a>
         </nav>
@@ -1813,9 +1883,9 @@
           <div class="pfx-mobile-icon-box"><span class="pfx-mobile-icon" style="--mob-icon:url('icon/process.svg');"
               aria-hidden="true"></span></div>
           <div>
-            <h3>Process<span>.</span></h3>
+            <h3><span data-i18n="nav.mobile.processTitle">Process</span><span>.</span></h3>
             <div class="pfx-mobile-nav-items">
-              <a href="#process" class="pfx-mobile-nav-item" data-mobile-link="true">Work flow</a>
+              <a href="#process" class="pfx-mobile-nav-item" data-mobile-link="true" data-i18n="nav.mobile.processItem">Work flow</a>
             </div>
           </div>
         </div>
@@ -1823,7 +1893,7 @@
           <div class="pfx-mobile-icon-box"><span class="pfx-mobile-icon" style="--mob-icon:url('icon/3dcube.svg');"
               aria-hidden="true"></span></div>
           <div>
-            <h3>Works<span>.</span></h3>
+            <h3><span data-i18n="nav.mobile.worksTitle">Works</span><span>.</span></h3>
             <div class="pfx-mobile-nav-items">
               <a href="project-rg.html" class="pfx-mobile-nav-item" data-mobile-link="true">Resume Genius</a>
               <a href="project-yotta.html" class="pfx-mobile-nav-item" data-mobile-link="true">Yotta</a>
@@ -1835,9 +1905,9 @@
           <div class="pfx-mobile-icon-box"><span class="pfx-mobile-icon"
               style="--mob-icon:url('icon/about.svg');" aria-hidden="true"></span></div>
           <div>
-            <h3>About<span>.</span></h3>
+            <h3><span data-i18n="nav.mobile.aboutTitle">About</span><span>.</span></h3>
             <div class="pfx-mobile-nav-items">
-              <a href="#about" class="pfx-mobile-nav-item" data-mobile-link="true">It's me</a>
+              <a href="#about" class="pfx-mobile-nav-item" data-mobile-link="true" data-i18n="nav.mobile.aboutItem">It's me</a>
             </div>
           </div>
         </div>
@@ -1845,9 +1915,9 @@
           <div class="pfx-mobile-icon-box"><span class="pfx-mobile-icon"
               style="--mob-icon:url('icon/feedback.svg');" aria-hidden="true"></span></div>
           <div>
-            <h3>Feedback<span>.</span></h3>
+            <h3><span data-i18n="nav.mobile.feedbackTitle">Feedback</span><span>.</span></h3>
             <div class="pfx-mobile-nav-items">
-              <a href="#feedback" class="pfx-mobile-nav-item" data-mobile-link="true">What they say</a>
+              <a href="#feedback" class="pfx-mobile-nav-item" data-mobile-link="true" data-i18n="nav.mobile.feedbackItem">What they say</a>
             </div>
           </div>
         </div>
@@ -1855,16 +1925,16 @@
           <div class="pfx-mobile-icon-box"><span class="pfx-mobile-icon" style="--mob-icon:url('icon/contact.svg');"
               aria-hidden="true"></span></div>
           <div>
-            <h3>Contact<span>.</span></h3>
+            <h3><span data-i18n="nav.mobile.contactTitle">Contact</span><span>.</span></h3>
             <div class="pfx-mobile-nav-items">
-              <a href="#contact" class="pfx-mobile-nav-item" data-mobile-link="true">Let's chat</a>
+              <a href="#contact" class="pfx-mobile-nav-item" data-mobile-link="true" data-i18n="nav.mobile.contactItem">Let's chat</a>
             </div>
           </div>
         </div>
       </div>
       <div
         style="position:absolute;z-index:2;left:0;right:0;bottom:0;padding:clamp(20px,4vw,32px);background:rgba(12,12,14,0.84);border-top:1px solid rgba(255,255,255,0.07);">
-        <a href="mailto:ohbox0408@gmail.com" class="pfx-hov-1 pfx-btn-md" data-mobile-link="true"
+        <a href="mailto:ohbox0408@gmail.com" class="pfx-hov-1 pfx-btn-md" data-mobile-link="true" data-i18n="nav.chat"
           style="display:flex;align-items:center;justify-content:center;width:100%;box-sizing:border-box;padding:0 18px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.2em;color:#0C0C0E;background:#F07040;text-decoration:none;transition:background 0.2s;">LET'S
           CHAT</a>
       </div>
@@ -1872,12 +1942,12 @@
 
     <!-- ============ SIDE SECTION NAV (DESKTOP > 1360PX) ============ -->
     <nav class="pfx-side-nav" aria-label="Section navigation">
-      <a href="#top" data-nav-link="top" class="pfx-side-nav-item"><span>HELLO</span><span class="pfx-side-nav-dash" aria-hidden="true"></span></a>
-      <a href="#process" data-nav-link="process" class="pfx-side-nav-item"><span>PROCESS</span><span class="pfx-side-nav-dash" aria-hidden="true"></span></a>
-      <a href="#work" data-nav-link="work" class="pfx-side-nav-item"><span>WORK</span><span class="pfx-side-nav-dash" aria-hidden="true"></span></a>
-      <a href="#about" data-nav-link="about" class="pfx-side-nav-item"><span>ABOUT</span><span class="pfx-side-nav-dash" aria-hidden="true"></span></a>
-      <a href="#feedback" data-nav-link="feedback" class="pfx-side-nav-item"><span>FEEDBACK</span><span class="pfx-side-nav-dash" aria-hidden="true"></span></a>
-      <a href="#contact" data-nav-link="contact" class="pfx-side-nav-item"><span>CONTACT</span><span class="pfx-side-nav-dash" aria-hidden="true"></span></a>
+      <a href="#top" data-nav-link="top" class="pfx-side-nav-item"><span data-i18n="nav.side.hello">HELLO</span><span class="pfx-side-nav-dash" aria-hidden="true"></span></a>
+      <a href="#process" data-nav-link="process" class="pfx-side-nav-item"><span data-i18n="nav.process">PROCESS</span><span class="pfx-side-nav-dash" aria-hidden="true"></span></a>
+      <a href="#work" data-nav-link="work" class="pfx-side-nav-item"><span data-i18n="nav.work">WORK</span><span class="pfx-side-nav-dash" aria-hidden="true"></span></a>
+      <a href="#about" data-nav-link="about" class="pfx-side-nav-item"><span data-i18n="nav.about">ABOUT</span><span class="pfx-side-nav-dash" aria-hidden="true"></span></a>
+      <a href="#feedback" data-nav-link="feedback" class="pfx-side-nav-item"><span data-i18n="nav.feedback">FEEDBACK</span><span class="pfx-side-nav-dash" aria-hidden="true"></span></a>
+      <a href="#contact" data-nav-link="contact" class="pfx-side-nav-item"><span data-i18n="nav.contact">CONTACT</span><span class="pfx-side-nav-dash" aria-hidden="true"></span></a>
     </nav>
 
     <!-- ============ HERO ============ -->
@@ -1904,13 +1974,13 @@
           style="display: inline-flex; align-items: center; gap: 10px; margin-bottom: clamp(28px,4vh,44px);">
           <span
             style="width: 7px; height: 7px; border-radius: 50%; background: #F07040; animation: pfx-pulse 1.8s ease-in-out infinite; box-shadow: 0 0 12px rgba(240,112,64,0.8);"></span>
-          <span
+          <span data-i18n="hero.badge"
             style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.28em; color: #F07040;">AVAILABLE
             FOR WORK</span>
         </div>
 
         <h1 style="margin: 0; font-weight: 700; letter-spacing: -0.04em; line-height: 0.95; text-transform: uppercase;">
-          <span style="display: block; overflow: hidden;"><span data-hero-line="true"
+          <span style="display: block; overflow: hidden;"><span data-hero-line="true" data-i18n="hero.line1"
               style="display: block; font-size: clamp(60px,10vw,140px); font-weight: 300; color: rgba(244,242,238,0.92);">Hi,
               I am</span></span>
           <span style="display: block; overflow: hidden;"><span data-hero-line="true"
@@ -1920,15 +1990,15 @@
 
         <div
           style="display: flex; flex-wrap: wrap; gap: clamp(28px,5vw,72px); align-items: flex-end; margin-top: clamp(32px,5vh,56px);">
-          <p data-hero-item="true"
+          <p data-hero-item="true" data-i18n="hero.desc"
             style="margin: 0; max-width: 520px; font-size: clamp(16px,1.6vw,20px); font-weight: 300; line-height: 1.65; color: rgba(244,242,238,0.66); text-wrap: pretty;">
             A UI/UX Designer turning complexity into intuitive digital experiences — with a creative spark, blending
             systemic design and refined interfaces.</p>
           <div data-hero-item="true" class="pfx-hero-actions" style="display: flex; gap: 14px; flex-wrap: wrap;">
-            <a href="#work" data-magnetic="true" class="pfx-btn-lg pfx-hov-2"
+            <a href="#work" data-magnetic="true" data-i18n="hero.cta.work" class="pfx-btn-lg pfx-hov-2"
               style="display: inline-flex; align-items: center; justify-content: center; font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.2em; color: #0C0C0E; background: #F07040; text-decoration: none; padding: 0 30px; box-shadow: 0 0 32px rgba(240,112,64,0.25); transition: background 0.2s, box-shadow 0.2s;">VIEW
               MY WORK</a>
-            <a href="mailto:ohbox0408@gmail.com" data-magnetic="true" class="pfx-btn-lg pfx-hov-3"
+            <a href="mailto:ohbox0408@gmail.com" data-magnetic="true" data-i18n="nav.chat" class="pfx-btn-lg pfx-hov-3"
               style="display: inline-flex; align-items: center; justify-content: center; font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.2em; color: #F4F2EE; border: 1px solid rgba(255,255,255,0.25); text-decoration: none; padding: 0 30px; transition: border-color 0.2s, color 0.2s;">LET'S
               CHAT</a>
           </div>
@@ -1940,12 +2010,12 @@
         <div
           style="max-width: 1320px; margin: 0 auto; padding: 18px clamp(20px,4vw,48px); display: flex; align-items: center; justify-content: space-between; gap: 16px;">
           <span class="pfx-hero-status">
-            <span>TAIPEI, TAIWAN</span>
+            <span data-i18n="hero.location">TAIPEI, TAIWAN</span>
             <span class="pfx-hero-status-separator">—</span>
             <span data-live-time="true">Jun 12th 11:15:20 PM (GMT+8)</span>
           </span>
           <span style="display: flex; align-items: center; gap: 12px;">
-            <span
+            <span data-i18n="hero.scroll"
               style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.24em; color: rgba(244,242,238,0.45);">SCROLL</span>
             <span class="pfx-scroll-arrow" aria-hidden="true">
               <span class="pfx-scroll-line"></span>
@@ -1964,15 +2034,15 @@
           <span style="width: 7px; height: 7px; background: #F07040;"></span>
           <span
             style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.3em; color: #F07040;"><span
-              class="pfx-section-prefix">01 — </span>DESIGN PROCESS</span>
+              class="pfx-section-prefix">01 — </span><span data-i18n="process.eyebrow">DESIGN PROCESS</span></span>
           <span style="flex: 1; height: 1px; background: rgba(255,255,255,0.07);"></span>
         </div>
         <div
           style="display: flex; flex-wrap: wrap; gap: clamp(24px,4vw,64px); align-items: flex-end; margin-top: 26px;">
           <h2 data-reveal="true"
             style="margin: 0; font-size: clamp(38px,5.5vw,76px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.02; flex: 1 1 420px;">
-            Aesthetics and<br>Usability<span style="color: #F07040;">.</span></h2>
-          <p data-reveal="true"
+            <span data-i18n="process.heading">Aesthetics and<br>Usability</span><span style="color: #F07040;">.</span></h2>
+          <p data-reveal="true" data-i18n="process.desc"
             style="margin: 0 0 8px 0; max-width: 400px; font-size: 16px; font-weight: 300; line-height: 1.7; color: rgba(244,242,238,0.6); text-wrap: pretty;">
             I design with a user-first mindset, crafting experiences that are both visually striking and effortlessly
             intuitive.</p>
@@ -1997,7 +2067,7 @@
               style="padding:18px 18px 14px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;border-bottom:1px solid rgba(255,255,255,0.07);">
               <div>
                 <span style="font-family:'Space Mono',monospace;font-size:10px;color:rgba(244,242,238,0.3);">S.01</span>
-                <h3
+                <h3 data-i18n="process.s1"
                   style="margin:5px 0 0;font-size:clamp(16px,1.5vw,20px);font-weight:500;letter-spacing:-0.01em;color:#F4F2EE;">
                   Research</h3>
               </div>
@@ -2026,7 +2096,7 @@
               style="padding:18px 18px 14px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;border-bottom:1px solid rgba(255,255,255,0.07);">
               <div>
                 <span style="font-family:'Space Mono',monospace;font-size:10px;color:rgba(244,242,238,0.3);">S.02</span>
-                <h3
+                <h3 data-i18n="process.s2"
                   style="margin:5px 0 0;font-size:clamp(16px,1.5vw,20px);font-weight:500;letter-spacing:-0.01em;color:#F4F2EE;">
                   Craft Visuals</h3>
               </div>
@@ -2055,7 +2125,7 @@
               style="padding:18px 18px 14px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;border-bottom:1px solid rgba(255,255,255,0.07);">
               <div>
                 <span style="font-family:'Space Mono',monospace;font-size:10px;color:rgba(244,242,238,0.3);">S.03</span>
-                <h3
+                <h3 data-i18n="process.s3"
                   style="margin:5px 0 0;font-size:clamp(16px,1.5vw,20px);font-weight:500;letter-spacing:-0.01em;color:#F4F2EE;">
                   Make Animation</h3>
               </div>
@@ -2084,7 +2154,7 @@
               style="padding:18px 18px 14px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;border-bottom:1px solid rgba(255,255,255,0.07);">
               <div>
                 <span style="font-family:'Space Mono',monospace;font-size:10px;color:rgba(244,242,238,0.3);">S.04</span>
-                <h3
+                <h3 data-i18n="process.s4"
                   style="margin:5px 0 0;font-size:clamp(16px,1.5vw,20px);font-weight:500;letter-spacing:-0.01em;color:#F4F2EE;">
                   Design Handoff</h3>
               </div>
@@ -2121,15 +2191,15 @@
           <span style="width: 7px; height: 7px; background: #F07040;"></span>
           <span
             style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.3em; color: #F07040;"><span
-              class="pfx-section-prefix">02 — </span>NOW, THE GOOD STUFF</span>
+              class="pfx-section-prefix">02 — </span><span data-i18n="work.eyebrow">NOW, THE GOOD STUFF</span></span>
           <span style="flex: 1; height: 1px; background: rgba(255,255,255,0.07);"></span>
         </div>
         <div
           style="display: flex; flex-wrap: wrap; gap: clamp(24px,4vw,64px); align-items: flex-end; margin-top: 26px; margin-bottom: clamp(48px,8vh,96px);">
           <h2 data-reveal="true"
             style="margin: 0; font-size: clamp(38px,5.5vw,76px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.02; flex: 1 1 420px;">
-            A selection of<br>Recent Works<span style="color: #F07040;">.</span></h2>
-          <p data-reveal="true"
+            <span data-i18n="work.heading">A selection of<br>Recent Works</span><span style="color: #F07040;">.</span></h2>
+          <p data-reveal="true" data-i18n="work.desc"
             style="margin: 0 0 8px 0; max-width: 400px; font-size: 16px; font-weight: 300; line-height: 1.7; color: rgba(244,242,238,0.6); text-wrap: pretty;">
             Magic I make with my mouse — projects that demonstrate my approach to UX thinking and visual UI design.</p>
         </div>
@@ -2153,7 +2223,7 @@
               style="position: absolute; bottom: 10px; right: 10px; width: 14px; height: 14px; border-bottom: 1px solid rgba(240,112,64,0.7); border-right: 1px solid rgba(240,112,64,0.7); z-index: 3;">
             </div>
             <span
-              style="position: absolute; top: 22px; left: 50%; transform: translateX(-50%); font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.3em; color: rgba(244,242,238,0.4); z-index: 3;">CS.01
+              style="position: absolute; top: 22px; left: 50%; transform: translateX(-50%); font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.3em; color: rgba(244,242,238,0.4); z-index: 3;" data-i18n="project.rg.tag">CS.01
               — WEB PLATFORM</span>
             <img data-parallax="true" src="image/projects/1.png" alt="ResumeGenius cover"
               style="position: absolute; inset: 0; width: 100%; height: 110%; object-fit: cover; object-position: center top; display: block;">
@@ -2171,7 +2241,7 @@
             <h3 data-reveal="true"
               style="margin: 18px 0 0 0; font-size: clamp(34px,4vw,56px); font-weight: 600; letter-spacing: -0.02em; line-height: 1;">
               ResumeGenius</h3>
-            <p data-reveal="true"
+            <p data-reveal="true" data-i18n="project.rg.desc"
               style="margin: 20px 0 0 0; max-width: 460px; font-size: 16px; font-weight: 300; line-height: 1.7; color: rgba(244,242,238,0.6); text-wrap: pretty;">
               An online platform that helps users create professional resumes and cover letters with customizable
               templates and step-by-step guidance.</p>
@@ -2183,8 +2253,8 @@
               <span class="pfx-indent-badge">RAPID PROTOTYPING</span>
             </div>
             <a href="project-rg.html" data-nav="true" data-reveal="true" class="pfx-hov-4"
-              style="display: inline-flex; align-items: center; gap: 12px; margin-top: 32px; font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.2em; color: #F07040; text-decoration: none; border-bottom: 1px solid rgba(240,112,64,0.4); padding-bottom: 8px; transition: gap 0.25s ease, border-color 0.25s ease;">VIEW
-              CASE STUDY <span aria-hidden="true">→</span></a>
+              style="display: inline-flex; align-items: center; gap: 12px; margin-top: 32px; font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.2em; color: #F07040; text-decoration: none; border-bottom: 1px solid rgba(240,112,64,0.4); padding-bottom: 8px; transition: gap 0.25s ease, border-color 0.25s ease;"><span data-i18n="work.cta">VIEW
+              CASE STUDY</span> <span aria-hidden="true">→</span></a>
           </div>
         </div>
 
@@ -2201,7 +2271,7 @@
             <h3 data-reveal="true"
               style="margin: 18px 0 0 0; font-size: clamp(34px,4vw,56px); font-weight: 600; letter-spacing: -0.02em; line-height: 1;">
               Yotta</h3>
-            <p data-reveal="true"
+            <p data-reveal="true" data-i18n="project.yotta.desc"
               style="margin: 20px 0 0 0; max-width: 460px; font-size: 16px; font-weight: 300; line-height: 1.7; color: rgba(244,242,238,0.6); text-wrap: pretty;">
               An online learning platform. Courses cover fascinating subjects in a wide range of fields — life,
               language, engineering, business and more.</p>
@@ -2213,8 +2283,8 @@
               <span class="pfx-indent-badge">MASCOT CREATION</span>
             </div>
             <a href="project-yotta.html" data-nav="true" data-reveal="true" class="pfx-hov-5"
-              style="display: inline-flex; align-items: center; gap: 12px; margin-top: 32px; font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.2em; color: #F07040; text-decoration: none; border-bottom: 1px solid rgba(240,112,64,0.4); padding-bottom: 8px; transition: gap 0.25s ease, border-color 0.25s ease;">VIEW
-              CASE STUDY <span aria-hidden="true">→</span></a>
+              style="display: inline-flex; align-items: center; gap: 12px; margin-top: 32px; font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.2em; color: #F07040; text-decoration: none; border-bottom: 1px solid rgba(240,112,64,0.4); padding-bottom: 8px; transition: gap 0.25s ease, border-color 0.25s ease;"><span data-i18n="work.cta">VIEW
+              CASE STUDY</span> <span aria-hidden="true">→</span></a>
           </div>
           <a href="project-yotta.html" data-nav="true" data-cursor="VIEW" data-reveal-img="true"
             class="pfx-project-media" aria-label="Yotta case study"
@@ -2232,7 +2302,7 @@
               style="position: absolute; bottom: 10px; right: 10px; width: 14px; height: 14px; border-bottom: 1px solid rgba(240,112,64,0.7); border-right: 1px solid rgba(240,112,64,0.7); z-index: 3;">
             </div>
             <span
-              style="position: absolute; top: 22px; left: 50%; transform: translateX(-50%); font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.3em; color: rgba(244,242,238,0.4); z-index: 3;">CS.02
+              style="position: absolute; top: 22px; left: 50%; transform: translateX(-50%); font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.3em; color: rgba(244,242,238,0.4); z-index: 3;" data-i18n="project.yotta.tag">CS.02
               — LEARNING PLATFORM</span>
             <img data-parallax="true" src="image/projects/2.png" alt="Yotta cover"
               style="position: absolute; inset: 0; width: 100%; height: 110%; object-fit: cover; object-position: center top; display: block;">
@@ -2261,7 +2331,7 @@
               style="position: absolute; bottom: 10px; right: 10px; width: 14px; height: 14px; border-bottom: 1px solid rgba(240,112,64,0.7); border-right: 1px solid rgba(240,112,64,0.7); z-index: 3;">
             </div>
             <span
-              style="position: absolute; top: 22px; left: 50%; transform: translateX(-50%); font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.3em; color: rgba(244,242,238,0.4); z-index: 3;">CS.03
+              style="position: absolute; top: 22px; left: 50%; transform: translateX(-50%); font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.3em; color: rgba(244,242,238,0.4); z-index: 3;" data-i18n="project.cupo.tag">CS.03
               — MOBILE APP</span>
             <img data-parallax="true" src="image/projects/3.png" alt="Cupo cover"
               style="position: absolute; inset: 0; width: 100%; height: 110%; object-fit: cover; object-position: center top; display: block;">
@@ -2279,7 +2349,7 @@
             <h3 data-reveal="true"
               style="margin: 18px 0 0 0; font-size: clamp(34px,4vw,56px); font-weight: 600; letter-spacing: -0.02em; line-height: 1;">
               Cupo</h3>
-            <p data-reveal="true"
+            <p data-reveal="true" data-i18n="project.cupo.desc"
               style="margin: 20px 0 0 0; max-width: 460px; font-size: 16px; font-weight: 300; line-height: 1.7; color: rgba(244,242,238,0.6); text-wrap: pretty;">
               A student-based productivity tool that boosts motivation and fights procrastination by rewarding you with
               coupons.</p>
@@ -2290,8 +2360,8 @@
               <span class="pfx-indent-badge">GRADUATE PROJECT</span>
             </div>
             <a href="project-cupo.html" data-nav="true" data-reveal="true" class="pfx-hov-6"
-              style="display: inline-flex; align-items: center; gap: 12px; margin-top: 32px; font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.2em; color: #F07040; text-decoration: none; border-bottom: 1px solid rgba(240,112,64,0.4); padding-bottom: 8px; transition: gap 0.25s ease, border-color 0.25s ease;">VIEW
-              CASE STUDY <span aria-hidden="true">→</span></a>
+              style="display: inline-flex; align-items: center; gap: 12px; margin-top: 32px; font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.2em; color: #F07040; text-decoration: none; border-bottom: 1px solid rgba(240,112,64,0.4); padding-bottom: 8px; transition: gap 0.25s ease, border-color 0.25s ease;"><span data-i18n="work.cta">VIEW
+              CASE STUDY</span> <span aria-hidden="true">→</span></a>
           </div>
         </div>
       </div>
@@ -2304,15 +2374,15 @@
           <span style="width: 7px; height: 7px; background: #F07040;"></span>
           <span
             style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.3em; color: #F07040;"><span
-              class="pfx-section-prefix">02 — </span>NOW, THE GOOD STUFF</span>
+              class="pfx-section-prefix">02 — </span><span data-i18n="work.eyebrow">NOW, THE GOOD STUFF</span></span>
           <span style="flex: 1; height: 1px; background: rgba(255,255,255,0.07);"></span>
         </div>
         <div
           style="display: flex; flex-wrap: wrap; gap: clamp(24px,4vw,64px); align-items: flex-end; margin-top: 26px; margin-bottom: clamp(48px,8vh,96px);">
           <h2 data-reveal="true"
             style="margin: 0; font-size: clamp(38px,5.5vw,76px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.02; flex: 1 1 420px;">
-            A selection of<br>Recent Works<span style="color: #F07040;">.</span></h2>
-          <p data-reveal="true"
+            <span data-i18n="work.heading">A selection of<br>Recent Works</span><span style="color: #F07040;">.</span></h2>
+          <p data-reveal="true" data-i18n="work.desc"
             style="margin: 0 0 8px 0; max-width: 400px; font-size: 16px; font-weight: 300; line-height: 1.7; color: rgba(244,242,238,0.6); text-wrap: pretty;">
             Magic I make with my mouse — projects that demonstrate my approach to UX thinking and visual UI design.</p>
         </div>
@@ -2331,7 +2401,7 @@
                   <span class="work-v2-years">2022 — 2026</span>
                 </div>
                 <h3 data-reveal="true" class="work-v2-title">ResumeGenius</h3>
-                <p data-reveal="true" class="work-v2-desc">
+                <p data-reveal="true" class="work-v2-desc" data-i18n="project.rg.desc">
                   An online platform that helps users create professional resumes and cover letters with customizable
                   templates and step-by-step guidance.</p>
                 <div data-reveal="true" class="work-v2-badges">
@@ -2341,8 +2411,8 @@
                   <span class="pfx-indent-badge">RESEARCH</span>
                   <span class="pfx-indent-badge">RAPID PROTOTYPING</span>
                 </div>
-                <a href="project-rg.html" data-nav="true" data-reveal="true" class="pfx-hov-4 work-v2-cta">VIEW
-                  CASE STUDY <span aria-hidden="true">→</span></a>
+                <a href="project-rg.html" data-nav="true" data-reveal="true" class="pfx-hov-4 work-v2-cta"><span data-i18n="work.cta">VIEW
+                  CASE STUDY</span> <span aria-hidden="true">→</span></a>
               </div>
               <a href="project-rg.html" data-nav="true" data-cursor="VIEW" data-reveal-img="true" class="work-v2-media"
                 aria-label="ResumeGenius case study"
@@ -2351,7 +2421,7 @@
                 <span class="work-v2-corner tr" aria-hidden="true"></span>
                 <span class="work-v2-corner bl" aria-hidden="true"></span>
                 <span class="work-v2-corner br" aria-hidden="true"></span>
-                <span class="work-v2-tag">CS.01 — WEB PLATFORM</span>
+                <span class="work-v2-tag" data-i18n="project.rg.tag">CS.01 — WEB PLATFORM</span>
                 <img src="image/projects/1.png" alt="ResumeGenius cover">
                 <span class="work-v2-media-overlay" aria-hidden="true"></span>
               </a>
@@ -2367,7 +2437,7 @@
                   <span class="work-v2-years">2020 — 2022</span>
                 </div>
                 <h3 data-reveal="true" class="work-v2-title">Yotta</h3>
-                <p data-reveal="true" class="work-v2-desc">
+                <p data-reveal="true" class="work-v2-desc" data-i18n="project.yotta.desc">
                   An online learning platform. Courses cover fascinating subjects in a wide range of fields — life,
                   language, engineering, business and more.</p>
                 <div data-reveal="true" class="work-v2-badges">
@@ -2377,8 +2447,8 @@
                   <span class="pfx-indent-badge">E-COMMERCE</span>
                   <span class="pfx-indent-badge">MASCOT CREATION</span>
                 </div>
-                <a href="project-yotta.html" data-nav="true" data-reveal="true" class="pfx-hov-5 work-v2-cta">VIEW
-                  CASE STUDY <span aria-hidden="true">→</span></a>
+                <a href="project-yotta.html" data-nav="true" data-reveal="true" class="pfx-hov-5 work-v2-cta"><span data-i18n="work.cta">VIEW
+                  CASE STUDY</span> <span aria-hidden="true">→</span></a>
               </div>
               <a href="project-yotta.html" data-nav="true" data-cursor="VIEW" data-reveal-img="true" class="work-v2-media"
                 aria-label="Yotta case study"
@@ -2387,7 +2457,7 @@
                 <span class="work-v2-corner tr" aria-hidden="true"></span>
                 <span class="work-v2-corner bl" aria-hidden="true"></span>
                 <span class="work-v2-corner br" aria-hidden="true"></span>
-                <span class="work-v2-tag">CS.02 — LEARNING PLATFORM</span>
+                <span class="work-v2-tag" data-i18n="project.yotta.tag">CS.02 — LEARNING PLATFORM</span>
                 <img src="image/projects/2.png" alt="Yotta cover">
                 <span class="work-v2-media-overlay" aria-hidden="true"></span>
               </a>
@@ -2403,7 +2473,7 @@
                   <span class="work-v2-years">2018 — 2019</span>
                 </div>
                 <h3 data-reveal="true" class="work-v2-title">Cupo</h3>
-                <p data-reveal="true" class="work-v2-desc">
+                <p data-reveal="true" class="work-v2-desc" data-i18n="project.cupo.desc">
                   A student-based productivity tool that boosts motivation and fights procrastination by rewarding you
                   with coupons.</p>
                 <div data-reveal="true" class="work-v2-badges">
@@ -2412,8 +2482,8 @@
                   <span class="pfx-indent-badge">GAMIFICATION</span>
                   <span class="pfx-indent-badge">GRADUATE PROJECT</span>
                 </div>
-                <a href="project-cupo.html" data-nav="true" data-reveal="true" class="pfx-hov-6 work-v2-cta">VIEW
-                  CASE STUDY <span aria-hidden="true">→</span></a>
+                <a href="project-cupo.html" data-nav="true" data-reveal="true" class="pfx-hov-6 work-v2-cta"><span data-i18n="work.cta">VIEW
+                  CASE STUDY</span> <span aria-hidden="true">→</span></a>
               </div>
               <a href="project-cupo.html" data-nav="true" data-cursor="VIEW" data-reveal-img="true" class="work-v2-media"
                 aria-label="Cupo case study"
@@ -2422,7 +2492,7 @@
                 <span class="work-v2-corner tr" aria-hidden="true"></span>
                 <span class="work-v2-corner bl" aria-hidden="true"></span>
                 <span class="work-v2-corner br" aria-hidden="true"></span>
-                <span class="work-v2-tag">CS.03 — MOBILE APP</span>
+                <span class="work-v2-tag" data-i18n="project.cupo.tag">CS.03 — MOBILE APP</span>
                 <img src="image/projects/3.png" alt="Cupo cover">
                 <span class="work-v2-media-overlay" aria-hidden="true"></span>
               </a>
@@ -2495,16 +2565,12 @@
           <span style="width: 7px; height: 7px; background: #F07040;"></span>
           <span
             style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.3em; color: #F07040;"><span
-              class="pfx-section-prefix">03 — </span>YEP, THIS IS WHAT I BELIEVE</span>
+              class="pfx-section-prefix">03 — </span><span data-i18n="quote.eyebrow">YEP, THIS IS WHAT I BELIEVE</span></span>
         </div>
         <p data-quote="true"
           style="margin: clamp(28px,5vh,44px) 0 0 0; font-size: clamp(32px,5.2vw,68px); font-weight: 300; letter-spacing: -0.02em; line-height: 1.18; color: #F4F2EE; text-wrap: balance;">
-          <span data-qword=”true”>”Think</span> <span data-qword=”true”>outside</span> <span
-            data-qword=”true”>the</span> <span data-qword=”true” data-qkeyword=”true” class=”qkw-dim”>Box</span><span data-qword=”true”>,</span>
-          <span data-qword=”true”>but</span> <span data-qword=”true”>don’t</span> <span data-qword=”true”>forget</span>
-          <span data-qword=”true” data-qkeyword=”true” class=”qkw-dim”>inside</span><span data-qword=”true”>”</span>
         </p>
-        <a href="#contact" data-magnetic="true" data-reveal="true" class="pfx-btn-lg pfx-mobile-full pfx-hov-7"
+        <a href="#contact" data-magnetic="true" data-reveal="true" data-i18n="quote.cta" class="pfx-btn-lg pfx-mobile-full pfx-hov-7"
           style="display: inline-flex; align-items: center; justify-content: center; margin-top: clamp(36px,6vh,56px); font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.2em; color: #F4F2EE; border: 1px solid rgba(255,255,255,0.25); text-decoration: none; padding: 0 34px; transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;">LET'S
           CONNECT</a>
       </div>
@@ -2518,12 +2584,12 @@
           <span style="width: 7px; height: 7px; background: #F07040;"></span>
           <span
             style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.3em; color: #F07040;"><span
-              class="pfx-section-prefix">04 — </span>HEY, LET'S GET TO KNOW ME</span>
+              class="pfx-section-prefix">04 — </span><span data-i18n="about.eyebrow">HEY, LET'S GET TO KNOW ME</span></span>
           <span style="flex: 1; height: 1px; background: rgba(255,255,255,0.07);"></span>
         </div>
         <h2 data-reveal="true"
           style="margin: 26px 0 0 0; font-size: clamp(38px,5.5vw,76px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.02;">
-          Who I Am<span style="color: #F07040;">.</span></h2>
+          <span data-i18n="about.heading">Who I Am</span><span style="color: #F07040;">.</span></h2>
 
         <div
           style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(324px,100%), 1fr)); gap: clamp(28px,4vw,64px); margin-top: clamp(40px,6vh,72px); align-items: start;">
@@ -2532,28 +2598,28 @@
             <div class="ab-lc" id="ab-lc">
               <div class="ab-c-tr"></div>
               <div class="ab-c-bl"></div>
-              <span class="ab-lbl ab-lbl-tl">PROFILE</span>
+              <span class="ab-lbl ab-lbl-tl" data-i18n="about.badge.profile">PROFILE</span>
               <span class="ab-lbl ab-lbl-tr">ID. 0408</span>
-              <div class="ab-lbl ab-lbl-bl"><span class="ab-dot"></span>OPEN TO NEW PROJECTS</div>
+              <div class="ab-lbl ab-lbl-bl"><span class="ab-dot"></span><span data-i18n="about.badge.open">OPEN TO NEW PROJECTS</span></div>
               <canvas id="ab-cv"></canvas>
             </div>
           </div>
 
           <!-- Bio -->
           <div style="width: 100%;">
-            <h3 data-reveal="true"
+            <h3 data-reveal="true" data-i18n="about.bio.hi"
               style="margin: 0; font-size: clamp(24px,2.6vw,34px); font-weight: 500; letter-spacing: -0.02em; line-height: 1.2;">
               Hi, I'm Tom Lin — good to meet you!</h3>
-            <p data-reveal="true"
+            <p data-reveal="true" data-i18n="about.bio.text"
               style="margin: 22px 0 0 0; font-size: 16px; font-weight: 300; line-height: 1.8; color: rgba(244,242,238,0.62); text-wrap: pretty;">
               With 6+ years in UI/UX design, I create user-centered digital products through research, prototyping, and testing with purpose. I'm hands-on from discovery to delivery, detail-oriented yet pragmatic — knowing when to polish and when to ship. I use AI as part of my workflow for research synthesis, inspiration, prompting, rapid prototyping, and light coding, allowing me to explore faster and communicate ideas more clearly. I value design systems, accessibility, and smooth collaboration with developers and product teams from concept to hand-off.</p>
-            <blockquote data-reveal="true"
+            <blockquote data-reveal="true" data-i18n="about.bio.quote"
               style="margin: 28px 0 0 0; padding: 0 0 0 22px; border-left: 1px solid #F07040; font-size: 18px; font-weight: 300; font-style: normal; line-height: 1.6; color: rgba(244,242,238,0.85);">
               “Good design starts with empathy and ends with impact.”</blockquote>
             <a href="resume/Tom_Lin_UIUX_Designer_Resume.pdf" download="Tom_Lin_UIUX_Designer_Resume.pdf" data-magnetic="true"
               data-reveal="true" class="pfx-btn-lg pfx-mobile-full pfx-hov-8"
-              style="display: inline-flex; align-items: center; justify-content: center; gap: 12px; margin-top: 32px; font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.2em; color: #0C0C0E; background: #F07040; text-decoration: none; padding: 0 30px; box-shadow: 0 0 32px rgba(240,112,64,0.2); transition: background 0.2s;">DOWNLOAD
-              RESUME <span aria-hidden="true">↓</span></a>
+              style="display: inline-flex; align-items: center; justify-content: center; gap: 12px; margin-top: 32px; font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.2em; color: #0C0C0E; background: #F07040; text-decoration: none; padding: 0 30px; box-shadow: 0 0 32px rgba(240,112,64,0.2); transition: background 0.2s;"><span data-i18n="about.cta.resume">DOWNLOAD
+              RESUME</span> <span aria-hidden="true">↓</span></a>
           </div>
         </div>
 
@@ -2564,7 +2630,7 @@
             <!-- Left: Skills & Expertise (full column height) -->
             <div class="cap-col">
               <div class="cap-panel cap-panel--skills" data-reveal="true" data-cap="skills">
-                <div class="cap-header-box"><span class="cap-title">Skills &amp; Expertise</span></div>
+                <div class="cap-header-box"><span class="cap-title" data-i18n="dash.skills">Skills &amp; Expertise</span></div>
                 <div class="cap-content-box">
                   <div class="cap-skills-body" data-cap-root="skills">
                     <div class="cap-skills-glow" aria-hidden="true"></div>
@@ -2578,13 +2644,13 @@
             <!-- Middle: Language (top) + Capacity (bottom) -->
             <div class="cap-col">
               <div class="cap-panel cap-panel--language" data-reveal="true" data-reveal-delay="0.08" data-cap="language">
-                <div class="cap-header-box"><span class="cap-title">Language</span></div>
+                <div class="cap-header-box"><span class="cap-title" data-i18n="dash.language">Language</span></div>
                 <div class="cap-content-box">
                   <div class="cap-lang-cards" data-cap-root="language"></div>
                 </div>
               </div>
               <div class="cap-panel cap-panel--capacity" data-reveal="true" data-reveal-delay="0.12" data-cap="capacity">
-                <div class="cap-header-box"><span class="cap-title">Capacity</span></div>
+                <div class="cap-header-box"><span class="cap-title" data-i18n="dash.capacity">Capacity</span></div>
                 <div class="cap-content-box cap-content-box--tight">
                   <div class="cap-capacity-body" data-cap-root="capacity"></div>
                 </div>
@@ -2594,13 +2660,13 @@
             <!-- Right: Strengths (2/3) + Interests carousel (1/3) -->
             <div class="cap-col">
               <div class="cap-panel cap-panel--strengths" data-reveal="true" data-reveal-delay="0.04" data-cap="strengths">
-                <div class="cap-header-box"><span class="cap-title">Strengths</span></div>
+                <div class="cap-header-box"><span class="cap-title" data-i18n="dash.strengths">Strengths</span></div>
                 <div class="cap-content-box">
                   <div class="cap-strength-list" data-cap-root="strengths"></div>
                 </div>
               </div>
               <div class="cap-panel cap-panel--interests" data-reveal="true" data-reveal-delay="0.16" data-cap="interests">
-                <div class="cap-header-box"><span class="cap-title">Interests</span></div>
+                <div class="cap-header-box"><span class="cap-title" data-i18n="dash.interests">Interests</span></div>
                 <div class="cap-content-box cap-content-box--carousel">
                   <div class="cap-interest-track" data-cap-root="interests"></div>
                 </div>
@@ -2620,15 +2686,15 @@
           <span style="width: 7px; height: 7px; background: #F07040;"></span>
           <span
             style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.3em; color: #F07040;"><span
-              class="pfx-section-prefix">05 — </span>BANG, I'VE DONE A GREAT JOB</span>
+              class="pfx-section-prefix">05 — </span><span data-i18n="feedback.eyebrow">BANG, I'VE DONE A GREAT JOB</span></span>
           <span style="flex: 1; height: 1px; background: rgba(255,255,255,0.07);"></span>
         </div>
         <div
           style="display: flex; flex-wrap: wrap; gap: clamp(24px,4vw,64px); align-items: flex-end; margin-top: 26px;">
           <h2 data-reveal="true"
             style="margin: 0; font-size: clamp(38px,5.5vw,76px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.02; flex: 1 1 420px;">
-            What People Say<span style="color: #F07040;">.</span></h2>
-          <p data-reveal="true"
+            <span data-i18n="feedback.heading">What People Say</span><span style="color: #F07040;">.</span></h2>
+          <p data-reveal="true" data-i18n="feedback.desc"
             style="margin: 0 0 8px 0; max-width: 400px; font-size: 16px; font-weight: 300; line-height: 1.7; color: rgba(244,242,238,0.6); text-wrap: pretty;">
             Here's what collaborators, clients and colleagues have said about my design approach.</p>
         </div>
@@ -2647,7 +2713,7 @@
                 about. He's not just a designer — he's a problem-solver who elevates the entire product experience.</p>
               <div class="pfx-testimonial-author"><img src="image/testimonial/testimonial14.png" alt="Rachel Lee"
                   class="pfx-testimonial-avatar">
-                <div><span class="pfx-testimonial-name">Rachel Lee</span><span class="pfx-testimonial-role">PRODUCT
+                <div><span class="pfx-testimonial-name">Rachel Lee</span><span class="pfx-testimonial-role" data-i18n="feedback.role.pm">PRODUCT
                     MANAGER</span></div>
               </div>
             </div>
@@ -2661,7 +2727,7 @@
               <div class="pfx-testimonial-author"><img src="image/testimonial/testimonial1.png" alt="Gendry Morales"
                   class="pfx-testimonial-avatar">
                 <div><span class="pfx-testimonial-name">Gendry Morales</span><span
-                    class="pfx-testimonial-role">CO-FOUNDER, FLIGHTPLAN</span></div>
+                    class="pfx-testimonial-role" data-i18n="feedback.role.cofounder">CO-FOUNDER, FLIGHTPLAN</span></div>
               </div>
             </div>
           </div>
@@ -2673,7 +2739,7 @@
                 meticulous with the details that go into the development of the projects.</p>
               <div class="pfx-testimonial-author"><img src="image/testimonial/testimonial2.png" alt="Wilkie Tan"
                   class="pfx-testimonial-avatar">
-                <div><span class="pfx-testimonial-name">Wilkie Tan</span><span class="pfx-testimonial-role">DESIGN TUTOR
+                <div><span class="pfx-testimonial-name">Wilkie Tan</span><span class="pfx-testimonial-role" data-i18n="feedback.role.tutor1">DESIGN TUTOR
                     / CREATOR</span></div>
               </div>
             </div>
@@ -2686,7 +2752,7 @@
                 definitely be a valuable asset to any organization.</p>
               <div class="pfx-testimonial-author"><img src="image/testimonial/testimonial3.png" alt="Harim Song"
                   class="pfx-testimonial-avatar">
-                <div><span class="pfx-testimonial-name">Harim Song</span><span class="pfx-testimonial-role">SESSIONAL
+                <div><span class="pfx-testimonial-name">Harim Song</span><span class="pfx-testimonial-role" data-i18n="feedback.role.tutor2">SESSIONAL
                     DESIGN TUTOR</span></div>
               </div>
             </div>
@@ -2699,7 +2765,7 @@
                 in components, and truly collaborates like a tech-native designer.</p>
               <div class="pfx-testimonial-author"><img src="image/testimonial/testimonial15.png" alt="David Chen"
                   class="pfx-testimonial-avatar">
-                <div><span class="pfx-testimonial-name">David Chen</span><span class="pfx-testimonial-role">LEAD
+                <div><span class="pfx-testimonial-name">David Chen</span><span class="pfx-testimonial-role" data-i18n="feedback.role.dev">LEAD
                     FRONT-END DEVELOPER</span></div>
               </div>
             </div>
@@ -2713,7 +2779,7 @@
                 about. He's not just a designer — he's a problem-solver who elevates the entire product experience.</p>
               <div class="pfx-testimonial-author"><img src="image/testimonial/testimonial14.png" alt=""
                   class="pfx-testimonial-avatar">
-                <div><span class="pfx-testimonial-name">Rachel Lee</span><span class="pfx-testimonial-role">PRODUCT
+                <div><span class="pfx-testimonial-name">Rachel Lee</span><span class="pfx-testimonial-role" data-i18n="feedback.role.pm">PRODUCT
                     MANAGER</span></div>
               </div>
             </div>
@@ -2727,7 +2793,7 @@
               <div class="pfx-testimonial-author"><img src="image/testimonial/testimonial1.png" alt=""
                   class="pfx-testimonial-avatar">
                 <div><span class="pfx-testimonial-name">Gendry Morales</span><span
-                    class="pfx-testimonial-role">CO-FOUNDER, FLIGHTPLAN</span></div>
+                    class="pfx-testimonial-role" data-i18n="feedback.role.cofounder">CO-FOUNDER, FLIGHTPLAN</span></div>
               </div>
             </div>
           </div>
@@ -2739,7 +2805,7 @@
                 meticulous with the details that go into the development of the projects.</p>
               <div class="pfx-testimonial-author"><img src="image/testimonial/testimonial2.png" alt=""
                   class="pfx-testimonial-avatar">
-                <div><span class="pfx-testimonial-name">Wilkie Tan</span><span class="pfx-testimonial-role">DESIGN TUTOR
+                <div><span class="pfx-testimonial-name">Wilkie Tan</span><span class="pfx-testimonial-role" data-i18n="feedback.role.tutor1">DESIGN TUTOR
                     / CREATOR</span></div>
               </div>
             </div>
@@ -2752,7 +2818,7 @@
                 definitely be a valuable asset to any organization.</p>
               <div class="pfx-testimonial-author"><img src="image/testimonial/testimonial3.png" alt=""
                   class="pfx-testimonial-avatar">
-                <div><span class="pfx-testimonial-name">Harim Song</span><span class="pfx-testimonial-role">SESSIONAL
+                <div><span class="pfx-testimonial-name">Harim Song</span><span class="pfx-testimonial-role" data-i18n="feedback.role.tutor2">SESSIONAL
                     DESIGN TUTOR</span></div>
               </div>
             </div>
@@ -2765,7 +2831,7 @@
                 in components, and truly collaborates like a tech-native designer.</p>
               <div class="pfx-testimonial-author"><img src="image/testimonial/testimonial15.png" alt=""
                   class="pfx-testimonial-avatar">
-                <div><span class="pfx-testimonial-name">David Chen</span><span class="pfx-testimonial-role">LEAD
+                <div><span class="pfx-testimonial-name">David Chen</span><span class="pfx-testimonial-role" data-i18n="feedback.role.dev">LEAD
                     FRONT-END DEVELOPER</span></div>
               </div>
             </div>
@@ -2784,13 +2850,13 @@
           <span style="width: 7px; height: 7px; background: #F07040;"></span>
           <span
             style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.3em; color: #F07040;"><span
-              class="pfx-section-prefix">06 — </span>CHEERS, CONTACT ME PLEASE</span>
+              class="pfx-section-prefix">06 — </span><span data-i18n="contact.eyebrow">CHEERS, CONTACT ME PLEASE</span></span>
           <span style="flex: 1; height: 1px; background: rgba(255,255,255,0.07);"></span>
         </div>
         <h2 data-reveal="true"
           style="margin: 30px 0 0 0; font-size: clamp(40px,7vw,104px); font-weight: 600; letter-spacing: -0.035em; line-height: 1.02; max-width: 1000px;">
-          Think I'd fit<br>your project<span style="color: #F07040;">?</span></h2>
-        <p data-reveal="true"
+          <span data-i18n="contact.heading">Think I'd fit<br>your project</span><span style="color: #F07040;">?</span></h2>
+        <p data-reveal="true" data-i18n="contact.desc"
           style="margin: 26px 0 0 0; max-width: 480px; font-size: 16px; font-weight: 300; line-height: 1.7; color: rgba(244,242,238,0.6); text-wrap: pretty;">
           Get in touch with me about a project, a collaboration, or just to say hello.</p>
 
@@ -2800,7 +2866,7 @@
           <a href="tel:+886900777190" data-reveal="true" class="pfx-btn-xl pfx-hov-15"
             style="display: flex; align-items: center; gap: 18px; background: #0F0F12; padding: 0 28px; text-decoration: none; color: #F4F2EE; transition: background 0.25s;">
             <img src="image/contact/phone.png" alt="" style="width: 38px; height: 38px; object-fit: contain;">
-            <span><span
+            <span><span data-i18n="contact.phone"
                 style="display: block; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.24em; color: rgba(244,242,238,0.45);">PHONE
                 ME</span><span style="display: block; margin-top: 7px; font-size: 16px; font-weight: 400;">+886 900 777
                 190</span></span>
@@ -2808,7 +2874,7 @@
           <a href="mailto:ohbox0408@gmail.com" data-reveal="true" data-reveal-delay="0.08" class="pfx-btn-xl pfx-hov-16"
             style="display: flex; align-items: center; gap: 18px; background: #0F0F12; padding: 0 28px; text-decoration: none; color: #F4F2EE; transition: background 0.25s;">
             <img src="image/contact/email.png" alt="" style="width: 38px; height: 38px; object-fit: contain;">
-            <span><span
+            <span><span data-i18n="contact.email"
                 style="display: block; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.24em; color: rgba(244,242,238,0.45);">EMAIL
                 ME</span><span
                 style="display: block; margin-top: 7px; font-size: 16px; font-weight: 400;">ohbox0408@gmail.com</span></span>
@@ -2816,9 +2882,9 @@
           <div data-reveal="true" data-reveal-delay="0.16" class="pfx-btn-xl"
             style="display: flex; align-items: center; gap: 18px; background: #0F0F12; padding: 0 28px;">
             <img src="image/contact/location.png" alt="" style="width: 38px; height: 38px; object-fit: contain;">
-            <span><span
+            <span><span data-i18n="contact.visit"
                 style="display: block; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.24em; color: rgba(244,242,238,0.45);">VISIT
-                ME</span><span style="display: block; margin-top: 7px; font-size: 16px; font-weight: 400;">Taipei,
+                ME</span><span data-i18n="contact.location" style="display: block; margin-top: 7px; font-size: 16px; font-weight: 400;">Taipei,
                 Taiwan</span></span>
           </div>
         </div>
@@ -2827,8 +2893,8 @@
         <div style="display: flex; justify-content: center; padding: clamp(56px,10vh,110px) 0;">
           <a href="mailto:ohbox0408@gmail.com" data-magnetic="true" data-cursor="HELLO" data-reveal="true"
             class="pfx-btn-xl pfx-mobile-full pfx-hov-17"
-            style="display: inline-flex; align-items: center; justify-content: center; gap: 16px; font-family: 'Space Mono', monospace; font-size: clamp(13px,1.4vw,16px); letter-spacing: 0.26em; color: #0C0C0E; background: #F07040; text-decoration: none; padding: 0 clamp(36px,5vw,60px); box-shadow: 0 0 60px rgba(240,112,64,0.3); transition: background 0.2s, box-shadow 0.2s;">REACH
-            OUT TO ME <span aria-hidden="true">→</span></a>
+            style="display: inline-flex; align-items: center; justify-content: center; gap: 16px; font-family: 'Space Mono', monospace; font-size: clamp(13px,1.4vw,16px); letter-spacing: 0.26em; color: #0C0C0E; background: #F07040; text-decoration: none; padding: 0 clamp(36px,5vw,60px); box-shadow: 0 0 60px rgba(240,112,64,0.3); transition: background 0.2s, box-shadow 0.2s;"><span data-i18n="contact.cta">REACH
+            OUT TO ME</span> <span aria-hidden="true">→</span></a>
         </div>
       </div>
 
@@ -2840,7 +2906,7 @@
               style="font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: rgba(244,242,238,0.45);">©2026
               POHUNG LIN — UI/UX DESIGN PORTFOLIO</span>
           </div>
-          <a href="#top" class="pfx-hov-18"
+          <a href="#top" class="pfx-hov-18" data-i18n="footer.top"
             style="font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.22em; color: rgba(244,242,238,0.45); text-decoration: none; transition: color 0.2s;">BACK
             TO TOP ↑</a>
         </div>
@@ -3052,12 +3118,49 @@
         });
       }
 
-      function quote() {
-        /* Exclude [data-qkeyword] spans — they have their own brightness animation */
+      var QUOTE_WORDS = {
+        en: [
+          { text: '“Think' }, { text: 'outside' }, { text: 'the' },
+          { text: 'Box', key: true }, { text: ',' },
+          { text: 'but' }, { text: 'don’t' }, { text: 'forget' },
+          { text: 'inside', key: true }, { text: '”' }
+        ],
+        zh: [
+          { text: '跳出' }, { text: '框架', key: true }, { text: '思考,' },
+          { text: '但' }, { text: '別忘了' }, { text: '框架本身', key: true }
+        ]
+      };
+
+      var quoteScrollTriggers = [];
+      var quoteScrollHandler = null;
+      var quoteResizeHandler = null;
+
+      function buildQuoteSpans(lang) {
+        var container = document.querySelector('[data-quote]');
+        if (!container) return;
+        container.innerHTML = '';
+        QUOTE_WORDS[lang].forEach(function (w, i) {
+          var span = document.createElement('span');
+          span.setAttribute('data-qword', 'true');
+          if (w.key) {
+            span.setAttribute('data-qkeyword', 'true');
+            span.classList.add('qkw-dim');
+          }
+          span.textContent = w.text;
+          container.appendChild(span);
+          if (i < QUOTE_WORDS[lang].length - 1) container.appendChild(document.createTextNode(' '));
+        });
+      }
+
+      function quote(lang) {
+        buildQuoteSpans(lang || 'en');
+
+        quoteScrollTriggers.forEach(function (st) { st.kill(); });
+        quoteScrollTriggers = [];
+
         var words = document.querySelectorAll('[data-qword]:not([data-qkeyword])');
-        if (!words.length) return;
         words.forEach(function (word) {
-          gsap.fromTo(word, { opacity: 0.13 }, {
+          var tween = gsap.fromTo(word, { opacity: 0.13 }, {
             opacity: 1,
             ease: 'none',
             scrollTrigger: {
@@ -3067,7 +3170,10 @@
               scrub: true
             }
           });
+          if (tween.scrollTrigger) quoteScrollTriggers.push(tween.scrollTrigger);
         });
+
+        keywordHighlight();
       }
 
       function keywordHighlight() {
@@ -3084,10 +3190,19 @@
           });
         }
 
+        if (quoteScrollHandler) window.removeEventListener('scroll', quoteScrollHandler);
+        if (quoteResizeHandler) window.removeEventListener('resize', quoteResizeHandler);
+        quoteScrollHandler = check;
+        quoteResizeHandler = check;
         window.addEventListener('scroll', check, { passive: true });
         window.addEventListener('resize', check, { passive: true });
         check();
       }
+
+      window.PfxQuoteRebuild = function (lang) {
+        quote(lang);
+        if (window.ScrollTrigger) ScrollTrigger.refresh();
+      };
 
       function bars() {
         gsap.utils.toArray('[data-bar]').forEach(function (bar) {
@@ -3726,6 +3841,14 @@
           second: '2-digit',
           hour12: true
         });
+        var zhDateFormatter = new Intl.DateTimeFormat('zh-TW', { timeZone: 'Asia/Taipei', month: 'long', day: 'numeric' });
+        var zhTimeFormatter = new Intl.DateTimeFormat('zh-TW', {
+          timeZone: 'Asia/Taipei',
+          hour: 'numeric',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: true
+        });
 
         function ordinal(day) {
           var mod100 = day % 100;
@@ -3739,9 +3862,14 @@
 
         function render() {
           var now = new Date();
-          var month = monthFormatter.format(now);
-          var day = Number(dayFormatter.format(now));
-          target.textContent = month + ' ' + ordinal(day) + ' ' + timeFormatter.format(now) + ' (GMT+8)';
+          var lang = window.PfxI18n ? window.PfxI18n.getLang() : 'en';
+          if (lang === 'zh') {
+            target.textContent = zhDateFormatter.format(now) + ' ' + zhTimeFormatter.format(now) + ' (GMT+8)';
+          } else {
+            var month = monthFormatter.format(now);
+            var day = Number(dayFormatter.format(now));
+            target.textContent = month + ' ' + ordinal(day) + ' ' + timeFormatter.format(now) + ' (GMT+8)';
+          }
         }
 
         render();
@@ -3760,8 +3888,7 @@
         testimonialTilt();
         testimonialCarousel();
         mobileNav();
-        quote();
-        keywordHighlight();
+        quote(window.PfxI18n ? window.PfxI18n.getLang() : 'en');
         bars();
         workV2();
         navActive();

@@ -11,6 +11,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="fx.js"></script>
+  <script src="i18n.js"></script>
   <style>
     html { scroll-behavior: smooth; }
     body { margin:0; background:#0C0C0E; color:#F4F2EE; font-family:'Space Grotesk',sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
@@ -43,7 +44,7 @@
     <div style="max-width:1320px;margin:0 auto;padding:0 clamp(20px,4vw,48px);height:70px;display:flex;align-items:center;justify-content:space-between;gap:16px;">
       <a href="index.html" data-nav="true" class="project-nav-back pfx-hov-1" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:rgba(244,242,238,0.6);transition:color .2s;">
         <span style="font-family:'Space Mono',monospace;font-size:18px;">←</span>
-        <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.24em;">BACK TO WORK</span>
+        <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.24em;" data-i18n="proj.back">BACK TO WORK</span>
       </a>
       <a href="index.html" data-nav="true" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#F4F2EE;">
         <object class="project-nav-logo" data="logo/logo_anime.svg" type="image/svg+xml" style="width:32px;height:32px;display:block;flex-shrink:0;pointer-events:none;" aria-label="Tom Lin"></object>
@@ -61,15 +62,15 @@
     <div style="display:flex;flex-direction:column;justify-content:center;padding:clamp(48px,8vh,96px) clamp(28px,4vw,72px) clamp(48px,8vh,96px) clamp(20px,4vw,60px);border-right:1px solid rgba(255,255,255,0.07);">
       <div data-hero-badge="true" class="pfx-caption-badge" style="display:inline-flex;align-items:center;gap:10px;margin-bottom:clamp(24px,4vh,40px);width:fit-content;">
         <span style="width:6px;height:6px;border-radius:50%;background:#F07040;animation:pfx-pulse 1.8s ease-in-out infinite;"></span>
-        <span style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.28em;color:#F07040;">CASE STUDY — 01</span>
+        <span style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.28em;color:#F07040;" data-i18n="proj.rg.badge">CASE STUDY — 01</span>
       </div>
       <h1 data-hero-title="true" style="margin:0;font-size:clamp(44px,7vw,96px);font-weight:700;letter-spacing:-.03em;line-height:.95;">Resume<br>Genius<span style="color:#F07040;">.</span></h1>
-      <p data-hero-desc="true" style="margin:clamp(20px,3vh,32px) 0 0 0;max-width:480px;font-size:clamp(15px,1.4vw,18px);font-weight:300;line-height:1.7;color:rgba(244,242,238,0.62);text-wrap:pretty;">A professional platform for creating polished resumes and cover letters, supported by an extensive library of career resources and a dedicated community.</p>
+      <p data-hero-desc="true" data-i18n="project.rg.desc" style="margin:clamp(20px,3vh,32px) 0 0 0;max-width:480px;font-size:clamp(15px,1.4vw,18px);font-weight:300;line-height:1.7;color:rgba(244,242,238,0.62);text-wrap:pretty;">A professional platform for creating polished resumes and cover letters, supported by an extensive library of career resources and a dedicated community.</p>
       <div data-hero-meta="true" style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.07);margin-top:clamp(28px,4vh,44px);font-family:'Space Mono',monospace;">
-        <div style="background:#0C0C0E;padding:16px 18px;"><span style="display:block;font-size:9px;letter-spacing:.26em;color:rgba(244,242,238,.4);">TIMELINE</span><span style="display:block;margin-top:6px;font-size:12px;">July 2022 — 2026</span></div>
-        <div style="background:#0C0C0E;padding:16px 18px;"><span style="display:block;font-size:9px;letter-spacing:.26em;color:rgba(244,242,238,.4);">CATEGORY</span><span style="display:block;margin-top:6px;font-size:12px;">Web Platform</span></div>
-        <div style="background:#0C0C0E;padding:16px 18px;"><span style="display:block;font-size:9px;letter-spacing:.26em;color:rgba(244,242,238,.4);">ROLE</span><span style="display:block;margin-top:6px;font-size:12px;">UI/UX Designer</span></div>
-        <div style="background:#0C0C0E;padding:16px 18px;"><span style="display:block;font-size:9px;letter-spacing:.26em;color:rgba(244,242,238,.4);">HIGHLIGHTS</span><span style="display:block;margin-top:6px;font-size:12px;">Design System + Optimization</span></div>
+        <div style="background:#0C0C0E;padding:16px 18px;"><span style="display:block;font-size:9px;letter-spacing:.26em;color:rgba(244,242,238,.4);" data-i18n="proj.timeline">TIMELINE</span><span style="display:block;margin-top:6px;font-size:12px;">July 2022 — 2026</span></div>
+        <div style="background:#0C0C0E;padding:16px 18px;"><span style="display:block;font-size:9px;letter-spacing:.26em;color:rgba(244,242,238,.4);" data-i18n="proj.category">CATEGORY</span><span style="display:block;margin-top:6px;font-size:12px;" data-i18n="proj.rg.category.value">Web Platform</span></div>
+        <div style="background:#0C0C0E;padding:16px 18px;"><span style="display:block;font-size:9px;letter-spacing:.26em;color:rgba(244,242,238,.4);" data-i18n="proj.role">ROLE</span><span style="display:block;margin-top:6px;font-size:12px;">UI/UX Designer</span></div>
+        <div style="background:#0C0C0E;padding:16px 18px;"><span style="display:block;font-size:9px;letter-spacing:.26em;color:rgba(244,242,238,.4);" data-i18n="proj.highlights">HIGHLIGHTS</span><span style="display:block;margin-top:6px;font-size:12px;" data-i18n="proj.rg.highlights.value">Design System + Optimization</span></div>
       </div>
       <div data-hero-meta="true" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:18px;">
         <span class="pfx-indent-badge">UI/UX DESIGN</span>
@@ -92,7 +93,7 @@
     <div style="max-width:1280px;margin:0 auto;padding:0;display:flex;flex-direction:column;gap:clamp(16px,3vw,28px);">
       <div style="display:flex;align-items:center;gap:16px;padding:0 12px;">
         <span style="width:7px;height:7px;background:#F07040;"></span>
-        <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.3em;color:#F07040;">PROJECT CONTENT</span>
+        <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.3em;color:#F07040;" data-i18n="proj.content">PROJECT CONTENT</span>
       </div>
       <div style="padding:12px;border:1px solid rgba(255,255,255,0.07);">
       <div style="background:#fff;display:flex;flex-direction:column;">
@@ -124,7 +125,7 @@
   <footer style="border-top:1px solid rgba(255,255,255,0.07);">
     <div style="max-width:1320px;margin:0 auto;padding:22px clamp(20px,4vw,48px);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
       <span style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;color:rgba(244,242,238,.35);">©2026 POHUNG LIN — UI/UX DESIGN PORTFOLIO</span>
-      <a href="#top" class="pfx-hov-5" style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;color:rgba(244,242,238,.35);text-decoration:none;transition:color .2s;">BACK TO TOP ↑</a>
+      <a href="#top" class="pfx-hov-5" data-i18n="footer.top" style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;color:rgba(244,242,238,.35);text-decoration:none;transition:color .2s;">BACK TO TOP ↑</a>
     </div>
   </footer>
 </div>

@@ -4,36 +4,57 @@
   /* ---------------- Data ---------------- */
 
   var skillsData = [
-    'Design System', 'Handoff & Specs', 'HTML/CSS', 'Wireframing', 'Prototyping',
-    'User Research', 'Competitive Analysis', 'Responsive Web Design', 'Visual UI Design',
-    'Critical Thinking', 'User-centered Iteration', 'Micro-interaction',
-    'Cross-functional Collaboration', 'Organizing Information', 'Storytelling',
-    'Vibe Design & Coding', 'Information Architecture', 'User Journey Mapping',
-    'Product Thinking', 'AI Prompting', 'AI-driven Research', 'AI-powered Ideation',
-    'AI Workflow Automation', 'AI-generated Evaluation'
+    { en: 'Design System', zh: '設計系統' },
+    { en: 'Handoff & Specs', zh: '設計交付與規格' },
+    { en: 'HTML/CSS', zh: 'HTML/CSS' },
+    { en: 'Wireframing', zh: '線框稿' },
+    { en: 'Prototyping', zh: '原型設計' },
+    { en: 'User Research', zh: '使用者研究' },
+    { en: 'Competitive Analysis', zh: '競品分析' },
+    { en: 'Responsive Web Design', zh: '響應式網頁設計' },
+    { en: 'Visual UI Design', zh: '視覺 UI 設計' },
+    { en: 'Critical Thinking', zh: '批判性思考' },
+    { en: 'User-centered Iteration', zh: '以使用者為核心的迭代' },
+    { en: 'Micro-interaction', zh: '微互動' },
+    { en: 'Cross-functional Collaboration', zh: '跨部門協作' },
+    { en: 'Organizing Information', zh: '資訊整理' },
+    { en: 'Storytelling', zh: '敘事能力' },
+    { en: 'Vibe Design & Coding', zh: 'Vibe Coding 式設計與開發' },
+    { en: 'Information Architecture', zh: '資訊架構' },
+    { en: 'User Journey Mapping', zh: '使用者旅程地圖' },
+    { en: 'Product Thinking', zh: '產品思維' },
+    { en: 'AI Prompting', zh: 'AI 提示詞設計' },
+    { en: 'AI-driven Research', zh: 'AI 驅動研究' },
+    { en: 'AI-powered Ideation', zh: 'AI 輔助發想' },
+    { en: 'AI Workflow Automation', zh: 'AI 工作流程自動化' },
+    { en: 'AI-generated Evaluation', zh: 'AI 生成評估' }
   ];
 
   var strengthsData = [
-    { label: 'Critical Thinking', level: 8 },
-    { label: 'Self-Disciplined', level: 9 },
-    { label: 'Continuous Learning', level: 7 },
-    { label: 'Problem Solving', level: 8 },
-    { label: 'Collaboration', level: 6 },
-    { label: 'Time-Management', level: 8 }
+    { label: { en: 'Critical Thinking', zh: '批判性思考' }, level: 8 },
+    { label: { en: 'Self-Disciplined', zh: '自律' }, level: 9 },
+    { label: { en: 'Continuous Learning', zh: '持續學習' }, level: 7 },
+    { label: { en: 'Problem Solving', zh: '問題解決' }, level: 8 },
+    { label: { en: 'Collaboration', zh: '團隊協作' }, level: 6 },
+    { label: { en: 'Time-Management', zh: '時間管理' }, level: 8 }
   ];
 
   var languageData = [
-    { label: 'Chinese', level: 'Native', value: 94 },
-    { label: 'English', level: 'Advanced', value: 82 }
+    { label: { en: 'Chinese', zh: '中文' }, level: { en: 'Native', zh: '母語' }, value: 94 },
+    { label: { en: 'English', zh: '英文' }, level: { en: 'Advanced', zh: '流利' }, value: 82 }
   ];
 
   var interestsData = [
-    { label: 'MOVIE', icon: 'image/about/movie.png' },
-    { label: 'BADMINTON', icon: 'image/about/badminton.png' },
-    { label: 'TRAVEL', icon: 'image/about/travel.png' },
-    { label: 'PETS', icon: 'image/about/pet.png' },
-    { label: 'BOARD GAME', icon: 'image/about/board-game.png' }
+    { label: { en: 'MOVIE', zh: '電影' }, icon: 'image/about/movie.png' },
+    { label: { en: 'BADMINTON', zh: '羽球' }, icon: 'image/about/badminton.png' },
+    { label: { en: 'TRAVEL', zh: '旅行' }, icon: 'image/about/travel.png' },
+    { label: { en: 'PETS', zh: '寵物' }, icon: 'image/about/pet.png' },
+    { label: { en: 'BOARD GAME', zh: '桌遊' }, icon: 'image/about/board-game.png' }
   ];
+
+  function getLang() {
+    return (window.PfxI18n && window.PfxI18n.getLang()) || 'en';
+  }
 
   /* ---------------- Helpers ---------------- */
 
@@ -65,10 +86,16 @@
     [3,  6,   GRAY], [6,  6,   ORANGE], [2,  6,   YELLOW]
   ];
 
-  function renderSkillChips(panel) {
+  function renderSkillChips(panel, lang) {
     var layer = panel.querySelector('[data-cap-chips]');
-    layer.innerHTML = skillsData.map(function (label) {
-      return '<span class="cap-chip">' + label + '</span>';
+    var existing = layer.querySelectorAll('.cap-chip');
+    if (existing.length === skillsData.length) {
+      /* Physics bodies already reference these elements — update labels in place */
+      Array.prototype.forEach.call(existing, function (el, i) { el.textContent = skillsData[i][lang]; });
+      return;
+    }
+    layer.innerHTML = skillsData.map(function (item) {
+      return '<span class="cap-chip">' + item[lang] + '</span>';
     }).join('');
   }
 
@@ -239,7 +266,16 @@
 
   var STRENGTH_SEGMENTS = 40;
 
-  function renderStrengths(root) {
+  function renderStrengths(root, lang) {
+    var rows = root.querySelectorAll('.cap-strength-row');
+    if (rows.length === strengthsData.length) {
+      /* Segments already carry their reveal-animation state — only swap labels */
+      Array.prototype.forEach.call(rows, function (row, i) {
+        var labelEl = row.querySelector('.cap-strength-label');
+        if (labelEl) labelEl.textContent = strengthsData[i].label[lang];
+      });
+      return;
+    }
     root.innerHTML = strengthsData.map(function (item) {
       var filled = Math.round((item.level / 10) * STRENGTH_SEGMENTS);
       var segs = '';
@@ -249,7 +285,7 @@
       return (
         '<div class="cap-strength-row">' +
         '<div class="cap-strength-head">' +
-        '<span class="cap-strength-label">' + item.label + '</span>' +
+        '<span class="cap-strength-label">' + item.label[lang] + '</span>' +
         '<span class="cap-strength-level">LV.' + item.level + '</span>' +
         '</div>' +
         '<div class="cap-tube">' + segs + '</div>' +
@@ -342,12 +378,23 @@
     return '<g class="cap-lang-ticks">' + ticks + '</g>';
   }
 
-  function renderLanguage(root) {
+  function renderLanguage(root, lang) {
+    var cards = root.querySelectorAll('.cap-lang-card');
+    if (cards.length === languageData.length) {
+      /* Radial chart + animated value are independent of the label text */
+      Array.prototype.forEach.call(cards, function (card, i) {
+        var titleEl = card.querySelector('.cap-lang-title');
+        var labelEl = card.querySelector('.cap-lang-label');
+        if (titleEl) titleEl.textContent = languageData[i].label[lang];
+        if (labelEl) labelEl.textContent = languageData[i].level[lang].toUpperCase();
+      });
+      return;
+    }
     root.innerHTML = languageData.map(function (item) {
       return (
         '<div class="cap-lang-card">' +
-        '<h3 class="cap-lang-title">' + item.label + '</h3>' +
-        '<p class="cap-lang-label">' + item.level.toUpperCase() + '</p>' +
+        '<h3 class="cap-lang-title">' + item.label[lang] + '</h3>' +
+        '<p class="cap-lang-label">' + item.level[lang].toUpperCase() + '</p>' +
         '<div class="cap-lang-chart">' +
         '<svg class="cap-lang-svg" viewBox="0 0 240 240" aria-hidden="true">' +
         buildLangTicks() +
@@ -413,12 +460,19 @@
 
   /* ============ 5. Interests — infinite auto-sliding carousel ============ */
 
-  function renderInterests(root) {
+  function renderInterests(root, lang) {
+    var labels = root.querySelectorAll('.cap-interest-label');
+    if (labels.length === interestsData.length * 2) {
+      Array.prototype.forEach.call(labels, function (el, i) {
+        el.textContent = interestsData[i % interestsData.length].label[lang];
+      });
+      return;
+    }
     var cardHTML = interestsData.map(function (item) {
       return (
         '<div class="cap-interest-card">' +
         '<img class="cap-interest-icon" src="' + item.icon + '" alt="">' +
-        '<span class="cap-interest-label">' + item.label + '</span>' +
+        '<span class="cap-interest-label">' + item.label[lang] + '</span>' +
         '</div>'
       );
     }).join('');
@@ -441,8 +495,9 @@
     var capacityPanel  = dashboard.querySelector('[data-cap="capacity"]');
     var languagePanel  = dashboard.querySelector('[data-cap="language"]');
     var interestsRoot  = dashboard.querySelector('[data-cap-root="interests"]');
+    var lang = getLang();
 
-    renderSkillChips(skillsPanel);
+    renderSkillChips(skillsPanel, lang);
     if (!reduced) {
       setupSkillsPhysics(skillsPanel, cleanupFns);
     } else {
@@ -454,16 +509,31 @@
       });
     }
 
-    renderStrengths(strengthsPanel.querySelector('[data-cap-root="strengths"]'));
+    renderStrengths(strengthsPanel.querySelector('[data-cap-root="strengths"]'), lang);
     animateStrengths(strengthsPanel, reduced);
 
-    renderLanguage(languagePanel.querySelector('[data-cap-root="language"]'));
+    renderLanguage(languagePanel.querySelector('[data-cap-root="language"]'), lang);
     animateLanguage(languagePanel, reduced);
 
-    renderInterests(interestsRoot);
+    renderInterests(interestsRoot, lang);
 
     setupCapacityPanel(capacityPanel, reduced);
   }
 
-  window.AboutDashboard = { init: init };
+  function setLanguage(lang) {
+    var dashboard = document.querySelector('[data-cap-dashboard]');
+    if (!dashboard || dashboard.dataset.capReady !== 'true') return;
+
+    var skillsPanel    = dashboard.querySelector('[data-cap="skills"]');
+    var strengthsPanel = dashboard.querySelector('[data-cap="strengths"]');
+    var languagePanel  = dashboard.querySelector('[data-cap="language"]');
+    var interestsRoot  = dashboard.querySelector('[data-cap-root="interests"]');
+
+    if (skillsPanel) renderSkillChips(skillsPanel, lang);
+    if (strengthsPanel) renderStrengths(strengthsPanel.querySelector('[data-cap-root="strengths"]'), lang);
+    if (languagePanel) renderLanguage(languagePanel.querySelector('[data-cap-root="language"]'), lang);
+    if (interestsRoot) renderInterests(interestsRoot, lang);
+  }
+
+  window.AboutDashboard = { init: init, setLanguage: setLanguage };
 })();
