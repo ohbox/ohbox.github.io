@@ -1268,12 +1268,21 @@
       .pfx-lang-toggle-mobile {
         display: inline-flex !important;
       }
+
+      .pfx-mobile-controls {
+        display: flex !important;
+      }
     }
 
     /* ---- Language switch (EN / 中) ---- */
-    .pfx-nav-lang-group,
-    .pfx-mobile-controls {
+    .pfx-nav-lang-group {
       display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .pfx-mobile-controls {
+      display: none;
       align-items: center;
       gap: 8px;
     }
