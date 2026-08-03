@@ -28,11 +28,11 @@
     'nav.mobile.contactItem':  { en: "Let's chat", zh: '聊聊吧' },
 
     /* ---------- hero ---------- */
-    'hero.badge': { en: 'AVAILABLE FOR WORK', zh: '現正接案中' },
-    'hero.line1': { en: 'Hi, I am', zh: '嗨,我是' },
+    'hero.badge': { en: 'AVAILABLE FOR WORK', zh: '開放合作機會' },
+    'hero.line1': { en: 'Hi, I am', zh: '嗨，我是' },
     'hero.desc': {
-      en: 'A UI/UX Designer turning complexity into intuitive digital experiences — with a creative spark, blending systemic design and refined interfaces.',
-      zh: '我是一名 UI/UX 設計師,擅長把複雜的問題轉化為直覺易懂的數位體驗——用一點創意火花,結合系統化設計與精緻介面。'
+      en: 'A UI/UX Designer turning complex product problems into intuitive digital experiences through systems thinking and thoughtful interface design.',
+      zh: '我是一名 UI/UX 設計師，擅長將複雜的產品問題轉化為清晰、直覺的數位體驗，在系統思考與介面細節之間取得平衡。'
     },
     'hero.cta.work': { en: 'VIEW MY WORK', zh: '查看作品' },
     'hero.location': { en: 'TAIPEI, TAIWAN', zh: '台灣・台北' },
@@ -40,10 +40,10 @@
 
     /* ---------- process ---------- */
     'process.eyebrow': { en: 'DESIGN PROCESS', zh: '設計流程' },
-    'process.heading': { en: 'Aesthetics and<br>Usability', zh: '美感,亦是<br>可用性' },
+    'process.heading': { en: 'Aesthetics and<br>Usability', zh: '美感，亦是<br>可用性' },
     'process.desc': {
       en: 'I design with a user-first mindset, crafting experiences that are both visually striking and effortlessly intuitive.',
-      zh: '我秉持使用者優先的設計思維,打造兼具視覺張力與直覺易用的體驗。'
+      zh: '我秉持使用者優先的設計思維，打造兼具視覺張力與直覺易用的體驗。'
     },
     'process.s1': { en: 'Research', zh: '使用者研究' },
     'process.s2': { en: 'Craft Visuals', zh: '視覺打磨' },
@@ -55,24 +55,39 @@
     'work.heading': { en: 'A selection of<br>Recent Works', zh: '近期作品<br>精選' },
     'work.desc': {
       en: 'Magic I make with my mouse — projects that demonstrate my approach to UX thinking and visual UI design.',
-      zh: '滑鼠點出來的魔法——這些作品展現了我在 UX 思維與視覺 UI 設計上的方法。'
+      zh: '游標所到之處，都是設計魔法——呈現我如何以 UX 思維與視覺設計，解決產品問題。'
     },
     'work.cta': { en: 'VIEW CASE STUDY', zh: '查看案例' },
+
+    /* Project tag badges — shared across index.html cards + each project-*.html hero */
+    'badge.uiux':              { en: 'UI/UX DESIGN', zh: 'UI/UX 設計' },
+    'badge.designSystem':      { en: 'DESIGN SYSTEM', zh: '設計系統' },
+    'badge.microInteraction':  { en: 'MICRO-INTERACTION', zh: '微互動' },
+    'badge.research':          { en: 'RESEARCH', zh: '使用者研究' },
+    'badge.rapidPrototyping':  { en: 'RAPID PROTOTYPING', zh: '快速原型' },
+    'badge.designThinking':    { en: 'DESIGN THINKING', zh: '設計思考' },
+    'badge.onlineLearning':    { en: 'ONLINE LEARNING', zh: '線上學習' },
+    'badge.ecommerce':         { en: 'E-COMMERCE', zh: '電商' },
+    'badge.mascotCreation':    { en: 'MASCOT CREATION', zh: '吉祥物設計' },
+    'badge.appDesign':         { en: 'APP DESIGN', zh: '應用程式設計' },
+    'badge.conceptDesign':     { en: 'CONCEPT DESIGN', zh: '概念設計' },
+    'badge.gamification':      { en: 'GAMIFICATION', zh: '遊戲化設計' },
+    'badge.graduateProject':   { en: 'GRADUATE PROJECT', zh: '畢業專題' },
 
     'project.rg.tag': { en: 'CS.01 — WEB PLATFORM', zh: 'CS.01 — 網頁平台' },
     'project.rg.desc': {
       en: 'An online platform that helps users create professional resumes and cover letters with customizable templates and step-by-step guidance.',
-      zh: '一個協助使用者快速生成專業履歷與求職信的線上平台,提供可自訂範本與 AI 技術指引,並提供豐富的職涯資源與專屬社群支援。'
+      zh: '一個協助使用者快速生成專業履歷與求職信的線上平台，提供可自訂範本與 AI 技術指引，並提供豐富的職涯資源與專屬社群支援。'
     },
     'project.yotta.tag': { en: 'CS.02 — LEARNING PLATFORM', zh: 'CS.02 — 學習平台' },
     'project.yotta.desc': {
       en: 'An online learning platform. Courses cover fascinating subjects in a wide range of fields — life, language, engineering, business and more.',
-      zh: '台灣知名的跨領域線上學習平台,課程橫跨生活、語言、工程、商業等多元領域的有趣主題,並提供企業培訓方案。'
+      zh: '台灣知名的跨領域線上學習平台，課程橫跨生活、語言、工程、商業等多元領域的有趣主題，並提供企業培訓方案。'
     },
     'project.cupo.tag': { en: 'CS.03 — MOBILE APP', zh: 'CS.03 — 行動應用程式' },
     'project.cupo.desc': {
       en: 'A student-based productivity tool that boosts motivation and fights procrastination by rewarding you with coupons.',
-      zh: '一款專為學生打造的效率工具,透過優惠券獎勵機制提升動力、對抗拖延。'
+      zh: '一款專為學生打造的效率工具，透過優惠券獎勵機制提升動力、對抗拖延。'
     },
 
     /* ---------- quote ---------- */
@@ -84,26 +99,26 @@
     'about.heading': { en: 'Who I Am', zh: '關於我' },
     'about.badge.profile': { en: 'PROFILE', zh: '個人檔案' },
     'about.badge.open': { en: 'OPEN TO NEW PROJECTS', zh: '開放接案中' },
-    'about.bio.hi': { en: "Hi, I'm Tom Lin — good to meet you!", zh: '嗨,我是 Tom Lin,很高興認識你!' },
+    'about.bio.hi': { en: "Hi, I'm Tom Lin — good to meet you!", zh: '嗨，我是 Tom Lin，很高興認識你!' },
     'about.bio.text': {
       en: "With 6+ years in UI/UX design, I create user-centered digital products through research, prototyping, and testing with purpose. I'm hands-on from discovery to delivery, detail-oriented yet pragmatic — knowing when to polish and when to ship. I use AI as part of my workflow for research synthesis, inspiration, prompting, rapid prototyping, and light coding, allowing me to explore faster and communicate ideas more clearly. I value design systems, accessibility, and smooth collaboration with developers and product teams from concept to hand-off.",
-      zh: '我有 6 年以上的 UI/UX 設計經驗,透過有目的的研究、原型設計與測試,打造以使用者為核心的數位產品。從探索到交付,我都親力親為——注重細節,但也很務實,清楚知道什麼時候該打磨、什麼時候該上線。我把 AI 融入日常工作流程,用它整理研究資料、激發靈感、寫 prompt、快速做原型,也會寫一些簡單的程式,讓我能更快探索想法、更清楚地把概念傳達出去。我很重視設計系統、無障礙設計,以及從發想到交付,和工程師、產品團隊之間的順暢協作。'
+      zh: '我有 6 年以上的 UI/UX 設計經驗，透過有目的的研究、原型設計與測試，打造以使用者為核心的數位產品。從探索到交付，我都親力親為——注重細節，但也很務實，清楚知道什麼時候該打磨、什麼時候該上線。我把 AI 融入日常工作流程，用它整理研究資料、激發靈感、寫 prompt、快速做原型，也會寫一些簡單的程式，讓我能更快探索想法、更清楚地把概念傳達出去。我很重視設計系統、無障礙設計，以及從發想到交付，和工程師、產品團隊之間的順暢協作。'
     },
     'about.bio.quote': {
       en: '"Good design starts with empathy and ends with impact."',
-      zh: '「好的設計,始於同理心,終於影響力。」'
+      zh: '「好的設計，始於同理心，終於影響力。」'
     },
     'about.cta.resume': { en: 'DOWNLOAD RESUME', zh: '下載履歷' },
 
     /* ---------- capability dashboard panel titles ---------- */
     'dash.skills':     { en: 'Skills &amp; Expertise', zh: '技能與專長' },
     'dash.language':   { en: 'Language', zh: '語言能力' },
-    'dash.capacity':   { en: 'Capacity', zh: 'AI 應用能力' },
+    'dash.capacity':   { en: 'Capacity', zh: '應用能力' },
     'dash.strengths':  { en: 'Strengths', zh: '個人特質' },
     'dash.interests':  { en: 'Interests', zh: '興趣' },
 
     /* ---------- feedback ---------- */
-    'feedback.eyebrow': { en: "BANG, I'VE DONE A GREAT JOB", zh: '成果,有目共睹' },
+    'feedback.eyebrow': { en: "BANG, I'VE DONE A GREAT JOB", zh: '成果，有目共睹' },
     'feedback.heading': { en: 'What People Say', zh: '大家怎麼說' },
     'feedback.desc': {
       en: "Here's what collaborators, clients and colleagues have said about my design approach.",
@@ -115,12 +130,33 @@
     'feedback.role.tutor2':    { en: 'SESSIONAL DESIGN TUTOR', zh: '兼任設計講師' },
     'feedback.role.dev':       { en: 'LEAD FRONT-END DEVELOPER', zh: '前端技術主管' },
 
+    'feedback.quote.pm': {
+      en: "Working with Tom was a game-changer for our product. His design intuition and attention to user behavior helped us simplify a complex flow into something our users now rave about. He's not just a designer — he's a problem-solver who elevates the entire product experience.",
+      zh: '與 Tom 合作是我們產品的轉捩點。他對設計的直覺與對使用者行為的敏銳觀察，幫助我們把複雜的流程簡化成使用者讚不絕口的體驗。他不只是設計師——更是能提升整體產品體驗的問題解決者。'
+    },
+    'feedback.quote.cofounder': {
+      en: 'Tom is an incredibly talented web and UI designer who is very skilled with animation. He is able to do all this while working remotely and independently. Definitely a pleasure to work with and will go to any lengths to achieve outstanding results!',
+      zh: 'Tom 是一位才華洋溢的網頁與 UI 設計師，動效表現也相當出色。即使遠端獨立作業，他依然能維持高水準的產出。與他合作非常愉快，他總是全力以赴，追求卓越的成果!'
+    },
+    'feedback.quote.tutor1': {
+      en: 'Tom is open to the feedback of his fellow students and tutors. Good at managing his time well over the module of the projects and takes great pride in his work and is often meticulous with the details that go into the development of the projects.',
+      zh: 'Tom 樂於接受同學與導師的回饋，在專案期間也能妥善掌握時間安排。他對自己的作品相當自豪，在專案的細節處理上總是一絲不苟。'
+    },
+    'feedback.quote.tutor2': {
+      en: 'Tom constantly exceeds expectations and uses excellent design skills. Even under pressure he had the capacity to build strong work relationships and team dynamics. He would definitely be a valuable asset to any organization.',
+      zh: 'Tom 總是超乎預期，展現出色的設計能力。即使在壓力之下，他依然能維繫良好的工作關係與團隊互動。他絕對是任何團隊都會想要的重要資產。'
+    },
+    'feedback.quote.dev': {
+      en: 'Tom brings design systems to life with remarkable clarity. His UI/UX work is both beautiful and functional, making development feel effortless. He anticipates edge cases, thinks in components, and truly collaborates like a tech-native designer.',
+      zh: 'Tom 能把設計系統清楚且生動地落地實現。他的 UI/UX 作品兼具美感與實用性，讓開發流程變得輕鬆順暢。他會預先考慮到邊界情況、以元件化的方式思考，合作起來就像懂技術的設計師一樣默契。'
+    },
+
     /* ---------- contact ---------- */
-    'contact.eyebrow': { en: 'CHEERS, CONTACT ME PLEASE', zh: '說吧,想聊聊嗎' },
+    'contact.eyebrow': { en: 'CHEERS, CONTACT ME PLEASE', zh: '說吧，想聊聊嗎' },
     'contact.heading': { en: "Think I'd fit<br>your project", zh: '覺得我適合<br>你的專案嗎' },
     'contact.desc': {
       en: 'Get in touch with me about a project, a collaboration, or just to say hello.',
-      zh: '無論是專案合作,或只是想打聲招呼,都歡迎與我聯絡。'
+      zh: '無論是專案合作，或只是想打聲招呼，都歡迎與我聯絡。'
     },
     'contact.phone': { en: 'PHONE ME', zh: '打給我' },
     'contact.email': { en: 'EMAIL ME', zh: '寫信給我' },
