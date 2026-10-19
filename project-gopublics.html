@@ -49,7 +49,7 @@
       </a>
       <div style="display:flex;align-items:center;gap:8px;">
         <a href="project-rg.html" data-nav="true" class="pfx-btn-sm pfx-hov-2" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.12);transition:border-color .2s;" title="ResumeGenius"><img src="image/projects/RG-logo.png" alt="RG" style="width:20px;height:20px;object-fit:contain;"></a>
-        <a href="project-gopublics.html" class="pfx-btn-sm" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(240,112,64,0.7);background:rgba(240,112,64,0.1);" title="GoPublics"><span style="width:20px;height:20px;display:grid;place-items:center;background:#C9151E;color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;line-height:1;">G</span></a>
+        <a href="project-gopublics.html" class="pfx-btn-sm" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(240,112,64,0.7);background:rgba(240,112,64,0.1);" title="GoPublics"><img src="image/projects/gopublics-symbol.svg" alt="GoPublics" style="width:20px;height:20px;object-fit:contain;"></a>
         <a href="project-yotta.html" data-nav="true" class="pfx-btn-sm pfx-hov-3" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.12);transition:border-color .2s;" title="Yotta"><img src="image/projects/YOTTA-logo.png" alt="Yotta" style="width:20px;height:20px;object-fit:contain;filter:brightness(1.4);"></a>
         <a href="project-cupo.html" data-nav="true" class="pfx-btn-sm pfx-hov-4" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.12);transition:border-color .2s;" title="Cupo"><img src="image/projects/CUPO-logo.png" alt="Cupo" style="width:20px;height:20px;object-fit:contain;filter:brightness(1.4);"></a>
       </div>
@@ -81,8 +81,9 @@
     <div class="project-hero-media" style="position:relative;overflow:hidden;min-height:70vh;">
       <div aria-hidden="true" style="position:absolute;top:14px;right:14px;width:14px;height:14px;border-top:1px solid rgba(240,112,64,.7);border-right:1px solid rgba(240,112,64,.7);z-index:2;"></div>
       <div aria-hidden="true" style="position:absolute;bottom:14px;left:14px;width:14px;height:14px;border-bottom:1px solid rgba(240,112,64,.7);border-left:1px solid rgba(240,112,64,.7);z-index:2;"></div>
-      <img src="image/projects/gopublics-tablet.jpg" alt="GoPublics dashboard displayed on a landscape tablet" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;">
+      <img data-gopublics-screen src="image/projects/gopublics-tablet.jpg" alt="GoPublics dashboard displayed on a landscape tablet" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;">
       <div style="position:absolute;inset:0;background:linear-gradient(270deg,rgba(12,12,14,0) 60%,rgba(12,12,14,0.5) 100%);"></div>
+      <span class="gopublics-logo-overlay" data-gopublics-logo="268,163,112,39" style="position:absolute;left:0;top:0;display:block;pointer-events:none;z-index:4;background:#151412 url(image/projects/gopublics-logo-reverse.svg) center/contain no-repeat;border-radius:1px" aria-hidden="true"></span>
     </div>
   </section>
 
@@ -154,5 +155,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 </script>
+<script src="gopublics-brand-overlay.js"></script>
 </body>
 </html>
