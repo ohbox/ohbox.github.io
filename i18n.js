@@ -73,18 +73,26 @@
     'badge.conceptDesign':     { en: 'CONCEPT DESIGN', zh: '概念設計' },
     'badge.gamification':      { en: 'GAMIFICATION', zh: '遊戲化設計' },
     'badge.graduateProject':   { en: 'GRADUATE PROJECT', zh: '畢業專題' },
+    'badge.zeroToOne':         { en: '0→1 PRODUCT DESIGN', zh: '0→1 產品設計' },
+    'badge.contentWorkflow':   { en: 'CONTENT WORKFLOW', zh: '內容工作流程' },
+    'badge.websiteManagement': { en: 'WEBSITE MANAGEMENT', zh: '網站管理' },
 
     'project.rg.tag': { en: 'CS.01 — WEB PLATFORM', zh: 'CS.01 — 網頁平台' },
     'project.rg.desc': {
       en: 'An online platform that helps users create professional resumes and cover letters with customizable templates and step-by-step guidance.',
       zh: '一個協助使用者快速生成專業履歷與求職信的線上平台，提供可自訂範本與 AI 技術指引，並提供豐富的職涯資源與專屬社群支援。'
     },
-    'project.yotta.tag': { en: 'CS.02 — LEARNING PLATFORM', zh: 'CS.02 — 學習平台' },
+    'project.gopublics.tag': { en: 'CS.02 — PUBLISHING PLATFORM', zh: 'CS.02 — 出版平台' },
+    'project.gopublics.desc': {
+      en: 'An independent publishing platform that brings writing, website setup, and reader management into one workspace.',
+      zh: '一套從 0 到 1 規劃的獨立出版平台，整合文章創作、網站設定與讀者管理，協助創作者建立自己的出版空間。'
+    },
+    'project.yotta.tag': { en: 'CS.03 — LEARNING PLATFORM', zh: 'CS.03 — 學習平台' },
     'project.yotta.desc': {
       en: 'An online learning platform. Courses cover fascinating subjects in a wide range of fields — life, language, engineering, business and more.',
       zh: '台灣知名的跨領域線上學習平台，課程橫跨生活、語言、工程、商業等多元領域的有趣主題，並提供企業培訓方案。'
     },
-    'project.cupo.tag': { en: 'CS.03 — MOBILE APP', zh: 'CS.03 — 行動應用程式' },
+    'project.cupo.tag': { en: 'CS.04 — MOBILE APP', zh: 'CS.04 — 行動應用程式' },
     'project.cupo.desc': {
       en: 'A student-based productivity tool that boosts motivation and fights procrastination by rewarding you with coupons.',
       zh: '一款專為學生打造的效率工具，透過優惠券獎勵機制提升動力、對抗拖延。'
@@ -178,9 +186,14 @@
 
     'proj.rg.badge':   { en: 'CASE STUDY — 01', zh: '案例研究 — 01' },
     'proj.rg.category.value':   { en: 'Web Platform', zh: '網頁平台' },
+    'proj.gopublics.badge': { en: 'CASE STUDY — 02', zh: '案例研究 — 02' },
+    'proj.gopublics.timeline': { en: '2024 Original Design · 2026 Prototype Reconstruction', zh: '2024 原始設計 · 2026 互動原型重建' },
+    'proj.gopublics.category.value': { en: 'Publishing Platform', zh: '出版平台' },
+    'proj.gopublics.role.value': { en: 'Product Designer', zh: '產品設計師' },
+    'proj.gopublics.highlights.value': { en: 'Research + IA + Core Workflows', zh: '研究、資訊架構與主要流程' },
     'proj.rg.highlights.value': { en: 'Design System + Optimization', zh: '設計系統與優化' },
 
-    'proj.yotta.badge': { en: 'CASE STUDY — 02', zh: '案例研究 — 02' },
+    'proj.yotta.badge': { en: 'CASE STUDY — 03', zh: '案例研究 — 03' },
     'proj.yotta.category.value':   { en: 'Learning Platform', zh: '學習平台' },
     'proj.yotta.highlights.value': { en: 'Multiple-status Elements + Ecommerce', zh: '多狀態元件與電商功能' },
     'proj.yotta.icon.life':     { en: 'Life', zh: '生活' },
@@ -189,7 +202,7 @@
     'proj.yotta.icon.language': { en: 'Language', zh: '語言' },
     'proj.yotta.icon.tech':     { en: 'Tech', zh: '科技' },
 
-    'proj.cupo.badge': { en: 'CASE STUDY — 03', zh: '案例研究 — 03' },
+    'proj.cupo.badge': { en: 'CASE STUDY — 04', zh: '案例研究 — 04' },
     'proj.cupo.category.value': { en: 'Mobile App', zh: '行動應用程式' },
     'proj.cupo.type.value':     { en: 'Graduate Project', zh: '畢業專題' },
     'proj.cupo.interactive':    { en: 'INTERACTIVE PROTOTYPE', zh: '互動原型' },

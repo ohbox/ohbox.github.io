@@ -2437,12 +2437,45 @@
             </div>
           </div>
 
-          <!-- Project 02 — Yotta -->
+          <!-- Project 02 — GoPublics -->
           <div class="work-v2-panel" data-panel="2">
             <div class="work-v2-panel-inner">
               <div class="work-v2-content" style="order: 1;">
                 <div data-reveal="true" class="work-v2-meta">
                   <span class="work-v2-index">02</span>
+                  <span class="work-v2-years">2024</span>
+                </div>
+                <h3 data-reveal="true" class="work-v2-title">GoPublics</h3>
+                <p data-reveal="true" class="work-v2-desc" data-i18n="project.gopublics.desc">
+                  An independent publishing platform that brings writing, website setup, and reader management into one workspace.</p>
+                <div data-reveal="true" class="work-v2-badges">
+                  <span class="pfx-indent-badge" data-i18n="badge.zeroToOne">0→1 PRODUCT DESIGN</span>
+                  <span class="pfx-indent-badge" data-i18n="badge.research">RESEARCH</span>
+                  <span class="pfx-indent-badge" data-i18n="badge.contentWorkflow">CONTENT WORKFLOW</span>
+                  <span class="pfx-indent-badge" data-i18n="badge.websiteManagement">WEBSITE MANAGEMENT</span>
+                </div>
+                <a href="project-gopublics.html" data-nav="true" data-reveal="true" class="work-v2-cta"><span data-i18n="work.cta">VIEW CASE STUDY</span> <span aria-hidden="true">↗</span></a>
+              </div>
+              <a href="project-gopublics.html" data-nav="true" data-cursor="VIEW" data-reveal-img="true" class="work-v2-media"
+                aria-label="GoPublics case study"
+                style="order: 2; background: linear-gradient(160deg, #17120F, #0F0F12 70%);">
+                <span class="work-v2-corner tl" aria-hidden="true"></span>
+                <span class="work-v2-corner tr" aria-hidden="true"></span>
+                <span class="work-v2-corner bl" aria-hidden="true"></span>
+                <span class="work-v2-corner br" aria-hidden="true"></span>
+                <span class="work-v2-tag" data-i18n="project.gopublics.tag">CS.02 — PUBLISHING PLATFORM</span>
+                <img src="image/projects/gopublics-tablet.jpg" alt="GoPublics dashboard displayed on a landscape tablet">
+                <span class="work-v2-media-overlay" aria-hidden="true"></span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Project 03 — Yotta -->
+          <div class="work-v2-panel" data-panel="3">
+            <div class="work-v2-panel-inner">
+              <div class="work-v2-content" style="order: 1;">
+                <div data-reveal="true" class="work-v2-meta">
+                  <span class="work-v2-index">03</span>
                   <span class="work-v2-years">2020 — 2022</span>
                 </div>
                 <h3 data-reveal="true" class="work-v2-title">Yotta</h3>
@@ -2473,12 +2506,12 @@
             </div>
           </div>
 
-          <!-- Project 03 — Cupo -->
-          <div class="work-v2-panel" data-panel="3">
+          <!-- Project 04 — Cupo -->
+          <div class="work-v2-panel" data-panel="4">
             <div class="work-v2-panel-inner">
               <div class="work-v2-content" style="order: 1;">
                 <div data-reveal="true" class="work-v2-meta">
-                  <span class="work-v2-index">03</span>
+                  <span class="work-v2-index">04</span>
                   <span class="work-v2-years">2018 — 2019</span>
                 </div>
                 <h3 data-reveal="true" class="work-v2-title">Cupo</h3>
@@ -2512,6 +2545,7 @@
 
         <!-- Scroll-progress indicators (desktop pinned mode only) -->
         <div class="work-v2-progress" aria-hidden="true">
+          <div class="work-v2-progress-bar"><span class="work-v2-progress-fill"></span></div>
           <div class="work-v2-progress-bar"><span class="work-v2-progress-fill"></span></div>
           <div class="work-v2-progress-bar"><span class="work-v2-progress-fill"></span></div>
           <div class="work-v2-progress-bar"><span class="work-v2-progress-fill"></span></div>
@@ -3231,7 +3265,7 @@
         var fills = gsap.utils.toArray(section.querySelectorAll('.work-v2-progress-fill'));
         var bars = gsap.utils.toArray(section.querySelectorAll('.work-v2-progress-bar'));
         var imgs = gsap.utils.toArray(section.querySelectorAll('.work-v2-media img'));
-        if (!pin || panels.length < 3 || fills.length < 3 || imgs.length < 3) return;
+        if (!pin || panels.length < 2 || fills.length !== panels.length || imgs.length !== panels.length || bars.length !== panels.length) return;
 
         function setActiveBar(i) {
           bars.forEach(function (b, idx) { b.classList.toggle('is-active', idx === i); });
@@ -3240,46 +3274,47 @@
         var mm = gsap.matchMedia();
 
         mm.add('(min-width: 881px)', function () {
-          gsap.set(panels[1], { xPercent: 100, opacity: 0.6 });
-          gsap.set(panels[2], { xPercent: 100, opacity: 0.6 });
+          gsap.set(panels[0], { xPercent: 0, scale: 1, opacity: 1 });
+          gsap.set(panels.slice(1), { xPercent: 100, opacity: 0.6 });
           gsap.set(fills, { scaleX: 0 });
           gsap.set(imgs, { scale: 1 });
           setActiveBar(0);
 
-          // segment durations (arbitrary units, only relative size matters for scrub):
-          // fill1 -> slide 1>2 -> fill2 -> slide 2>3 -> fill3
           var dFill = 1, dSlide = 0.6;
-          var total = dFill + dSlide + dFill + dSlide + dFill;
-          var t2 = (dFill + dSlide) / total;
-          var t4 = (dFill + dSlide + dFill + dSlide) / total;
+          var total = panels.length * dFill + (panels.length - 1) * dSlide;
+          var boundaries = [];
+          var elapsed = dFill;
+          for (var i = 0; i < panels.length - 1; i++) {
+            elapsed += dSlide;
+            boundaries.push(elapsed / total);
+            elapsed += dFill;
+          }
 
           var tl = gsap.timeline({
             defaults: { ease: 'none' },
             scrollTrigger: {
               trigger: pin,
               start: 'top top',
-              end: '+=300%',
+              end: '+=' + (panels.length * 100) + '%',
               scrub: 1,
               pin: true,
               anticipatePin: 1,
               invalidateOnRefresh: true,
               onUpdate: function (self) {
-                var p = self.progress;
-                setActiveBar(p < t2 ? 0 : (p < t4 ? 1 : 2));
+                var activeIndex = boundaries.findIndex(function (boundary) { return self.progress < boundary; });
+                setActiveBar(activeIndex === -1 ? panels.length - 1 : activeIndex);
               }
             }
           });
 
-          tl.to(fills[0], { scaleX: 1, duration: dFill });
-          tl.to(imgs[0], { scale: 1.12, duration: dFill }, '<');
-          tl.to(panels[0], { xPercent: -100, scale: 0.97, opacity: 0.75, duration: dSlide, ease: 'power2.inOut' })
-            .to(panels[1], { xPercent: 0, scale: 1, opacity: 1, duration: dSlide, ease: 'power2.inOut' }, '<');
-          tl.to(fills[1], { scaleX: 1, duration: dFill });
-          tl.to(imgs[1], { scale: 1.12, duration: dFill }, '<');
-          tl.to(panels[1], { xPercent: -100, scale: 0.97, opacity: 0.75, duration: dSlide, ease: 'power2.inOut' })
-            .to(panels[2], { xPercent: 0, scale: 1, opacity: 1, duration: dSlide, ease: 'power2.inOut' }, '<');
-          tl.to(fills[2], { scaleX: 1, duration: dFill });
-          tl.to(imgs[2], { scale: 1.12, duration: dFill }, '<');
+          panels.forEach(function (panel, index) {
+            tl.to(fills[index], { scaleX: 1, duration: dFill });
+            tl.to(imgs[index], { scale: 1.12, duration: dFill }, '<');
+            if (index < panels.length - 1) {
+              tl.to(panel, { xPercent: -100, scale: 0.97, opacity: 0.75, duration: dSlide, ease: 'power2.inOut' })
+                .to(panels[index + 1], { xPercent: 0, scale: 1, opacity: 1, duration: dSlide, ease: 'power2.inOut' }, '<');
+            }
+          });
 
           return function () {
             tl.scrollTrigger && tl.scrollTrigger.kill();
