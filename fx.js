@@ -73,38 +73,21 @@
   };
 
   /* ---------------- Page transitions ---------------- */
-  var transitionsInitialized = false;
   FX.initTransitions = function () {
-    if (transitionsInitialized) return;
-    transitionsInitialized = true;
-
-    var wrap = document.getElementById('pfx-transition');
-    if (!wrap) {
-      wrap = document.createElement('div');
-      wrap.id = 'pfx-transition';
-      wrap.setAttribute('aria-hidden', 'true');
-      wrap.style.cssText = 'position:fixed;inset:0;z-index:9990;pointer-events:auto;';
-      var orangeLayer = document.createElement('div');
-      orangeLayer.setAttribute('data-pfx-layer', 'orange');
-      orangeLayer.style.cssText = 'position:absolute;inset:0;background:#F07040;transform:translateY(0%);';
-      var charcoalLayer = document.createElement('div');
-      charcoalLayer.setAttribute('data-pfx-layer', 'charcoal');
-      charcoalLayer.style.cssText = 'position:absolute;inset:0;background:#101013;transform:translateY(0%);';
-      var brandLayer = document.createElement('div');
-      brandLayer.setAttribute('data-pfx-layer', 'brand');
-      brandLayer.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:700 13px/1 "Space Mono",monospace;letter-spacing:.5em;color:rgba(244,242,238,0.9);text-indent:.5em;';
-      brandLayer.textContent = 'TOM\u00b7LIN';
-      wrap.appendChild(orangeLayer);
-      wrap.appendChild(charcoalLayer);
-      wrap.appendChild(brandLayer);
-      document.body.appendChild(wrap);
-    }
-
-    var orange = wrap.querySelector('[data-pfx-layer="orange"]');
-    var charcoal = wrap.querySelector('[data-pfx-layer="charcoal"]');
-    var brand = wrap.querySelector('[data-pfx-layer="brand"]');
-    wrap.style.display = 'block';
-    wrap.style.pointerEvents = 'auto';
+    var wrap = document.createElement('div');
+    wrap.id = 'pfx-transition';
+    wrap.style.cssText = 'position:fixed;inset:0;z-index:9990;pointer-events:none;';
+    var charcoal = document.createElement('div');
+    var orange = document.createElement('div');
+    var brand = document.createElement('div');
+    charcoal.style.cssText = 'position:absolute;inset:0;background:#101013;transform:translateY(0%);';
+    orange.style.cssText = 'position:absolute;inset:0;background:#F07040;transform:translateY(0%);';
+    brand.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:700 13px/1 "Space Mono",monospace;letter-spacing:.5em;color:rgba(244,242,238,0.9);text-indent:.5em;';
+    brand.textContent = 'TOM\u00b7LIN';
+    wrap.appendChild(orange);
+    wrap.appendChild(charcoal);
+    wrap.appendChild(brand);
+    document.body.appendChild(wrap);
 
     var easing = 'cubic-bezier(0.76, 0, 0.24, 1)';
     function animate(el, from, to, dur, delay) {
@@ -120,38 +103,22 @@
     brand.style.transition = 'opacity .4s ease 250ms';
     brand.style.opacity = '1';
     setTimeout(function () { brand.style.opacity = '0'; }, 320);
-    setTimeout(function () {
-      wrap.style.display = 'none';
-      wrap.style.pointerEvents = 'none';
-    }, 1250);
+    setTimeout(function () { wrap.style.display = 'none'; }, 1250);
 
-    var navigating = false;
     document.addEventListener('click', function (e) {
       var a = e.target.closest && e.target.closest('a[data-nav]');
       if (!a) return;
       var href = a.getAttribute('href');
       if (!href || href.charAt(0) === '#') return;
-      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || a.target === '_blank') return;
       e.preventDefault();
-      if (navigating) return;
-      var destination = new URL(href, window.location.href);
-      if (destination.href === window.location.href) return;
-      navigating = true;
       wrap.style.display = 'block';
-      wrap.style.pointerEvents = 'auto';
       brand.style.opacity = '0';
       animate(orange, 'translateY(100%)', 'translateY(0%)', 600, 0);
       animate(charcoal, 'translateY(100%)', 'translateY(0%)', 600, 110);
       setTimeout(function () { brand.style.opacity = '1'; }, 500);
-      setTimeout(function () { window.location.assign(destination.href); }, 780);
+      setTimeout(function () { window.location.href = href; }, 780);
     });
   };
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () { FX.initTransitions(); }, { once: true });
-  } else {
-    FX.initTransitions();
-  }
 
   /* ---------------- Scroll reveals (GSAP) ---------------- */
   FX.initReveals = function () {

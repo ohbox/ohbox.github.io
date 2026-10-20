@@ -12,8 +12,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="fx.js"></script>
   <script src="i18n.js"></script>
-  <link rel="stylesheet" href="project-dock.css">
-  <script src="project-dock.js" defer></script>
   <style>
     html { scroll-behavior: smooth; }
     body { margin:0; background:#0C0C0E; color:#F4F2EE; font-family:'Space Grotesk',sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
@@ -21,12 +19,17 @@
     ::-webkit-scrollbar { width:8px; } ::-webkit-scrollbar-track { background:#0C0C0E; } ::-webkit-scrollbar-thumb { background:#2A2A30; } ::-webkit-scrollbar-thumb:hover { background:#F07040; }
     @keyframes pfx-pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.35;transform:scale(.78)} }
     .pfx-btn-sm { width:32px; height:32px; box-sizing:border-box; }
+    .project-nav-back > span:first-child { transform:translateY(-2px); }
     .pfx-caption-badge { border:0.4px solid rgba(240,112,64,0.2); padding:6px 12px; box-sizing:border-box; }
     .pfx-indent-badge{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.16em;background:rgba(255,255,255,0.14);color:rgba(244,242,238,0.84);padding:4px 8px;display:flex;align-items:center;box-shadow:inset 2px 2px 8px 1px rgba(0,0,0,0.4),inset -0.6px -0.6px 0 0 rgba(255,255,255,0.12);box-sizing:border-box;white-space:nowrap}
     .pfx-indent-badge::before{content:'#'}
     @media (max-width:680px) {
       .project-hero { min-height:0!important; display:flex!important; flex-direction:column!important; }
       .project-hero-media { display:none!important; }
+      header > div { justify-content:center!important; }
+      header > div > a:nth-child(2),
+      header > div > div { display:none!important; }
+      .project-nav-back { display:flex!important; }
     }
     .pfx-hov-1:hover { color:#F07040 !important; }
     .pfx-hov-2:hover { border-color:rgba(240,112,64,0.6) !important; }
@@ -36,15 +39,29 @@
   </style>
 </head>
 <body>
-<div id="pfx-transition" aria-hidden="true" style="position:fixed;inset:0;z-index:9990;pointer-events:auto;">
-  <div data-pfx-layer="orange" style="position:absolute;inset:0;background:#F07040;transform:translateY(0%);"></div>
-  <div data-pfx-layer="charcoal" style="position:absolute;inset:0;background:#101013;transform:translateY(0%);"></div>
-  <div data-pfx-layer="brand" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:700 13px/1 &quot;Space Mono&quot;,monospace;letter-spacing:.5em;color:rgba(244,242,238,0.9);text-indent:.5em;">TOM·LIN</div>
-</div>
 <div id="top" style="background:#0C0C0E; min-height:100vh;">
 
+  <!-- NAV -->
+  <header style="position:fixed;top:0;left:0;right:0;z-index:900;border-bottom:1px solid rgba(255,255,255,0.07);backdrop-filter:blur(14px);background:rgba(12,12,14,0.78);">
+    <div style="max-width:1320px;margin:0 auto;padding:0 clamp(20px,4vw,48px);height:70px;display:flex;align-items:center;justify-content:space-between;gap:16px;">
+      <a href="index.html" data-nav="true" class="project-nav-back pfx-hov-1" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:rgba(244,242,238,0.6);transition:color .2s;">
+        <span style="font-family:'Space Mono',monospace;font-size:18px;">←</span>
+        <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.24em;" data-i18n="proj.back">BACK TO WORK</span>
+      </a>
+      <a href="index.html" data-nav="true" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#F4F2EE;">
+        <object class="project-nav-logo" data="logo/logo_anime.svg" type="image/svg+xml" style="width:32px;height:32px;display:block;flex-shrink:0;pointer-events:none;" aria-label="Tom Lin"></object>
+      </a>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="project-rg.html" data-nav="true" class="pfx-btn-sm pfx-hov-2" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.12);transition:border-color .2s;" title="ResumeGenius"><img src="image/projects/RG-logo.png" alt="RG" style="width:20px;height:20px;object-fit:contain;"></a>
+        <a href="project-gopublics.html" class="pfx-btn-sm" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(240,112,64,0.7);background:rgba(240,112,64,0.1);" title="GoPublics"><img src="image/projects/gopublics-symbol.svg" alt="GoPublics" style="width:20px;height:20px;object-fit:contain;"></a>
+        <a href="project-yotta.html" data-nav="true" class="pfx-btn-sm pfx-hov-3" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.12);transition:border-color .2s;" title="Yotta"><img src="image/projects/YOTTA-logo.png" alt="Yotta" style="width:20px;height:20px;object-fit:contain;filter:brightness(1.4);"></a>
+        <a href="project-cupo.html" data-nav="true" class="pfx-btn-sm pfx-hov-4" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.12);transition:border-color .2s;" title="Cupo"><img src="image/projects/CUPO-logo.png" alt="Cupo" style="width:20px;height:20px;object-fit:contain;filter:brightness(1.4);"></a>
+      </div>
+    </div>
+  </header>
+
   <!-- HERO -->
-  <section class="project-hero" style="min-height:100svh;display:grid;grid-template-columns:1fr 1fr;">
+  <section class="project-hero" style="min-height:100svh;display:grid;grid-template-columns:1fr 1fr;padding-top:70px;">
     <div style="display:flex;flex-direction:column;justify-content:center;padding:clamp(48px,8vh,96px) clamp(28px,4vw,72px) clamp(48px,8vh,96px) clamp(20px,4vw,60px);border-right:1px solid rgba(255,255,255,0.07);">
       <div data-hero-badge="true" class="pfx-caption-badge" style="display:inline-flex;align-items:center;gap:10px;margin-bottom:clamp(24px,4vh,40px);width:fit-content;">
         <span style="width:6px;height:6px;border-radius:50%;background:#F07040;animation:pfx-pulse 1.8s ease-in-out infinite;"></span>
