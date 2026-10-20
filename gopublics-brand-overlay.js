@@ -24,7 +24,8 @@
     const x = parts[0], y = parts[1], width = parts[2], height = parts[3];
     const left = (rect.width - renderedWidth) * factor(xPosition) + x * scale;
     const top = (rect.height - renderedHeight) * factor(yPosition) + y * scale;
-    overlay.style.transform = "translate(" + left + "px, " + top + "px)";
+    overlay.style.transformOrigin = "left top";
+    overlay.style.transform = "translate(" + left + "px, " + top + "px) skew(-3.8deg, -1deg)";
     overlay.style.width = width * scale + "px";
     overlay.style.height = height * scale + "px";
   });
