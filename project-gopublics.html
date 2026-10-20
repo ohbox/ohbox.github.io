@@ -19,13 +19,17 @@
     ::-webkit-scrollbar { width:8px; } ::-webkit-scrollbar-track { background:#0C0C0E; } ::-webkit-scrollbar-thumb { background:#2A2A30; } ::-webkit-scrollbar-thumb:hover { background:#F07040; }
     @keyframes pfx-pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.35;transform:scale(.78)} }
     .pfx-btn-sm { width:32px; height:32px; box-sizing:border-box; }
+    .project-nav-back > span:first-child { transform:translateY(-2px); }
     .pfx-caption-badge { border:0.4px solid rgba(240,112,64,0.2); padding:6px 12px; box-sizing:border-box; }
     .pfx-indent-badge{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.16em;background:rgba(255,255,255,0.14);color:rgba(244,242,238,0.84);padding:4px 8px;display:flex;align-items:center;box-shadow:inset 2px 2px 8px 1px rgba(0,0,0,0.4),inset -0.6px -0.6px 0 0 rgba(255,255,255,0.12);box-sizing:border-box;white-space:nowrap}
     .pfx-indent-badge::before{content:'#'}
     @media (max-width:680px) {
       .project-hero { min-height:0!important; display:flex!important; flex-direction:column!important; }
       .project-hero-media { display:none!important; }
-      .project-nav-back { display:none!important; }
+      header > div { justify-content:center!important; }
+      header > div > a:nth-child(2),
+      header > div > div { display:none!important; }
+      .project-nav-back { display:flex!important; }
     }
     .pfx-hov-1:hover { color:#F07040 !important; }
     .pfx-hov-2:hover { border-color:rgba(240,112,64,0.6) !important; }
@@ -81,21 +85,24 @@
     <div class="project-hero-media" style="position:relative;overflow:hidden;min-height:70vh;">
       <div aria-hidden="true" style="position:absolute;top:14px;right:14px;width:14px;height:14px;border-top:1px solid rgba(240,112,64,.7);border-right:1px solid rgba(240,112,64,.7);z-index:2;"></div>
       <div aria-hidden="true" style="position:absolute;bottom:14px;left:14px;width:14px;height:14px;border-bottom:1px solid rgba(240,112,64,.7);border-left:1px solid rgba(240,112,64,.7);z-index:2;"></div>
-      <img data-gopublics-screen src="image/projects/gopublics-tablet.jpg" alt="GoPublics dashboard displayed on a landscape tablet" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;">
+      <img data-gopublics-screen src="image/projects/gopublics-tablet-085-extended.webp" alt="GoPublics dashboard displayed on a landscape tablet" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;">
       <div style="position:absolute;inset:0;background:linear-gradient(270deg,rgba(12,12,14,0) 60%,rgba(12,12,14,0.5) 100%);"></div>
-      <span class="gopublics-logo-overlay" data-gopublics-logo="268,163,112,39" style="position:absolute;left:0;top:0;display:block;pointer-events:none;z-index:4;background:#151412 url(image/projects/gopublics-logo-reverse.svg) center/contain no-repeat;border-radius:1px" aria-hidden="true"></span>
+      <span class="gopublics-logo-overlay" data-gopublics-logo="343,215,95.2,33.2" style="position:absolute;left:0;top:0;display:block;overflow:hidden;pointer-events:none;z-index:4;background:#151412;border-radius:1px" aria-hidden="true"><img src="image/projects/gopublics-logo-reverse.svg" alt="" style="display:block;width:100%;height:100%;object-fit:contain;filter:brightness(.78) saturate(.86);"></span>
     </div>
   </section>
 
   <!-- PROJECT CONTENT -->
   <section id="project-content" style="border-top:1px solid rgba(255,255,255,0.07);padding:clamp(60px,10vh,120px) 0 clamp(24px,4vh,48px);">
-    <div style="max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,48px);">
+    <div style="max-width:1440px;margin:0 auto;padding:0;display:flex;flex-direction:column;gap:clamp(16px,3vw,28px);">
       <div style="display:flex;align-items:center;gap:16px;padding:0 12px;">
         <span style="width:7px;height:7px;background:#F07040;"></span>
         <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.3em;color:#F07040;" data-i18n="proj.content">PROJECT CONTENT</span>
       </div>
-      <!-- Final case-study content will be inserted here after the last review. -->
-      <div class="project-content-slot"></div>
+      <div style="padding:12px;border:1px solid rgba(255,255,255,0.07);">
+        <div style="background:#fff;display:flex;flex-direction:column;">
+          <div class="project-content-slot"><gopublics-case-study role="region" aria-label="GoPublics project case study"></gopublics-case-study></div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -156,5 +163,333 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 <script src="gopublics-brand-overlay.js"></script>
+
+<template id="gopublics-case-study-template">
+  <link rel="stylesheet" href="project-gopublics-v2/case-study.css">
+  <link rel="stylesheet" href="project-gopublics-v2/assets/hero-responsive.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;700;900&family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap">
+  <div class="folio">
+  <section class="section hero" id="01">
+    <div class="hero-top"><img src="project-gopublics-v2/assets/gopublics-logo-reverse.svg" alt="GoPublics logo"><span class="type">GOTOPUBLICS ORIGINAL DESIGN × 2026 GOPUBLICS PROTOTYPE</span></div>
+    <div class="hero-content">
+      <div class="hero-copy">
+        <div class="eyebrow">01 / The project</div>
+        <h1>From<br>zero to<br><span class="red">publish.</span></h1>
+        <p class="subtitle">Designing the foundations of an independent publishing platform.</p>
+        <p class="intro">A 0→1 product design case for creators who need a place to write, publish, and build a website they can call their own.</p>
+      </div>
+      <div class="hero-art" aria-label="Responsive views of the 2026 GoPublics reconstruction">
+        <div class="hero-stage">
+          <div class="browser-window browser-window--library" role="img" aria-label="GoPublics content library, with navigation, filters, and published stories">
+            <div class="browser-chrome"><span class="browser-dots"><i></i><i></i><i></i></span><span class="browser-address">gopublics-admin.vercel.app / content</span><span class="browser-chrome-end">↗</span></div>
+            <div class="ui-library">
+              <aside class="ui-library-sidebar">
+                <div class="ui-brand"><img src="project-gopublics-v2/assets/gopublics-logo-reverse.svg" alt="GoPublics"></div>
+                <div class="ui-view-site"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg><span>觀看我的網站</span></div>
+                <div class="ui-nav-heading">網站</div>
+                <div class="ui-nav-group">
+                <div class="ui-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V11M10 20V5M16 20v-6M21 20H3"/></svg><span class="ui-nav-label">數據面板</span></div>
+                <div class="ui-nav-item active"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg><span class="ui-nav-label">內容作品</span></div>
+                <div class="ui-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 20V9"/></svg><span class="ui-nav-label">網站管理</span></div>
+                <div class="ui-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.2a6.5 6.5 0 0 1 3.5 5.8"/></svg><span class="ui-nav-label">會員管理</span></div>
+                <div class="ui-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></svg><span class="ui-nav-label">客服管理</span><span class="ui-nav-badge">3</span></div>
+                <div class="ui-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.4"/></svg><span class="ui-nav-label">標籤</span></div>
+                <div class="ui-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span class="ui-nav-label">探索</span></div>
+                </div>
+                <div class="ui-nav-divider"></div>
+                <div class="ui-nav-heading">帳號</div>
+                <div class="ui-nav-group">
+                <div class="ui-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="10" r="3"/><path d="M6.6 18.6a6 6 0 0 1 10.8 0"/></svg><span class="ui-nav-label">個人資訊</span></div>
+                <div class="ui-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg><span class="ui-nav-label">設定</span></div>
+                <div class="ui-nav-item"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/><path d="M9.5 8.5a2.5 2.5 0 0 1 4.9.7c0 1.6-2.4 2.1-2.4 3.3M12 14.5h.01"/></svg><span class="ui-nav-label">回報問題</span><span class="ui-nav-badge">1</span></div>
+                </div>
+                <div class="ui-plan"><div class="ui-plan-title"><span>目前方案</span><b>一般</b></div><div class="ui-plan-meter"><i></i></div><div class="ui-plan-usage">會員 312 / 500</div><div class="ui-plan-upgrade">升級方案</div></div>
+                <div class="ui-sidebar-foot"><span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>登出</span><span class="ui-theme">☼　☾</span></div>
+                </aside>
+              <div class="ui-library-main">
+                <div class="ui-library-meta"><span>湯姆觀點　2026 年 10 月 16 日</span><span>已發佈 15 · 草稿 6 · <b>排程 1</b></span></div>
+                <div class="ui-library-title"><strong>內容作品</strong><span class="ui-library-actions"><em>匯入文章</em><b>✎ 創作文章</b></span></div>
+                <div class="ui-library-tabs"><b>全部 <small>22</small></b><span>未分類 4</span><span>深度報導 4</span><span>時事評論 5</span></div>
+                <div class="ui-library-filters"><span>⌕　搜尋標題...</span><span>所有文章　⌄</span><span>所有權限　⌄</span><span>所有作者　⌄</span></div>
+                <div class="ui-library-group"><b>頭版</b><span>置頂文章 · 拖曳提把調整順序</span></div>
+                <div class="ui-story-list">
+                  <div class="ui-story"><div class="ui-story-thumb circuit"></div><div class="ui-story-copy"><strong>AI 輔助寫作與新聞倫理：三個編輯室的實驗</strong><small>同樣是生成式 AI，日報、地方團隊與獨立記者畫出了不同界線。</small><span>深度報導　·　已發佈　·　公開</span></div><time>4 小時前編輯</time></div>
+                  <div class="ui-story"><div class="ui-story-thumb energy"></div><div class="ui-story-copy"><strong>缺電還是缺規劃？用十年數據看台灣尖峰負載</strong><span>數據新聞　·　已發佈　·　公開</span></div><time>6 小時前編輯</time></div>
+                  <div class="ui-story"><div class="ui-story-thumb townhall"></div><div class="ui-story-copy"><strong>地方記者消失之後：誰來監督鄉鎮公所？</strong><span>深度報導　·　已發佈　·　會員</span></div><time>3 天前編輯</time></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="browser-window browser-window--editor" role="img" aria-label="GoPublics article editor, showing a story and its settings panel">
+            <div class="browser-chrome"><span class="browser-dots"><i></i><i></i><i></i></span><span class="browser-address">gopublics-admin.vercel.app / editor</span><span class="browser-chrome-end">↗</span></div>
+            <div class="ui-editor">
+              <div class="ui-editor-toolbar"><span>‹　返回　　● 已發佈　·　已儲存</span><span>預覽　 <b>更新文章</b></span></div>
+              <div class="ui-editor-body">
+                <div class="ui-editor-canvas">
+                  <span class="ui-editor-category">⌄　深度報導　/　湯姆</span>
+                  <strong>AI 輔助寫作與新聞倫理：<br>三個編輯室的實驗</strong>
+                  <p>同樣是生成式 AI，日報、地方團隊與獨立記者畫出了三條完全不同的界線。</p>
+                  <div class="ui-editor-cover" aria-hidden="true"></div>
+                  <small>過去一年，我們拜訪了三個不同規模的編輯室。</small>
+                </div>
+                <div class="ui-editor-settings"><b>文章設定</b><span>文章網址</span><em>story-1</em><span>作者</span><em>湯姆</em><span>標籤</span><em>媒體素養　AI</em><div class="ui-editor-setting-links">文章資訊<br>文章權限<br>歷史版本<br>SEO 設定</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="hero-proof"><b>2026 INTERACTIVE RECONSTRUCTION</b><span>ORIGINAL 0→1 DESIGN IS DOCUMENTED IN<br>THE SECTIONS BELOW.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+<section class="glance" aria-label="At a glance">
+    <p class="glance-lead">An early MVP shipped in 2024 and was paused. This page shows the original design, then a 2026 interactive rebuild.</p>
+    <div class="glance-links"><a href="#06">Read the main design story <span aria-hidden="true">↓</span></a><a href="https://gopublics-admin.vercel.app/#/dashboard" target="_blank" rel="noreferrer">Open the 2026 prototype <span aria-hidden="true">↗</span></a></div>
+  </section>
+<section class="section white" id="02">
+    <div class="section-head"><span>THE OPPORTUNITY</span><span class="seq">02 / 08</span></div>
+    <div class="context-split"><div><p class="lead">Writers could start on a publishing platform, or take on the work of building a site themselves.</p><p class="copy" style="margin-top:23px">GotoPublics set out to make an independent publication easier to create and manage. The product brought writing, website controls, and reader relationships into one workspace.</p><div class="pullquote">How might a creator own a publication without first becoming a website administrator?</div></div><div><div class="stack"><div><span class="kicker">PUBLISHING PLATFORMS</span><h3>Easy to begin</h3><p>But the creator has less control over the publication’s identity and reader relationship.</p></div><div><span class="kicker">BUILD IT YOURSELF</span><h3>More control</h3><p>But setup and ongoing website work add to the publishing workload.</p></div><div><span class="kicker">THE DESIGN QUESTION</span><h3>Make ownership approachable</h3><p>Bring the recurring publishing tasks together and guide the less frequent site setup.</p></div></div><div class="source-strip"><a href="https://sunrisemedium.com/p/524/gotopublics" target="_blank" rel="noreferrer"><span>Original product interview</span><span>↗</span></a><a href="https://gotopublics.com/" target="_blank" rel="noreferrer"><span>Original GotoPublics website</span><span>↗</span></a></div></div></div>
+
+    <div class="who" id="who">
+      <div class="who-head"><span class="kicker">WHO IT’S FOR</span><h3>Built for people who publish without a team behind them.</h3></div>
+      <div class="who-layout">
+        <div class="who-figure">
+          <figure class="evidence who-shot"><img src="project-gopublics-v2/assets/signup-user-type-1200.webp" width="1200" height="750" alt="Sign-up step asking what type of user the person is, with journalist or reporter, creator, publisher, and business as options"><div class="label"><span>GotoPublics sign-up · the user-type step</span></div></figure>
+          <p class="who-note"><b>Source</b> The product team’s public interview (Sunrise Media, Feb 2024) and website. What users needed reached me through the product team. I ran no interviews of my own, so these are working assumptions, not validated findings.</p>
+        </div>
+        <div class="who-stack">
+          <table class="who-table">
+            <thead><tr><th scope="col"><span class="sr">User</span></th><th scope="col">Wants</th><th scope="col">Gets stuck on</th></tr></thead>
+            <tbody>
+              <tr><th scope="row"><span class="tag">Design focus</span><strong>Independent reporters</strong></th><td data-label="Wants">A recognizable personal publication that is simple to run, with subscriptions built in.</td><td data-label="Gets stuck on">Ghost and Substack need add-ons and offer few front-end choices.</td></tr>
+              <tr><th scope="row"><span class="tag">Design focus</span><strong>Freelance writers and planners</strong></th><td data-label="Wants">A personal brand and a way to talk with readers, without technical skills.</td><td data-label="Gets stuck on">Medium pages look alike; social reach is unstable.</td></tr>
+              <tr class="aside"><th scope="row"><span class="tag">Supported, not the focus</span><strong>Micro and small businesses</strong></th><td data-label="Wants">To publish and market content without custom development.</td><td data-label="Gets stuck on">Content and commerce rarely sit together.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 / RESEARCH -->
+  <section class="section paper" id="03">
+    <div class="section-head"><span>RESEARCH → DIRECTION</span><span class="seq">03 / 08</span></div>
+    <div class="headrow"><div class="eyebrow">Research synthesis</div><div><h2>Independent publishing sits<br>between a platform and a website.</h2><p class="copy" style="margin-top:22px">I compared publishing platforms with site-building tools: where is it easy to start, what can creators control, and what must they maintain? This was competitor research, not user validation. I reported the findings to the team.</p></div></div>
+    <div class="tradeoff-grid"><div><span class="kicker">HOSTED PUBLISHING</span><b>Start with less setup</b><p>Vocus, Medium, and Matters make publishing and discovery part of an existing platform. The publication relies more on that platform’s identity and rules.</p></div><div><span class="kicker">INDEPENDENT SITE TOOLS</span><b>Shape your own destination</b><p>Ghost and Shopify show how a publisher can manage a site and its business, while taking on more setup and operating decisions.</p></div></div>
+    <div class="block-head"><span class="kicker">FROM RESEARCH TO SCOPE</span><h3>What the comparison turned into.</h3></div>
+    <figure class="research-image"><img src="project-gopublics-v2/assets/research-content-priority.webp" width="2000" height="496" alt="Original feature map showing article filters, article analysis, and related page areas"><figcaption>Research-to-scope extract · article filters, article analysis, and the related pages identified for the backend.</figcaption></figure>
+    <div class="research-bridge" role="group" aria-label="How the research leads to product direction"><article><span class="kicker">RESEARCH SIGNAL</span><p>Publishing platforms lower the work to get started; independent-site tools give publishers more control but leave setup and maintenance to them.</p></article><span class="bridge-arrow" aria-hidden="true">→</span><article><span class="kicker">DESIGN INTERPRETATION</span><p>I treated guided ownership as the opportunity: keep editorial work central and give site setup a clear, separate home.</p></article></div>
+  </section>
+
+  <!-- 04 / PRODUCT CHOICES -->
+  <section class="section white" id="04">
+    <div class="section-head"><span>THE PRODUCT CHOICE</span><span class="seq">04 / 08</span></div>
+    <div class="headrow"><div class="eyebrow">Decision 01 / Product model</div><div><h2>Give creators an independent site without making them build it from scratch.</h2><p class="copy" style="margin-top:22px">Management set the direction after my competitor findings were reported. My job was to turn it into one workspace for writing, site setup, and reader management.</p></div></div>
+
+    <div class="options" aria-labelledby="opt-title">
+      <div class="options-head"><span class="kicker" id="opt-title">OPTIONS IN THE MARKET</span><div><h3>Three ways to publish on your own terms.</h3><p>Competitor research showed three models. The direction took the third.</p></div></div>
+      <table class="opt-table">
+        <thead><tr><th scope="col"><span class="sr">Question</span></th><th scope="col">Hosted platforms<small>Vocus, Medium, Matters</small></th><th scope="col">Build it yourself<small>Ghost, Shopify</small></th><th scope="col" class="pick">Managed publication<small>The GotoPublics direction</small></th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Getting started</th><td data-label="Hosted platforms">Fast. Publish on an existing platform.</td><td data-label="Build it yourself">Slower. Setup and operating choices come first.</td><td class="pick" data-label="Managed publication">Guided. Setup steps are built into the workspace.</td></tr>
+          <tr><th scope="row">Control of site and identity</th><td data-label="Hosted platforms">Limited. The platform’s look and rules apply.</td><td data-label="Build it yourself">Full.</td><td class="pick" data-label="Managed publication">Your own site, within defined options.</td></tr>
+          <tr><th scope="row">Reader relationship</th><td data-label="Hosted platforms">Largely with the platform.</td><td data-label="Build it yourself">With the publisher.</td><td class="pick" data-label="Managed publication">With the publisher, managed in one place.</td></tr>
+          <tr><th scope="row">Ongoing upkeep</th><td data-label="Hosted platforms">Low.</td><td data-label="Build it yourself">High.</td><td class="pick" data-label="Managed publication">Low to medium.</td></tr>
+        </tbody>
+      </table>
+      <p class="source-note">A qualitative summary of the competitor comparison I reported, not measured data or user research.</p>
+    </div>
+
+    <div class="block-head"><span class="kicker">DIRECTION AND TRADE-OFF</span><h3>What the direction keeps, and what it gives up.</h3></div>
+    <div class="decision-board"><article class="decision-card"><span class="tag">THE DIRECTION</span><h3>A managed publication of your own</h3><dl><dt>The choice</dt><dd>Bring articles, pages, themes, domains, and reader management into one workspace.</dd></dl><div class="proof">Basis: the competitor research I reported, the original feature map, and Figma screens. My reading of the gap is a design synthesis, not a validated user finding.</div></article><article class="decision-card"><span class="tag">THE TRADE-OFF</span><h3>Ownership with clear limits</h3><dl><dt>Keeps</dt><dd>Control over the publication site and its identity.</dd><dt>Gives up</dt><dd>A platform’s built-in audience and content discovery.</dd><dt>Gives up</dt><dd>The flexibility and extension options of self-hosted tools.</dd></dl><div class="proof">These trade-offs are inferred from the models compared; the source materials do not record them as measured outcomes.</div></article></div>
+    <div class="focus-bar"><b>Content leads the experience.</b><p>I ordered the work by how often a task happens and how costly a mistake is. Writing and publishing happen daily, so they get the shortest path; domain and payment setup are rare but costly, so they get guided steps. Weekly design and development syncs settled what the first release needed, what could wait, and where technical limits shaped the design. The second decision is in 06C.</p></div>
+  </section>
+
+  <!-- 05 / CRITICAL JOURNEY -->
+  <section class="section paper" id="05">
+    <div class="section-head"><span>THE PRIMARY JOURNEY</span><span class="seq">05 / 08</span></div>
+    <div class="headrow"><div class="eyebrow">One article, end to end</div><div><h2>Find it. Write it. Publish it.<br>Keep it in good shape.</h2><p class="copy" style="margin-top:22px">A quick map of the article journey. Section 06 explains the key content-design decisions and screens.</p></div></div>
+    <div class="scenario-strip"><div class="scenario-step"><strong>01</strong><h3>Find</h3><p>Choose a story to work on.</p></div><div class="scenario-step"><strong>02</strong><h3>Write</h3><p>Shape the story in the editor.</p></div><div class="scenario-step"><strong>03</strong><h3>Publish</h3><p>Set access and timing.</p></div><div class="scenario-step"><strong>04</strong><h3>Maintain</h3><p>Review or update later.</p></div></div>
+
+  </section>
+
+  <!-- 06 / THE DESIGN -->
+  <section class="section white" id="06">
+    <div class="section-head"><span>THE MAIN DESIGN STORY / CONTENT</span><span class="seq">06 / 08</span></div>
+    <div class="deep-intro"><div><div class="eyebrow">Original product design</div><div class="big">Make the<br>publishing work<br><span class="red">hold together.</span></div></div><div class="text"><p>I designed the research synthesis, information architecture, core flows, components, and wireframes. The original Figma develops content work most deeply: find a story, write it, then publish or update it.</p><div class="source-note"><b>ORIGINAL DESIGN</b> marks frames from the GotoPublics project. <b>2026 RECONSTRUCTION</b> marks the later interactive prototype.</div><div class="source-note">Interface text inside the screens is Traditional Chinese, the product’s launch market. Captions and annotations are in English.</div></div></div>
+
+    <div class="feature" id="06a">
+      <div class="feature-top"><span class="kicker">06A / CONTENT LIBRARY</span><div><h3>Show what needs attention before opening a story.</h3><p>Publication state, reader access, and author filters help a creator find work and understand its next step.</p></div></div>
+      <div class="feature-row">
+        <div class="evidence"><a href="project-gopublics-v2/assets/wf-content-list-original.webp" target="_blank" rel="noreferrer" aria-label="Open full original content library frame"><img src="project-gopublics-v2/assets/wf-content-list-original-1200.webp" alt="Original GotoPublics content library with article states, access, and author filters"></a><div class="label"><span>Original Figma · content library</span><span>Open full frame ↗</span></div></div>
+        <div class="notes"><div class="note"><b>01</b><p><strong>Read the article state</strong>Draft, scheduled, and published work appears in the same library.</p></div><div class="note"><b>02</b><p><strong>Narrow the list</strong>Access and author filters help locate a story without opening each one.</p></div><div class="note"><b>03</b><p><strong>Scan the useful details</strong>Author, last edit, and reading/like fields are shown beside each article.</p></div></div>
+      </div>
+    </div>
+
+    <div class="feature" id="06b">
+      <div class="feature-top"><span class="kicker">06B / EDITOR & SETTINGS</span><div><h3>Keep the writing area calm; open settings when they matter.</h3><p>The story occupies the canvas. A right panel holds article information, access, revision history, and SEO.</p></div></div>
+      <div class="feature-row reverse">
+        <div class="notes"><div class="note"><b>01</b><p><strong>Keep writing in focus</strong>The title and body own the main canvas; article settings stay beside them.</p></div><div class="note"><b>02</b><p><strong>Group related settings</strong>Article summary, cover image, and related stories live in the side panel.</p></div><div class="note"><b>03</b><p><strong>Show save progress</strong>A visible status distinguishes saving in progress from a saved article.</p></div></div>
+        <div class="evidence"><a href="project-gopublics-v2/assets/wf-editor-settings-original.png" target="_blank" rel="noreferrer" aria-label="Open full original editor frame"><img src="project-gopublics-v2/assets/wf-editor-settings-original.png" alt="Original GotoPublics article editor with article settings open on the right"></a><div class="label"><span>Original Figma · editor and settings</span><span>Open full frame ↗</span></div></div>
+      </div>
+    </div>
+
+    <div class="feature" id="06c">
+      <div class="feature-top"><span class="kicker">06C / DECISION 02 · PUBLISHING FLOW</span><div><h3>Make timing clear before a story goes public.</h3><p>The original Figma explores different step counts. Across the variants, the recurring tasks are to classify the article, choose immediate or scheduled publishing, and see a clear completion state. The two-step route in the 2026 prototype is a later reconstruction choice.</p></div></div>
+      <div class="publish-gallery">
+        <figure class="evidence"><a href="project-gopublics-v2/assets/wf-publish-tags-original.png" target="_blank" rel="noreferrer" aria-label="Open full original publishing classification frame"><img src="project-gopublics-v2/assets/wf-publish-tags-original.png" alt="Original GotoPublics article classification and tag settings before publishing"></a><figcaption><b>01 / Article details</b><span>Tags and classification</span></figcaption></figure>
+        <figure class="evidence"><a href="project-gopublics-v2/assets/wf-publish-timing-original.png" target="_blank" rel="noreferrer" aria-label="Open full original publishing timing frame"><img src="project-gopublics-v2/assets/wf-publish-timing-original.png" alt="Original GotoPublics choice to publish immediately or schedule publication"></a><figcaption><b>02 / Timing choice</b><span>Publish now or schedule</span></figcaption></figure>
+        <figure class="evidence"><a href="project-gopublics-v2/assets/wf-publish-success-original.png" target="_blank" rel="noreferrer" aria-label="Open full original publishing confirmation frame"><img src="project-gopublics-v2/assets/wf-publish-success-original.png" alt="Original GotoPublics publishing completion state"></a><figcaption><b>RESULT / Confirmation</b><span>Clear outcome after publishing</span></figcaption></figure>
+      </div>
+      <div class="publish-rationale" role="group" aria-label="Three publishing design annotations"><div><b>01 · ARTICLE DETAILS</b><p>Confirm tags and classification before the story moves toward publication.</p></div><div><b>02 · TIMING CHOICE</b><p>Choose immediate or scheduled publishing at the moment visibility changes. One extra step, accepted because publishing makes a story public.</p></div><div><b>03 · COMPLETION FEEDBACK</b><p>Show a clear completion state and the next action after publication.</p></div></div>
+    </div>
+
+    <div class="feature" id="06d">
+      <div class="feature-top"><span class="kicker">06D / DECISION 03 · CATEGORY NAVIGATION</span><div><h3>Make categories part of the article workflow.</h3><p>Categories lived on a separate page. I brought them into the article list, then worked out how selecting and renaming could share one row.</p></div></div>
+            <div class="ver-list" aria-label="Category design progression in three versions, and category assignment in the editor">
+        <div class="ver">
+          <div class="ver-copy"><span class="phase-label">01 / FIRST VERSION</span><strong>Separate pages</strong><p>Clear, but every category change meant leaving the list.</p>
+            <ol class="pin-legend"><li><i class="pin-key">1</i>Categories sit on their own page, reached from the sidebar.</li><li><i class="pin-key">2</i>Add, edit, and delete all happen here, in dialogs.</li></ol></div>
+          <div class="ver-figs">
+            <div class="shot pan"><div class="shot-inner"><img src="project-gopublics-v2/assets/cat-v1.webp" width="2000" height="884" alt="First version: a separate Categories page listing three categories, with add and edit category dialogs"><i class="pin" style="--x:9.3%;--y:42.4%">1</i><i class="pin" style="--x:81.3%;--y:46.0%">2</i></div></div>
+            <p class="caption">Original Figma · first version</p>
+          </div>
+        </div>
+        <div class="ver">
+          <div class="ver-copy"><span class="phase-label">02 / EXPLORATION</span><strong>Combined tabs</strong><p>One row to filter and manage. Fewer pages, but one tap carries two meanings.</p>
+            <ol class="pin-legend"><li><i class="pin-key">1</i>Filter or edit? On a phone or tablet, a tap meant to switch can open text editing and the keyboard.</li><li><i class="pin-key">2</i>After typing a new name, does Enter also activate that tab?</li><li><i class="pin-key">3</i>The sidebar has no separate Categories page.</li></ol></div>
+          <div class="ver-figs">
+            <div class="shot pan"><div class="shot-inner"><img src="project-gopublics-v2/assets/cat-v2.webp" width="2000" height="501" alt="Second version: category chips in one row above the article list, a chip being renamed in place, and a rename confirmation dialog"><i class="pin" style="--x:42.9%;--y:48.1%">1</i><i class="pin" style="--x:80.0%;--y:25.5%">2</i><i class="pin" style="--x:10.3%;--y:61.7%">3</i></div></div>
+            <p class="caption">Original Figma · second version: rename in place, then confirm.</p>
+          </div>
+        </div>
+        <div class="ver final">
+          <div class="ver-copy"><span class="phase-label">03 / FINAL VERSION</span><strong>Select, then edit</strong><p>A tap only selects. Renaming is confirmed in a dialog. The most predictable of the three, especially on touch.</p>
+            <ol class="pin-legend"><li><i class="pin-key">1</i>Only the active tab shows the rename pen.</li><li><i class="pin-key">2</i>Tapping any other tab just selects it.</li></ol></div>
+          <div class="ver-figs">
+            <div class="shot pan"><div class="shot-inner"><img src="project-gopublics-v2/assets/cat-v3.webp" width="2000" height="889" alt="Final version: category tabs above the article list with a rename pen on the active tab only, plus add and rename dialogs and success and failure messages"><i class="pin" style="--x:48.6%;--y:14.8%">1</i><i class="pin" style="--x:35.4%;--y:14.8%">2</i></div></div>
+            <p class="caption">Original Figma · final version, with success and failure feedback.</p>
+          </div>
+        </div>
+        <div class="ver">
+          <div class="ver-copy"><span class="phase-label">04 / IN THE EDITOR</span><strong>Assign where you write</strong><p>The category is chosen next to the title, in the same menu where you search and create.</p>
+            <ol class="pin-legend"><li><i class="pin-key">1</i>The category sits right above the title.</li><li><i class="pin-key">2</i>Type to search; if nothing matches, create it on the spot.</li><li><i class="pin-key">3</i>The chosen category shows above the title and is checked in the list.</li></ol></div>
+          <div class="ver-figs">
+            <div class="shot pan"><div class="shot-inner"><img src="project-gopublics-v2/assets/cat-editor.webp" width="2000" height="925" alt="Article editor with a category selector above the title, and category menu states for searching, creating, and selecting"><i class="pin" style="--x:12.0%;--y:20.1%">1</i><i class="pin" style="--x:85.0%;--y:76.7%">2</i><i class="pin" style="--x:92.0%;--y:63.7%">3</i></div></div>
+            <p class="caption">Original Figma · category assignment in the editor</p>
+          </div>
+        </div>
+      </div>
+      <div class="rule-bar"><div><span class="kicker">THE RULE</span><b>One target, one meaning.</b></div><div><span class="kicker">THE TRADE-OFF</span><p>Renaming takes a second step: select first, then edit.</p></div><div><span class="kicker">WHAT I’D CHECK WITH REAL USERS</span><p>Whether people discover the rename pen on the active tab.</p></div></div>
+      <p class="source-note">I checked these versions by walking through interaction states, including touch behavior. I did not run usability tests.</p>
+      <a class="board-link" href="project-gopublics-v2/assets/category-navigation-design.png" target="_blank" rel="noreferrer" aria-label="Open the full original category navigation design board">Open the full original board <span aria-hidden="true">↗</span></a>
+      <div class="category-model"><b>KEEP CATEGORIES DISTINCT</b><p>Each article has one category. Tags describe article topics and allow up to five; website topics are chosen at registration and organize the Explore page.</p></div>
+    </div>
+  </section>
+
+  <!-- 07 / RECONSTRUCTION -->
+  <section class="section paper" id="07">
+    <div class="section-head"><span>SUPPORTING THE PUBLICATION</span><span class="seq">07 / 08</span></div>
+    <div class="headrow"><div class="eyebrow">Beyond the article</div><div><h2>Give the publication a home<br>and a reader base.</h2><p class="copy" style="margin-top:22px">Website management gives each story a destination; member management supports the relationship with readers.</p></div></div>
+    <div class="rebuild"><div class="from"><span class="kicker">WEBSITE MANAGEMENT / ORIGINAL FIGMA</span><h3>Turn domain setup into a guided task.</h3><p>The source frames cover pages, themes, and custom domains. The domain screen turns setup into three visible steps: enter an address, create DNS records, then enable it.</p><div class="evidence"><a href="project-gopublics-v2/assets/wf-domain-original.webp" target="_blank" aria-label="Open full original domain setup frame"><img src="project-gopublics-v2/assets/wf-domain-original-1200.webp" alt="Original GotoPublics custom domain setup with three guided steps"></a><div class="label"><span>Original Figma · domain setup</span><span>Open full frame ↗</span></div></div></div><div class="to"><span class="kicker">MEMBERS / ORIGINAL FIGMA + 2026 EXTENSION</span><h3>The member list is part of the original product.</h3><p>The original Figma includes a full member-list screen with search, filters, add member, status, activity, region, and created date. More detailed member-management states in the GoPublics prototype are later extensions.</p><div class="evidence"><a href="project-gopublics-v2/assets/wf-member-original.webp" target="_blank" aria-label="Open full original member management frame"><img src="project-gopublics-v2/assets/wf-member-original-1200.webp" alt="Original GotoPublics member list with search, status filter, add member, activity, region, and created date"></a><div class="label"><span>Original Figma · member management</span><span>Open full frame ↗</span></div></div></div></div>
+    <p class="module-line"><b>Also in the original file</b> Dashboard and analytics · Tags · Support · Profile and settings · Plans · Sign-in</p>
+  </section>
+
+  <!-- 08 / CLOSE -->
+  <section class="section dark closing" id="08">
+    <div class="section-head"><span>ORIGINAL DESIGN / 2026 RECONSTRUCTION</span><span class="seq">08 / 08</span></div>
+    <div class="closing-body">
+      <div class="closing-copy">
+        <div class="eyebrow">2026 / Interactive reconstruction</div>
+        <h2>A design can<br><span class="red">outrun</span> what<br>first ships.</h2>
+        <div class="essay"><p>GotoPublics launched in 2024 as an early MVP: the overall structure and the writing features. It did not continue past that first version, for company reasons rather than design ones.</p><p>In 2026 I rebuilt the designed flows as an interactive GoPublics prototype, with AI assistance. The visual style and added details belong to that reconstruction.</p></div>
+        <a class="closing-link" href="https://gopublics-admin.vercel.app/#/dashboard" target="_blank" rel="noreferrer">Explore the 2026 interactive prototype <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="closing-showcase" role="region" aria-label="GoPublics interface gallery">
+        <div class="gallery-lane gallery-lane--up"><div class="gallery-track">
+          <div class="gallery-sequence">
+            <figure><div class="gallery-frame"><img src="project-gopublics-v2/assets/gallery-dashboard.jpg" alt="GoPublics dashboard"></div><figcaption>Dashboard</figcaption></figure>
+            <figure><div class="gallery-frame"><img src="project-gopublics-v2/assets/gallery-content.jpg" alt="GoPublics content workspace"></div><figcaption>Content workspace</figcaption></figure>
+            <figure><div class="gallery-frame"><img src="project-gopublics-v2/assets/gallery-site.jpg" alt="GoPublics website management"></div><figcaption>Website management</figcaption></figure>
+            <figure><div class="gallery-frame"><img src="project-gopublics-v2/assets/gallery-members.jpg" alt="GoPublics member management"></div><figcaption>Member management</figcaption></figure>
+            <figure><div class="gallery-frame"><img src="project-gopublics-v2/assets/gallery-theme.jpg" alt="GoPublics website theme styles"></div><figcaption>Theme styles</figcaption></figure>
+          </div>
+          <div class="gallery-sequence" aria-hidden="true">
+            <figure><div class="gallery-frame"><img src="project-gopublics-v2/assets/gallery-dashboard.jpg" alt=""></div><figcaption>Dashboard</figcaption></figure>
+            <figure><div class="gallery-frame"><img src="project-gopublics-v2/assets/gallery-content.jpg" alt=""></div><figcaption>Content workspace</figcaption></figure>
+            <figure><div class="gallery-frame"><img src="project-gopublics-v2/assets/gallery-site.jpg" alt=""></div><figcaption>Website management</figcaption></figure>
+            <figure><div class="gallery-frame"><img src="project-gopublics-v2/assets/gallery-members.jpg" alt=""></div><figcaption>Member management</figcaption></figure>
+            <figure><div class="gallery-frame"><img src="project-gopublics-v2/assets/gallery-theme.jpg" alt=""></div><figcaption>Theme styles</figcaption></figure>
+          </div>
+        </div></div>
+        <div class="gallery-lane gallery-lane--down"><div class="gallery-track">
+          <div class="gallery-sequence">
+            <figure><div class="gallery-frame"><img src="project-gopublics-v2/assets/gallery-support.jpg" alt="GoPublics customer support management"></div><figcaption>Support management</figcaption></figure>
+            <figure><div class="gallery-frame"><img src="project-gopublics-v2/assets/gallery-settings.jpg" alt="GoPublics settings"></div><figcaption>Settings</figcaption></figure>
+            <figure><div class="gallery-frame"><img src="project-gopublics-v2/assets/gallery-explore.jpg" alt="GoPublics explore directory"></div><figcaption>Explore</figcaption></figure>
+            <figure><div class="gallery-frame"><img src="project-gopublics-v2/assets/gallery-plans.jpg" alt="GoPublics plans and upgrade options"></div><figcaption>Plans &amp; upgrade</figcaption></figure>
+            <figure><div class="gallery-frame"><img src="project-gopublics-v2/assets/gallery-editor.jpg" alt="GoPublics article editor"></div><figcaption>Article editor</figcaption></figure>
+          </div>
+          <div class="gallery-sequence" aria-hidden="true">
+            <figure><div class="gallery-frame"><img src="project-gopublics-v2/assets/gallery-support.jpg" alt=""></div><figcaption>Support management</figcaption></figure>
+            <figure><div class="gallery-frame"><img src="project-gopublics-v2/assets/gallery-settings.jpg" alt=""></div><figcaption>Settings</figcaption></figure>
+            <figure><div class="gallery-frame"><img src="project-gopublics-v2/assets/gallery-explore.jpg" alt=""></div><figcaption>Explore</figcaption></figure>
+            <figure><div class="gallery-frame"><img src="project-gopublics-v2/assets/gallery-plans.jpg" alt=""></div><figcaption>Plans &amp; upgrade</figcaption></figure>
+            <figure><div class="gallery-frame"><img src="project-gopublics-v2/assets/gallery-editor.jpg" alt=""></div><figcaption>Article editor</figcaption></figure>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="close-grid">
+      <div class="close-block">
+        <span class="kicker">DESIGNED VS. SHIPPED</span>
+        <h3>About 30% of the design shipped.</h3>
+        <div class="coverage-bar" role="img" aria-label="About 30 percent of the designed scope shipped in the MVP"><i></i></div>
+        <p class="caption">An estimate from memory, not a measured figure.</p>
+
+        <p class="ship on"><b>Shipped in the MVP</b>Workspace structure · Content library · Editor · Publishing</p>
+        <p class="ship"><b>Designed, not in the first release</b>Website &amp; themes · Domain setup · Members · Support · Plans · Analytics · Profile &amp; settings</p>
+      </div>
+      <div class="close-block">
+        <span class="kicker">WHAT I’D CHECK FIRST</span>
+        <h3>The design is ahead of the evidence.</h3>
+        <p class="split"><b>What I’d do differently</b>Check touch behavior first. Combined tabs looked fine on a desktop frame; the trouble only showed when I walked through phone and tablet states.</p>
+        <ol class="check-list"><li>Does the confirm step before publishing feel useful, or like friction?</li><li>Do writers spend most of their time where I assumed: writing and publishing?</li><li>Which of the unbuilt modules do writers ask for first?</li></ol>
+        <p class="caption">Plans, not results. Feedback from independent writers should set the next priorities.</p>
+      </div>
+    </div>
+    <div class="made">
+      <div class="made-rail"><span class="kicker">HOW THE 2026 PROTOTYPE WAS MADE</span>
+        <ul class="facts"><li><b>259</b> tokens</li><li><b>80+</b> components</li><li><b>3</b> languages</li></ul>
+      </div>
+      <div class="made-body">
+        <h3>I led the process. AI did the building.</h3>
+        <p class="who-aim">The aim: rebuild the whole interface from the project’s structure, and fill the gaps with reasonable, clearly marked additions.</p>
+        <div class="who-split">
+          <div class="who-group"><b>AI</b>
+            <ul>
+              <li>Turned the 227 MB Figma file into text (13 pages, about 69,000 layers) so every frame could be checked.</li>
+              <li>Drafted the spec, the design system, and the code. Whatever the original lacked was filled in and marked as an addition.</li>
+              <li>Revised the interface and its functions after each round of feedback.</li>
+            </ul>
+          </div>
+          <div class="who-group me"><b>Me</b>
+            <ul>
+              <li><em>Product.</em> Set the background (who, why, how), the research comparison, and the original materials to start from.</li>
+              <li><em>Design.</em> Set the visual direction, the information architecture, and the design system, with every repeated part a component. An automated audit rejects anything else.</li>
+              <li><em>Build.</em> Directed development, then went back and forth adjusting the interface and its functions. Each gap the reviews found, I decided: add it, keep it, or leave it out.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="end"><span>GotoPublics · GoPublics — selected work</span><span>End of case study</span></div>
+  </section>
+  </div>
+</template>
+<script src="project-gopublics-v2/embed.js"></script>
 </body>
 </html>
