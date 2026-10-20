@@ -1498,25 +1498,23 @@
 
     .work-v2-pin {
       position: relative;
-      height: 100vh;
+      height: auto;
       margin-top: clamp(48px,8vh,96px);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
+      overflow: visible;
+      display: block;
     }
 
     .work-v2-track {
-      position: relative;
-      flex: 1;
-      min-height: 0;
+      position: static;
+      display: flex;
+      flex-direction: column;
+      gap: clamp(48px,10vw,96px);
     }
 
     .work-v2-panel {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      will-change: transform, opacity;
+      position: relative;
+      inset: auto;
+      display: block;
     }
 
     .work-v2-panel-inner {
@@ -1649,7 +1647,7 @@
 
     .work-v2-progress {
       flex-shrink: 0;
-      display: flex;
+      display: none;
       gap: 12px;
       max-width: 600px;
       width: 100%;
@@ -1677,6 +1675,35 @@
       background: #F07040;
       transform: scaleX(0);
       transform-origin: left center;
+    }
+
+    /* Use the pinned carousel only after its animation code has initialized. */
+    @media (min-width: 881px) {
+      .work-v2-section.work-v2-enhanced .work-v2-pin {
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .work-v2-section.work-v2-enhanced .work-v2-track {
+        position: relative;
+        display: block;
+        flex: 1;
+        min-height: 0;
+      }
+
+      .work-v2-section.work-v2-enhanced .work-v2-panel {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        will-change: transform, opacity;
+      }
+
+      .work-v2-section.work-v2-enhanced .work-v2-progress {
+        display: flex;
+      }
     }
 
     @media (max-width: 880px) {
@@ -3280,6 +3307,7 @@
         var mm = gsap.matchMedia();
 
         mm.add('(min-width: 881px)', function () {
+          section.classList.add('work-v2-enhanced');
           gsap.set(panels[0], { xPercent: 0, scale: 1, opacity: 1 });
           gsap.set(panels.slice(1), { xPercent: 100, opacity: 0.6 });
           gsap.set(fills, { scaleX: 0 });
@@ -3323,6 +3351,7 @@
           });
 
           return function () {
+            section.classList.remove('work-v2-enhanced');
             tl.scrollTrigger && tl.scrollTrigger.kill();
             tl.kill();
             gsap.set(panels, { clearProps: 'all' });
