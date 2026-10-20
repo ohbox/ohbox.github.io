@@ -1519,7 +1519,7 @@
       will-change: transform, opacity;
     }
 
-    /* Avoid showing every panel stacked together before the desktop carousel initializes. */
+    /* Keep later panels hidden until the desktop pinned scroll sequence is ready. */
     @media (min-width: 881px) {
       .work-v2-panel:not(:first-child) {
         visibility: hidden;
@@ -1554,6 +1554,13 @@
       overflow: hidden;
       background: #0F0F12;
       border: 1px solid rgba(255,255,255,0.09);
+    }
+
+    .work-v2-media-visual {
+      position: absolute;
+      inset: 0;
+      display: block;
+      transform-origin: center center;
     }
 
     .work-v2-media img {
@@ -2447,8 +2454,10 @@
                 <span class="work-v2-corner bl" aria-hidden="true"></span>
                 <span class="work-v2-corner br" aria-hidden="true"></span>
                 <span class="work-v2-tag" data-i18n="project.rg.tag">CS.01 — WEB PLATFORM</span>
-                <img src="image/projects/1.png" alt="ResumeGenius cover">
-                <span class="work-v2-media-overlay" aria-hidden="true"></span>
+                <span class="work-v2-media-visual">
+                  <img src="image/projects/1.png" alt="ResumeGenius cover">
+                  <span class="work-v2-media-overlay" aria-hidden="true"></span>
+                </span>
               </a>
             </div>
           </div>
@@ -2480,9 +2489,11 @@
                 <span class="work-v2-corner bl" aria-hidden="true"></span>
                 <span class="work-v2-corner br" aria-hidden="true"></span>
                 <span class="work-v2-tag" data-i18n="project.gopublics.tag">CS.02 — PUBLISHING PLATFORM</span>
-                <img data-gopublics-screen src="image/projects/gopublics-tablet-085.webp" alt="GoPublics dashboard displayed on a landscape tablet">
-                <span class="work-v2-media-overlay" aria-hidden="true"></span>
-                <span class="gopublics-logo-overlay" data-gopublics-logo="343,215,95.2,33.2" style="position:absolute;left:0;top:0;display:block;overflow:hidden;pointer-events:none;z-index:4;background:#151412;border-radius:1px" aria-hidden="true"><img src="image/projects/gopublics-logo-reverse.svg" alt="" style="display:block;width:100%;height:100%;object-fit:contain;filter:brightness(.78) saturate(.86);"></span>
+                <span class="work-v2-media-visual">
+                  <img data-gopublics-screen src="image/projects/gopublics-tablet-085.webp" alt="GoPublics dashboard displayed on a landscape tablet">
+                  <span class="work-v2-media-overlay" aria-hidden="true"></span>
+                  <span class="gopublics-logo-overlay" data-gopublics-logo="343,215,95.2,33.2" style="position:absolute;left:0;top:0;display:block;overflow:hidden;pointer-events:none;z-index:4;background:#151412;border-radius:1px" aria-hidden="true"><img src="image/projects/gopublics-logo-reverse.svg" alt="" style="display:block;width:100%;height:100%;object-fit:contain;filter:brightness(.78) saturate(.86);"></span>
+                </span>
               </a>
             </div>
           </div>
@@ -2517,8 +2528,10 @@
                 <span class="work-v2-corner bl" aria-hidden="true"></span>
                 <span class="work-v2-corner br" aria-hidden="true"></span>
                 <span class="work-v2-tag" data-i18n="project.yotta.tag">CS.02 — LEARNING PLATFORM</span>
-                <img src="image/projects/2.png" alt="Yotta cover">
-                <span class="work-v2-media-overlay" aria-hidden="true"></span>
+                <span class="work-v2-media-visual">
+                  <img src="image/projects/2.png" alt="Yotta cover">
+                  <span class="work-v2-media-overlay" aria-hidden="true"></span>
+                </span>
               </a>
             </div>
           </div>
@@ -2552,8 +2565,10 @@
                 <span class="work-v2-corner bl" aria-hidden="true"></span>
                 <span class="work-v2-corner br" aria-hidden="true"></span>
                 <span class="work-v2-tag" data-i18n="project.cupo.tag">CS.03 — MOBILE APP</span>
-                <img src="image/projects/3.png" alt="Cupo cover">
-                <span class="work-v2-media-overlay" aria-hidden="true"></span>
+                <span class="work-v2-media-visual">
+                  <img src="image/projects/3.png" alt="Cupo cover">
+                  <span class="work-v2-media-overlay" aria-hidden="true"></span>
+                </span>
               </a>
             </div>
           </div>
@@ -3281,8 +3296,8 @@
         var panels = gsap.utils.toArray(section.querySelectorAll('.work-v2-panel'));
         var fills = gsap.utils.toArray(section.querySelectorAll('.work-v2-progress-fill'));
         var bars = gsap.utils.toArray(section.querySelectorAll('.work-v2-progress-bar'));
-        var imgs = gsap.utils.toArray(section.querySelectorAll('.work-v2-media img'));
-        if (!pin || panels.length < 2 || fills.length !== panels.length || imgs.length !== panels.length || bars.length !== panels.length) return;
+        var visuals = gsap.utils.toArray(section.querySelectorAll('.work-v2-media-visual'));
+        if (!pin || panels.length < 2 || fills.length !== panels.length || visuals.length !== panels.length || bars.length !== panels.length) return;
 
         function setActiveBar(i) {
           bars.forEach(function (b, idx) { b.classList.toggle('is-active', idx === i); });
@@ -3294,7 +3309,7 @@
           gsap.set(panels[0], { xPercent: 0, scale: 1, opacity: 1 });
           gsap.set(panels.slice(1), { xPercent: 100, opacity: 0.6 });
           gsap.set(fills, { scaleX: 0 });
-          gsap.set(imgs, { scale: 1 });
+          gsap.set(visuals, { scale: 1 });
           setActiveBar(0);
           section.classList.add('work-v2-ready');
 
@@ -3327,7 +3342,7 @@
 
           panels.forEach(function (panel, index) {
             tl.to(fills[index], { scaleX: 1, duration: dFill });
-            tl.to(imgs[index], { scale: 1.12, duration: dFill }, '<');
+            tl.to(visuals[index], { scale: 1.12, duration: dFill }, '<');
             if (index < panels.length - 1) {
               tl.to(panel, { xPercent: -100, scale: 0.97, opacity: 0.75, duration: dSlide, ease: 'power2.inOut' })
                 .to(panels[index + 1], { xPercent: 0, scale: 1, opacity: 1, duration: dSlide, ease: 'power2.inOut' }, '<');
@@ -3340,7 +3355,7 @@
             tl.kill();
             gsap.set(panels, { clearProps: 'all' });
             gsap.set(fills, { clearProps: 'all' });
-            gsap.set(imgs, { clearProps: 'all' });
+            gsap.set(visuals, { clearProps: 'all' });
             bars.forEach(function (b) { b.classList.remove('is-active'); });
           };
         });
@@ -3348,7 +3363,7 @@
         mm.add('(max-width: 880px)', function () {
           gsap.set(panels, { clearProps: 'all' });
           gsap.set(fills, { clearProps: 'all' });
-          gsap.set(imgs, { clearProps: 'all' });
+          gsap.set(visuals, { clearProps: 'all' });
           bars.forEach(function (b) { b.classList.remove('is-active'); });
         });
       }
