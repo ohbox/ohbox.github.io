@@ -1519,6 +1519,17 @@
       will-change: transform, opacity;
     }
 
+    /* Avoid showing every panel stacked together before the desktop carousel initializes. */
+    @media (min-width: 881px) {
+      .work-v2-panel:not(:first-child) {
+        visibility: hidden;
+      }
+
+      .work-v2-section.work-v2-ready .work-v2-panel {
+        visibility: visible;
+      }
+    }
+
     .work-v2-panel-inner {
       width: 100%;
       max-width: 1320px;
@@ -3285,6 +3296,7 @@
           gsap.set(fills, { scaleX: 0 });
           gsap.set(imgs, { scale: 1 });
           setActiveBar(0);
+          section.classList.add('work-v2-ready');
 
           var dFill = 1, dSlide = 0.6;
           var total = panels.length * dFill + (panels.length - 1) * dSlide;
@@ -3323,6 +3335,7 @@
           });
 
           return function () {
+            section.classList.remove('work-v2-ready');
             tl.scrollTrigger && tl.scrollTrigger.kill();
             tl.kill();
             gsap.set(panels, { clearProps: 'all' });
