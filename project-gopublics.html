@@ -285,6 +285,27 @@ document.addEventListener('DOMContentLoaded', function () {
     <div class="block-head"><span class="kicker">DIRECTION AND TRADE-OFF</span><h3>What the direction keeps, and what it gives up.</h3></div>
     <div class="decision-board"><article class="decision-card"><span class="tag">THE DIRECTION</span><h3>A managed publication of your own</h3><dl><dt>The choice</dt><dd>Bring articles, pages, themes, domains, and reader management into one workspace.</dd></dl><div class="proof">Basis: the competitor research I reported, the original feature map, and Figma screens. My reading of the gap is a design synthesis, not a validated user finding.</div></article><article class="decision-card"><span class="tag">THE TRADE-OFF</span><h3>Ownership with clear limits</h3><dl><dt>Keeps</dt><dd>Control over the publication site and its identity.</dd><dt>Gives up</dt><dd>A platform’s built-in audience and content discovery.</dd><dt>Gives up</dt><dd>The flexibility and extension options of self-hosted tools.</dd></dl><div class="proof">These trade-offs are inferred from the models compared; the source materials do not record them as measured outcomes.</div></article></div>
     <div class="focus-bar"><b>Content leads the experience.</b><p>I ordered the work by how often a task happens and how costly a mistake is. Writing and publishing happen daily, so they get the shortest path; domain and payment setup are rare but costly, so they get guided steps. Weekly design and development syncs settled what the first release needed, what could wait, and where technical limits shaped the design. The second decision is in 06C.</p></div>
+    <section class="product-scope" aria-labelledby="product-scope-title">
+      <div class="product-scope-head">
+        <span class="scope-kicker">PRODUCT SCOPE / INFORMATION ARCHITECTURE</span>
+        <div>
+          <h3 id="product-scope-title">From sidebar to the work inside.</h3>
+          <p>The map includes every main navigation area. Content publishing gets the deepest view; the remaining areas show their real sections or a concise summary of what people can do there.</p>
+        </div>
+      </div>
+      <p class="scope-source-note">Verified against the current prototype; sign-up and sign-in come from the original Figma. The left groups follow the sidebar, while detail depth varies by the structure and importance of each area. The lower band separates the early MVP from the 2026 reconstruction.</p>
+      <figure class="scope-variant scope-variant--branching">
+        <figcaption class="scope-variant-head">
+          <span class="scope-variant-label">BACKEND IA / BRANCHED STRUCTURE</span>
+          <div><h4>Branching system map</h4><p>A route-first view: the shared workspace splits into Website and Account, then branches into each area’s actual sections. The publishing flow opens a little deeper.</p></div>
+        </figcaption>
+        <div class="scope-viewport scope-viewport--branching" tabindex="0" role="region" aria-label="GoPublics branching system map; scroll horizontally on smaller screens">
+          <a href="project-gopublics-v2/assets/ia-system-branch.svg" target="_blank" rel="noreferrer" aria-label="Open the full-size branching system map">
+            <img src="project-gopublics-v2/assets/ia-system-branch.svg" alt="Branching information architecture for GoPublics. Sign-up and sign-in lead to a shared backend, then split into Website and Account. Website contains Dashboard, Content Work, Website Management, Member Management, Customer Support, Tags, and Explore. Content Work branches into manage, categorize, write, and publish. Account contains Personal Info, Settings, Feedback, and the separate Plans and Upgrade sidebar utility; Settings branches into Website, Membership, Account, and Advanced groups; Feedback branches into Problem messages and Reply records.">
+          </a>
+        </div>
+      </figure>
+    </section>
   </section>
 
   <!-- 05 / CRITICAL JOURNEY -->
