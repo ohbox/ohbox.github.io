@@ -30,11 +30,11 @@
       homeIcon.setAttribute('viewBox', '0 0 24 24');
       homeIcon.setAttribute('fill', 'none');
       homeIcon.setAttribute('stroke', 'currentColor');
-      homeIcon.setAttribute('stroke-width', '1.8');
+      homeIcon.setAttribute('stroke-width', '1.7');
       homeIcon.setAttribute('stroke-linecap', 'round');
       homeIcon.setAttribute('stroke-linejoin', 'round');
       homeIcon.setAttribute('aria-hidden', 'true');
-      homeIcon.innerHTML = '<path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10Z"/>';
+      homeIcon.innerHTML = '<path d="M4 11l8-7 8 7"/><path d="M6 10v10h12V10"/>';
       item.appendChild(homeIcon);
     } else {
       var icon = document.createElement('img');
@@ -51,6 +51,12 @@
     item.appendChild(label);
 
     dock.appendChild(item);
+    if (destination.home) {
+      var sep = document.createElement('span');
+      sep.className = 'project-dock__sep';
+      sep.setAttribute('aria-hidden', 'true');
+      dock.appendChild(sep);
+    }
   });
 
   document.body.appendChild(dock);
