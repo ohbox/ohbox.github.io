@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Yotta — Tom Lin</title>
+  <link rel="icon" href="logo/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="fx.js"></script>
+  <script src="i18n.js"></script>
+  <link rel="stylesheet" href="project-dock.css">
+  <script src="project-dock.js" defer></script>
+  <style>
+    html{scroll-behavior:smooth}body{margin:0;background:#0C0C0E;color:#F4F2EE;font-family:'Space Grotesk',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}::selection{background:#F07040;color:#0C0C0E}::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#0C0C0E}::-webkit-scrollbar-thumb{background:#2A2A30}::-webkit-scrollbar-thumb:hover{background:#F07040}
+    @keyframes pfx-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.78)}}
+    .pfx-btn-sm{width:32px;height:32px;box-sizing:border-box}
+    .pfx-caption-badge{border:0.4px solid rgba(240,112,64,0.2);padding:6px 12px;box-sizing:border-box}
+    .pfx-indent-badge{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.16em;background:rgba(255,255,255,0.14);color:rgba(244,242,238,0.84);padding:4px 8px;display:flex;align-items:center;box-shadow:inset 2px 2px 8px 1px rgba(0,0,0,0.4),inset -0.6px -0.6px 0 0 rgba(255,255,255,0.12);box-sizing:border-box;white-space:nowrap}
+    .pfx-indent-badge::before{content:'#'}
+    @media (max-width:680px){.project-hero{min-height:0!important;display:flex!important;flex-direction:column!important}.project-hero-media{display:none!important}}
+    /* hover states (converted from dc style-hover) */
+    .pfx-hov-1:hover { color:#F07040 !important; }
+    .pfx-hov-2:hover { border-color:rgba(240,112,64,0.6) !important; }
+    .pfx-hov-3:hover { border-color:rgba(240,112,64,0.6) !important; }
+    .pfx-hov-9:hover { color:#F07040 !important; gap:6px !important; }
+    .pfx-hov-10:hover { color:#F07040 !important; gap:6px !important; }
+    .pfx-hov-11:hover { color:#F07040 !important; }
+
+    /* Category icon animations */
+    .proj-icon-wrap{display:flex;flex-wrap:wrap;gap:24px;justify-content:center;align-items:center;padding:24px;width:100%;box-sizing:border-box}
+    .proj-icon-box{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;width:88px;height:88px;border-radius:12px;background:#fff;box-shadow:0 2px 10px 1px rgba(0,0,0,.12);transition:transform .3s ease-out;text-align:center;font-size:14px;font-weight:600;color:#707070}
+    .proj-icon-box:hover{transform:translateY(-4px)}
+    .proj-icon-box img{width:36px;height:36px;display:block}
+    @media (max-width:1024px){.proj-icon-wrap{gap:16px}.proj-icon-box{width:72px;height:72px;font-size:11px}.proj-icon-box img{width:28px;height:28px}}
+    @media (max-width:680px){.proj-icon-wrap{gap:10px;padding:16px}.proj-icon-box{width:52px;height:52px;border-radius:6px;font-size:8px}.proj-icon-box img{width:20px;height:20px}}
+
+    /* Course card gif centered */
+    .proj-gif-wrap{display:flex;justify-content:center;align-items:center;padding:0 24px;width:100%;box-sizing:border-box}
+    .proj-gif-wrap img{width:32%;min-width:160px;display:block}
+    @media (max-width:680px){.proj-gif-wrap{padding:0 16px}}
+
+    /* Mobile frames with floating SVG overlays */
+    .proj-mobile-wrap{display:flex;gap:32px;flex-wrap:wrap;justify-content:center;align-items:center;padding:24px;width:100%;box-sizing:border-box}
+    @media (max-width:1024px){.proj-mobile-wrap{margin:0 auto;max-width:640px}}
+    .proj-mobile{position:relative;width:164px;height:328px;box-shadow:0 10px 20px 0 rgba(0,0,0,.16);padding:8px 8px 0;border-radius:18px}
+    .proj-mobile::after{position:absolute;content:"";width:16px;height:16px;border-radius:50%;bottom:8px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.01);border:.4px solid rgba(0,0,0,.08);box-shadow:0 0 2px 0 rgba(0,0,0,.08)}
+    .proj-mobile-screen{position:relative;width:100%;height:296px;border-radius:12px;overflow:hidden;border:.6px solid rgba(0,0,0,.12)}
+    .proj-mobile-screen .shot{width:100%;object-fit:cover;display:block}
+    .proj-mobile-screen .float{position:absolute;transform:translateX(-50%);display:block;pointer-events:none}
+    .proj-mobile-screen .float.m1{top:72px;left:55%;width:120px;aspect-ratio:300/350}
+    .proj-mobile-screen .float.m2{top:20px;left:50%;width:160px;aspect-ratio:160/300}
+    .proj-mobile-screen .float.m3{top:100px;left:50%;width:150px;aspect-ratio:600/360}
+    .proj-mobile-screen .float.m4{top:50px;left:50%;width:74px;aspect-ratio:140/110}
+    @media (max-width:680px){
+      .proj-mobile{width:126px;height:235.2px;padding:6px 6px 0;border-radius:12px}
+      .proj-mobile::after{width:12px;height:12px;bottom:6px}
+      .proj-mobile-screen{height:204px;border-radius:8px}
+      .proj-mobile-screen .float.m1{top:40px;left:50%;width:100px}
+      .proj-mobile-screen .float.m2{top:0;left:50%;width:120px}
+      .proj-mobile-screen .float.m3{top:50px;left:50%;width:120px}
+      .proj-mobile-screen .float.m4{top:30px;left:50%;width:54px}
+    }
+
+    /* Flip cards - 12 seasonal mascot cards */
+    .proj-flip-wrap{background:#FAFAFA;padding:24px;width:100%;box-sizing:border-box}
+    .proj-flip-area{max-width:840px;display:flex;flex-wrap:wrap;gap:36px;margin:0 auto;justify-content:center}
+    @media (max-width:680px){.proj-flip-wrap{padding:16px}.proj-flip-area{gap:20px}}
+    .pfc{position:relative;width:144px;height:202px;border-radius:6px;perspective:1000px}
+    @media (max-width:680px){.pfc{width:120px;height:168px}}
+    .pfc-inner{position:relative;width:100%;height:100%;border-radius:6px;transition:transform .6s ease-out;transform-style:preserve-3d;box-shadow:0 2px 12px 0 rgba(0,0,0,.16)}
+    .pfc:hover .pfc-inner{transform:rotateY(180deg)}
+    .pfc-front,.pfc-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+    .pfc-back{background:#fff;background-image:url(project-yotta/texture/texture2.png);background-repeat:no-repeat;background-position:center center}
+    .pfc-front{transform:rotateY(180deg);background:#fff}
+    .pfc-front .cardimg,.pfc-back .cardimg{width:100%;height:100%;object-fit:cover;display:block}
+    .pfc-front .anime-svg{position:absolute;top:20px;width:72%;aspect-ratio:110/100;display:block;pointer-events:none;z-index:2}
+  </style>
+</head>
+<body>
+<div id="pfx-transition" aria-hidden="true" style="position:fixed;inset:0;z-index:9990;pointer-events:auto;">
+  <div data-pfx-layer="orange" style="position:absolute;inset:0;background:#F07040;transform:translateY(0%);"></div>
+  <div data-pfx-layer="charcoal" style="position:absolute;inset:0;background:#101013;transform:translateY(0%);"></div>
+  <div data-pfx-layer="brand" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:700 13px/1 &quot;Space Mono&quot;,monospace;letter-spacing:.5em;color:rgba(244,242,238,0.9);text-indent:.5em;">TOM·LIN</div>
+</div>
+<div style="background:#0C0C0E;min-height:100vh;">
+
+  <!-- HERO -->
+  <section class="project-hero" style="min-height:100svh;display:grid;grid-template-columns:1fr 1fr;">
+    <div style="display:flex;flex-direction:column;justify-content:center;padding:clamp(48px,8vh,96px) clamp(28px,4vw,72px) clamp(48px,8vh,96px) clamp(20px,4vw,60px);border-right:1px solid rgba(255,255,255,0.07);">
+      <div data-hero-badge="true" class="pfx-caption-badge" style="display:inline-flex;align-items:center;gap:10px;margin-bottom:clamp(24px,4vh,40px);width:fit-content;">
+        <span style="width:6px;height:6px;border-radius:50%;background:#F07040;animation:pfx-pulse 1.8s ease-in-out infinite;"></span>
+        <span style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.28em;color:#F07040;" data-i18n="proj.yotta.badge">CASE STUDY — 02</span>
+      </div>
+      <h1 data-hero-title="true" style="margin:0;font-size:clamp(56px,9vw,112px);font-weight:700;letter-spacing:-.03em;line-height:.9;">YOTTA<span style="color:#F07040;">.</span></h1>
+      <p data-hero-desc="true" data-i18n="project.yotta.desc" style="margin:clamp(20px,3vh,32px) 0 0 0;max-width:480px;font-size:clamp(15px,1.4vw,18px);font-weight:300;line-height:1.7;color:rgba(244,242,238,0.62);text-wrap:pretty;">An online learning platform. Courses cover fascinating subjects in a wide range of fields — life, language, business, engineering and more.</p>
+      <div data-hero-meta="true" style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.07);margin-top:clamp(28px,4vh,44px);font-family:'Space Mono',monospace;">
+        <div style="background:#0C0C0E;padding:16px 18px;"><span style="display:block;font-size:9px;letter-spacing:.26em;color:rgba(244,242,238,.4);" data-i18n="proj.timeline">TIMELINE</span><span style="display:block;margin-top:6px;font-size:12px;">June 2020 — July 2022</span></div>
+        <div style="background:#0C0C0E;padding:16px 18px;"><span style="display:block;font-size:9px;letter-spacing:.26em;color:rgba(244,242,238,.4);" data-i18n="proj.category">CATEGORY</span><span style="display:block;margin-top:6px;font-size:12px;" data-i18n="proj.yotta.category.value">Learning Platform</span></div>
+        <div style="background:#0C0C0E;padding:16px 18px;"><span style="display:block;font-size:9px;letter-spacing:.26em;color:rgba(244,242,238,.4);" data-i18n="proj.role">ROLE</span><span style="display:block;margin-top:6px;font-size:12px;">UI/UX Designer</span></div>
+        <div style="background:#0C0C0E;padding:16px 18px;"><span style="display:block;font-size:9px;letter-spacing:.26em;color:rgba(244,242,238,.4);" data-i18n="proj.highlights">HIGHLIGHTS</span><span style="display:block;margin-top:6px;font-size:12px;" data-i18n="proj.yotta.highlights.value">Multiple-status Elements + Ecommerce</span></div>
+      </div>
+      <div data-hero-meta="true" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:18px;">
+        <span class="pfx-indent-badge" data-i18n="badge.uiux">UI/UX DESIGN</span>
+        <span class="pfx-indent-badge" data-i18n="badge.designThinking">DESIGN THINKING</span>
+        <span class="pfx-indent-badge" data-i18n="badge.ecommerce">E-COMMERCE</span>
+        <span class="pfx-indent-badge" data-i18n="badge.mascotCreation">MASCOT CREATION</span>
+        <span class="pfx-indent-badge" data-i18n="badge.onlineLearning">ONLINE LEARNING</span>
+      </div>
+    </div>
+    <div class="project-hero-media" style="position:relative;overflow:hidden;min-height:70vh;">
+      <div aria-hidden="true" style="position:absolute;top:14px;right:14px;width:14px;height:14px;border-top:1px solid rgba(240,112,64,.7);border-right:1px solid rgba(240,112,64,.7);z-index:2;"></div>
+      <div aria-hidden="true" style="position:absolute;bottom:14px;left:14px;width:14px;height:14px;border-bottom:1px solid rgba(240,112,64,.7);border-left:1px solid rgba(240,112,64,.7);z-index:2;"></div>
+      <img src="image/projects/2.png" alt="Yotta" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;">
+      <div style="position:absolute;inset:0;background:linear-gradient(270deg,rgba(12,12,14,0) 60%,rgba(12,12,14,0.5) 100%);"></div>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <section style="border-top:1px solid rgba(255,255,255,0.07);padding:clamp(60px,10vh,120px) 0 clamp(80px,14vh,160px);">
+    <div style="max-width:1440px;margin:0 auto;padding:0;display:flex;flex-direction:column;gap:clamp(16px,3vw,28px);">
+
+      <div style="display:flex;align-items:center;gap:16px;padding:0 12px;">
+        <span style="width:7px;height:7px;background:#F07040;"></span>
+        <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.3em;color:#F07040;" data-i18n="proj.content">PROJECT CONTENT</span>
+      </div>
+
+      <div style="padding:12px;border:1px solid rgba(255,255,255,0.07);">
+      <div style="background:#fff;display:flex;flex-direction:column;">
+
+      <img data-reveal-img="true" src="project-yotta/yotta-mockup.png" alt="" style="width:100%;height:auto;display:block;">
+      <img data-reveal-img="true" src="project-yotta/styleguide.png" alt="" style="width:100%;height:auto;display:block;">
+      <img data-reveal-img="true" src="project-yotta/uxui-login.png" alt="" style="width:100%;height:auto;display:block;">
+      <img data-reveal-img="true" src="project-yotta/uxui-navbar1.png" alt="" style="width:100%;height:auto;display:block;">
+
+      <!-- Category Icon Animations -->
+      <div data-reveal-img="true" class="proj-icon-wrap">
+        <div class="proj-icon-box"><img src="project-yotta/svg-anime/life_anime.svg" alt="Life"><span data-i18n="proj.yotta.icon.life">Life</span></div>
+        <div class="proj-icon-box"><img src="project-yotta/svg-anime/design_anime.svg" alt="Design"><span data-i18n="proj.yotta.icon.design">Design</span></div>
+        <div class="proj-icon-box"><img src="project-yotta/svg-anime/business_anime.svg" alt="Business"><span data-i18n="proj.yotta.icon.business">Business</span></div>
+        <div class="proj-icon-box"><img src="project-yotta/svg-anime/language_anime.svg" alt="Language"><span data-i18n="proj.yotta.icon.language">Language</span></div>
+        <div class="proj-icon-box"><img src="project-yotta/svg-anime/technology_anime.svg" alt="Tech"><span data-i18n="proj.yotta.icon.tech">Tech</span></div>
+      </div>
+
+      <img data-reveal-img="true" src="project-yotta/uxui-navbar2.png" alt="" style="width:100%;height:auto;display:block;">
+      <img data-reveal-img="true" src="project-yotta/uxui-coursecard1.png" alt="" style="width:100%;height:auto;display:block;">
+
+      <!-- Course card GIF centered -->
+      <div data-reveal-img="true" class="proj-gif-wrap">
+        <img src="project-yotta/course-card.gif" alt="Course card animation">
+      </div>
+
+      <img data-reveal-img="true" src="project-yotta/uxui-coursecard3.png" alt="" style="width:100%;height:auto;display:block;">
+      <img data-reveal-img="true" src="project-yotta/uxui-coursecard4.png" alt="" style="width:100%;height:auto;display:block;">
+      <img data-reveal-img="true" src="project-yotta/uxui-shoppingcart1.png" alt="" style="width:100%;height:auto;display:block;">
+      <img data-reveal-img="true" src="project-yotta/uxui-shoppingcart2.png" alt="" style="width:100%;height:auto;display:block;">
+      <img data-reveal-img="true" src="project-yotta/mascot1.png" alt="" style="width:100%;height:auto;display:block;">
+
+      <!-- Mobile frames with floating SVG overlays -->
+      <div data-reveal-img="true" class="proj-mobile-wrap">
+        <div class="proj-mobile">
+          <div class="proj-mobile-screen">
+            <img class="shot" src="project-yotta/svg-anime/img1.png" alt="">
+            <object class="float m1" data="project-yotta/svg-anime/svg-1.svg" type="image/svg+xml" aria-label=""></object>
+          </div>
+        </div>
+        <div class="proj-mobile">
+          <div class="proj-mobile-screen">
+            <img class="shot" src="project-yotta/svg-anime/img2.png" alt="">
+            <object class="float m2" data="project-yotta/svg-anime/svg-2.svg" type="image/svg+xml" aria-label=""></object>
+          </div>
+        </div>
+        <div class="proj-mobile">
+          <div class="proj-mobile-screen">
+            <img class="shot" src="project-yotta/svg-anime/img3.png" alt="">
+            <object class="float m3" data="project-yotta/svg-anime/svg-3.svg" type="image/svg+xml" aria-label=""></object>
+          </div>
+        </div>
+        <div class="proj-mobile">
+          <div class="proj-mobile-screen">
+            <img class="shot" src="project-yotta/svg-anime/img4.png" alt="">
+            <object class="float m4" data="project-yotta/svg-anime/svg-4.svg" type="image/svg+xml" aria-label=""></object>
+          </div>
+        </div>
+      </div>
+
+      <img data-reveal-img="true" src="project-yotta/mascot2.png" alt="" style="width:100%;height:auto;display:block;">
+      <img data-reveal-img="true" src="project-yotta/mascot3.png" alt="" style="width:100%;height:auto;display:block;">
+
+      <!-- Flip Cards — 12 seasonal mascot cards -->
+      <div data-reveal-img="true" class="proj-flip-wrap">
+        <div class="proj-flip-area">
+          <div class="pfc"><div class="pfc-inner"><div class="pfc-back"><img class="cardimg" src="project-yotta/mascot-image/back-card-img/back1.png" alt=""></div><div class="pfc-front"><object class="anime-svg" data="project-yotta/mascot-image/svg-anime/halloween_anime.svg" type="image/svg+xml" aria-label=""></object><img class="cardimg" src="project-yotta/mascot-image/front-card-img/front1.png" alt=""></div></div></div>
+          <div class="pfc"><div class="pfc-inner"><div class="pfc-back"><img class="cardimg" src="project-yotta/mascot-image/back-card-img/back2.png" alt=""></div><div class="pfc-front"><object class="anime-svg" data="project-yotta/mascot-image/svg-anime/christmas_anime.svg" type="image/svg+xml" aria-label=""></object><img class="cardimg" src="project-yotta/mascot-image/front-card-img/front2.png" alt=""></div></div></div>
+          <div class="pfc"><div class="pfc-inner"><div class="pfc-back"><img class="cardimg" src="project-yotta/mascot-image/back-card-img/back3.png" alt=""></div><div class="pfc-front"><object class="anime-svg" data="project-yotta/mascot-image/svg-anime/chinese%20new%20year_anime.svg" type="image/svg+xml" aria-label=""></object><img class="cardimg" src="project-yotta/mascot-image/front-card-img/front3.png" alt=""></div></div></div>
+          <div class="pfc"><div class="pfc-inner"><div class="pfc-back"><img class="cardimg" src="project-yotta/mascot-image/back-card-img/back4.png" alt=""></div><div class="pfc-front"><object class="anime-svg" data="project-yotta/mascot-image/svg-anime/dragon%20boat%20festival_anime.svg" type="image/svg+xml" aria-label=""></object><img class="cardimg" src="project-yotta/mascot-image/front-card-img/front4.png" alt=""></div></div></div>
+          <div class="pfc"><div class="pfc-inner"><div class="pfc-back"><img class="cardimg" src="project-yotta/mascot-image/back-card-img/back5.png" alt=""></div><div class="pfc-front"><object class="anime-svg" data="project-yotta/mascot-image/svg-anime/teacher_anime.svg" type="image/svg+xml" aria-label=""></object><img class="cardimg" src="project-yotta/mascot-image/front-card-img/front5.png" alt=""></div></div></div>
+          <div class="pfc"><div class="pfc-inner"><div class="pfc-back"><img class="cardimg" src="project-yotta/mascot-image/back-card-img/back6.png" alt=""></div><div class="pfc-front"><object class="anime-svg" data="project-yotta/mascot-image/svg-anime/valentine_anime.svg" type="image/svg+xml" aria-label=""></object><img class="cardimg" src="project-yotta/mascot-image/front-card-img/front6.png" alt=""></div></div></div>
+          <div class="pfc"><div class="pfc-inner"><div class="pfc-back"><img class="cardimg" src="project-yotta/mascot-image/back-card-img/back7.png" alt=""></div><div class="pfc-front"><object class="anime-svg" data="project-yotta/mascot-image/svg-anime/moon%20festival_anime.svg" type="image/svg+xml" aria-label=""></object><img class="cardimg" src="project-yotta/mascot-image/front-card-img/front7.png" alt=""></div></div></div>
+          <div class="pfc"><div class="pfc-inner"><div class="pfc-back"><img class="cardimg" src="project-yotta/mascot-image/back-card-img/back8.png" alt=""></div><div class="pfc-front"><object class="anime-svg" data="project-yotta/mascot-image/svg-anime/bakery_anime.svg" type="image/svg+xml" aria-label=""></object><img class="cardimg" src="project-yotta/mascot-image/front-card-img/front8.png" alt=""></div></div></div>
+          <div class="pfc"><div class="pfc-inner"><div class="pfc-back"><img class="cardimg" src="project-yotta/mascot-image/back-card-img/back9.png" alt=""></div><div class="pfc-front"><object class="anime-svg" data="project-yotta/mascot-image/svg-anime/celebrate_anime.svg" type="image/svg+xml" aria-label=""></object><img class="cardimg" src="project-yotta/mascot-image/front-card-img/front9.png" alt=""></div></div></div>
+          <div class="pfc"><div class="pfc-inner"><div class="pfc-back"><img class="cardimg" src="project-yotta/mascot-image/back-card-img/back10.png" alt=""></div><div class="pfc-front"><object class="anime-svg" data="project-yotta/mascot-image/svg-anime/life_design_anime.svg" type="image/svg+xml" aria-label=""></object><img class="cardimg" src="project-yotta/mascot-image/front-card-img/front10.png" alt=""></div></div></div>
+          <div class="pfc"><div class="pfc-inner"><div class="pfc-back"><img class="cardimg" src="project-yotta/mascot-image/back-card-img/back11.png" alt=""></div><div class="pfc-front"><object class="anime-svg" data="project-yotta/mascot-image/svg-anime/antivirus_anime.svg" type="image/svg+xml" aria-label=""></object><img class="cardimg" src="project-yotta/mascot-image/front-card-img/front11.png" alt=""></div></div></div>
+          <div class="pfc"><div class="pfc-inner"><div class="pfc-back"><img class="cardimg" src="project-yotta/mascot-image/back-card-img/back12.png" alt=""></div><div class="pfc-front"><object class="anime-svg" data="project-yotta/mascot-image/svg-anime/squid%20game_anime.svg" type="image/svg+xml" aria-label=""></object><img class="cardimg" src="project-yotta/mascot-image/front-card-img/front12.png" alt=""></div></div></div>
+        </div>
+      </div>
+
+      <img data-reveal-img="true" src="project-yotta/mascot4.png" alt="" style="width:100%;height:auto;display:block;">
+      <img data-reveal-img="true" src="project-yotta/otherpage2.png" alt="" style="width:100%;height:auto;display:block;">
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEXT PROJECT -->
+  <div style="border-top:1px solid rgba(255,255,255,0.07);padding:clamp(40px,6vh,72px) clamp(20px,4vw,48px);display:flex;align-items:center;justify-content:space-between;max-width:1320px;margin:0 auto;gap:24px;flex-wrap:wrap;">
+    <a href="project-gopublics.html" data-nav="true" class="pfx-hov-9" style="display:inline-flex;align-items:center;gap:14px;font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.2em;color:rgba(244,242,238,.45);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.15);padding-bottom:8px;transition:color .2s,gap .2s;"><span>←</span> GOPUBLICS</a>
+    <a href="project-cupo.html" data-nav="true" data-magnetic="true" class="pfx-hov-10" style="display:inline-flex;align-items:center;gap:14px;font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.2em;color:rgba(244,242,238,.45);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.15);padding-bottom:8px;transition:color .2s,gap .2s;">CUPO <span>→</span></a>
+  </div>
+
+  <footer style="border-top:1px solid rgba(255,255,255,0.07);">
+    <div style="max-width:1320px;margin:0 auto;padding:22px clamp(20px,4vw,48px);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+      <span style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;color:rgba(244,242,238,.35);">©2026 POHUNG LIN — UI/UX DESIGN PORTFOLIO</span>
+      <a href="#top" class="pfx-hov-11" data-i18n="footer.top" style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;color:rgba(244,242,238,.35);text-decoration:none;transition:color .2s;">BACK TO TOP ↑</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  function waitFor(cond, fn, tries) {
+    tries = tries || 0;
+    if (cond()) { fn(); return; }
+    if (tries > 80) { fn(); return; }
+    setTimeout(function () { waitFor(cond, fn, tries + 1); }, 60);
+  }
+
+  function heroAnim() {
+    var badge = document.querySelector('[data-hero-badge]');
+    var title = document.querySelector('[data-hero-title]');
+    var desc = document.querySelector('[data-hero-desc]');
+    var metas = document.querySelectorAll('[data-hero-meta]');
+    var tl = gsap.timeline({ delay: 0.3 });
+    tl.fromTo(badge, { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power3.out' });
+    tl.fromTo(title, { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.9, ease: 'power3.out' }, '-=0.4');
+    tl.fromTo(desc, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.55');
+    tl.fromTo(metas, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out' }, '-=0.5');
+  }
+
+  function reveals() {
+    gsap.utils.toArray('[data-reveal-img]').forEach(function (el) {
+      gsap.fromTo(el, { autoAlpha: 0, y: 40, scale: 0.98 }, {
+        autoAlpha: 1, y: 0, scale: 1, duration: 1.0, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 90%', once: true }
+      });
+    });
+  }
+
+  waitFor(function () { return window.PortfolioFX && window.gsap && window.ScrollTrigger; }, function () {
+    var FX = window.PortfolioFX;
+    gsap.registerPlugin(ScrollTrigger);
+    FX.initCursor();
+    FX.initTransitions();
+    FX.initMagnetic();
+    heroAnim();
+    reveals();
+  });
+});
+</script>
+</body>
+</html>

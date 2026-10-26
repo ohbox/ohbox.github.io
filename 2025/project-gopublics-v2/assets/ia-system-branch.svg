@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1440" viewBox="0 0 1800 1440" role="img" aria-labelledby="title desc">
+<title id="title">GoPublics branching backend information architecture</title>
+<desc id="desc">A branching system map. Sign-up and sign-in lead to one shared backend, which branches into Website and Account. Website routes include Dashboard, Content Work, Website Management, Member Management, Customer Support, Tags, and Explore. Content Work expands into manage, categorize, write, and publish. Account routes expand into Personal Info, four settings groups, Feedback's Problem messages and Reply records, and a separate sidebar utility for Plans and upgrade.</desc>
+<defs>
+  <style>
+    .sans{font-family:Arial,'Noto Sans TC',sans-serif}.mono{font-family:'SFMono-Regular',Consolas,monospace}.eyebrow{font-size:12px;font-weight:700;letter-spacing:2px}.tiny{font-size:12px}.small{font-size:14px}.body{font-size:16px}.title{font-size:22px;font-weight:700}.muted{fill:#6f6b65}.ink{fill:#252320}.red{fill:#9d1b20}
+  </style>
+</defs>
+<rect width="1800" height="1440" fill="#f6f5f1"/>
+<rect x="30" y="28" width="1740" height="1384" fill="#fff" stroke="#8e8a84"/>
+<text x="64" y="66" class="mono eyebrow red">GOPUBLICS / SYSTEM MAP</text>
+<text x="64" y="105" class="sans title ink">A branching view of the publishing workspace</text>
+<text x="1734" y="66" text-anchor="end" class="mono eyebrow muted">INFORMATION ARCHITECTURE / VERIFIED ROUTES</text>
+<text x="1734" y="96" text-anchor="end" class="sans small muted">Core publishing flow opens deeper than supporting areas</text>
+<line x1="64" y1="120" x2="1736" y2="120" stroke="#c9c6c0"/>
+
+<!-- Entry and shared workspace -->
+<rect x="64" y="145" width="345" height="64" fill="#fff" stroke="#777" stroke-width="1.5"/>
+<text x="84" y="170" class="mono eyebrow muted">ORIGINAL FIGMA</text>
+<text x="84" y="194" class="sans body ink" font-weight="700">Sign up / Sign in</text>
+<path d="M409 177H463" fill="none" stroke="#777" stroke-width="1.5"/>
+<path d="M454 171L463 177L454 183" fill="none" stroke="#777" stroke-width="1.5"/>
+<rect x="480" y="145" width="1256" height="64" fill="#f3f1ec" stroke="#777" stroke-width="1.5"/>
+<text x="504" y="171" class="mono eyebrow muted">ONE SHARED BACKEND</text>
+<text x="504" y="195" class="sans body ink" font-weight="700">Publishing · website setup · reader operations</text>
+
+<!-- Branch from backend to the two real sidebar groups -->
+<path d="M1108 209V236H190V280M1108 236H1030V280" fill="none" stroke="#8c8881" stroke-width="1.5"/>
+
+<!-- Website branch panel -->
+<rect x="64" y="270" width="800" height="858" fill="#fff" stroke="#9a968f" stroke-width="1.5"/>
+<rect x="64" y="270" width="800" height="52" fill="#efeee9"/>
+<rect x="90" y="280" width="200" height="44" fill="#fff" stroke="#777" stroke-width="1.5"/>
+<text x="108" y="307" class="sans body ink" font-weight="700">Website · 網站</text>
+
+<!-- Website route tree -->
+<path d="M290 302H320V1069" fill="none" stroke="#969189" stroke-width="1.5"/>
+<g fill="none" stroke="#969189" stroke-width="1.5">
+  <path d="M320 389H350M530 389H566"/>
+  <path d="M320 546H350"/>
+  <path d="M320 709H350M530 709H566"/>
+  <path d="M320 799H350M530 799H566"/>
+  <path d="M320 889H350M530 889H566"/>
+  <path d="M320 979H350M530 979H566"/>
+  <path d="M320 1069H350M530 1069H566"/>
+</g>
+<g class="sans small ink">
+  <rect x="350" y="365" width="180" height="48" fill="#fff" stroke="#b8b4ad"/><text x="366" y="395">Dashboard</text>
+  <rect x="350" y="522" width="180" height="48" fill="#fbf5f3" stroke="#9d1b20" stroke-width="1.5"/><text x="366" y="552" font-weight="700">Content Work</text>
+  <rect x="350" y="685" width="180" height="48" fill="#fff" stroke="#b8b4ad"/><text x="366" y="715">Website Management</text>
+  <rect x="350" y="775" width="180" height="48" fill="#fff" stroke="#b8b4ad"/><text x="366" y="805">Member Management</text>
+  <rect x="350" y="865" width="180" height="48" fill="#fff" stroke="#b8b4ad"/><text x="366" y="895">Customer Support</text>
+  <rect x="350" y="955" width="180" height="48" fill="#fff" stroke="#b8b4ad"/><text x="366" y="985">Tags</text>
+  <rect x="350" y="1045" width="180" height="48" fill="#fff" stroke="#b8b4ad"/><text x="366" y="1075">Explore</text>
+</g>
+
+<!-- Dashboard detail -->
+<rect x="566" y="354" width="274" height="70" fill="#fff" stroke="#c8c5bf"/>
+<text x="582" y="377" class="mono tiny muted">OVERVIEW</text>
+<text x="582" y="399" class="sans tiny ink">Setup checklist · members · revenue · traffic</text>
+<text x="582" y="416" class="sans tiny muted">Engagement · top stories · traffic sources</text>
+
+<!-- Content Work branches into the core publishing flow -->
+<path d="M530 546H555M555 462V630M555 462H574M555 518H574M555 574H574M555 630H574" fill="none" stroke="#9d1b20" stroke-width="1.5"/>
+<g>
+  <rect x="574" y="440" width="266" height="44" fill="#fff" stroke="#b8b4ad"/>
+  <text x="588" y="458" class="mono tiny red">MANAGE</text><text x="588" y="475" class="sans tiny ink">Article list · filters · home picks (max 4)</text>
+  <rect x="574" y="496" width="266" height="44" fill="#fff" stroke="#b8b4ad"/>
+  <text x="588" y="514" class="mono tiny red">CATEGORIZE</text><text x="588" y="531" class="sans tiny ink">Tabs · one category per story · custom order</text>
+  <rect x="574" y="552" width="266" height="44" fill="#fff" stroke="#b8b4ad"/>
+  <text x="588" y="570" class="mono tiny red">WRITE</text><text x="588" y="587" class="sans tiny ink">Editor · access · tags · SEO · revisions</text>
+  <rect x="574" y="608" width="266" height="44" fill="#fff" stroke="#b8b4ad"/>
+  <text x="588" y="626" class="mono tiny red">PUBLISH</text><text x="588" y="643" class="sans tiny ink">Publish now / schedule · import Word draft</text>
+</g>
+
+<!-- Supporting Website routes -->
+<rect x="566" y="674" width="274" height="70" fill="#fff" stroke="#c8c5bf"/>
+<text x="582" y="697" class="sans tiny ink" font-weight="700">Pages · fixed and custom</text>
+<text x="582" y="716" class="sans tiny muted">Theme styles · preview and apply</text>
+<text x="582" y="735" class="sans tiny muted">Domain · GoPublics address or custom domain</text>
+
+<rect x="566" y="764" width="274" height="70" fill="#fff" stroke="#c8c5bf"/>
+<text x="582" y="787" class="sans tiny ink" font-weight="700">Member list · search and filters</text>
+<text x="582" y="806" class="sans tiny muted">Level · status · tag · source</text>
+<text x="582" y="825" class="sans tiny muted">Profile · subscription · activity · CSV / offers</text>
+
+<rect x="566" y="854" width="274" height="70" fill="#fff" stroke="#c8c5bf"/>
+<text x="582" y="877" class="sans tiny ink" font-weight="700">Reader and visitor inbox</text>
+<text x="582" y="896" class="sans tiny muted">Filter by status / sender · open message</text>
+<text x="582" y="915" class="sans tiny muted">Reply through email</text>
+
+<rect x="566" y="944" width="274" height="70" fill="#fff" stroke="#c8c5bf"/>
+<text x="582" y="967" class="sans tiny ink" font-weight="700">Visibility tabs · Public / Internal</text>
+<text x="582" y="986" class="sans tiny muted">Article topics · up to five per story</text>
+<text x="582" y="1005" class="sans tiny muted">Slug · description · color / cover · SEO</text>
+
+<rect x="566" y="1034" width="274" height="70" fill="#fff" stroke="#c8c5bf"/>
+<text x="582" y="1057" class="sans tiny ink" font-weight="700">Publisher directory · field / topic filters</text>
+<text x="582" y="1076" class="sans tiny muted">Search · popular / latest sorting</text>
+<text x="582" y="1095" class="sans tiny muted">Publisher listing settings</text>
+
+<!-- Account branch panel -->
+<rect x="900" y="270" width="836" height="858" fill="#fff" stroke="#9a968f" stroke-width="1.5"/>
+<rect x="900" y="270" width="836" height="52" fill="#efeee9"/>
+<rect x="930" y="280" width="200" height="44" fill="#fff" stroke="#777" stroke-width="1.5"/>
+<text x="948" y="307" class="sans body ink" font-weight="700">Account · 帳號</text>
+
+<path d="M1130 302H1150V970" fill="none" stroke="#969189" stroke-width="1.5"/>
+<g fill="none" stroke="#969189" stroke-width="1.5">
+  <path d="M1150 404H1174M1320 404H1350"/>
+  <path d="M1150 584H1174M1320 584H1335M1335 482V686M1335 482H1350M1335 550H1350M1335 618H1350M1335 686H1350"/>
+  <path d="M1150 842H1174M1320 842H1335M1335 803V881M1335 803H1350M1335 881H1350"/>
+  <path d="M1150 970H1174M1320 970H1350" stroke-dasharray="5 5"/>
+</g>
+<g class="sans small ink">
+  <rect x="1174" y="380" width="146" height="48" fill="#fff" stroke="#b8b4ad"/><text x="1187" y="410">Personal Info</text>
+  <rect x="1174" y="560" width="146" height="48" fill="#fff" stroke="#b8b4ad"/><text x="1187" y="590">Settings</text>
+  <rect x="1174" y="818" width="146" height="48" fill="#fff" stroke="#b8b4ad"/><text x="1187" y="848">Feedback</text>
+  <rect x="1174" y="946" width="146" height="48" fill="#faf9f6" stroke="#b8b4ad" stroke-dasharray="5 4"/><text x="1187" y="976">Plans &amp; upgrade</text>
+</g>
+
+<!-- Personal profile details -->
+<rect x="1350" y="365" width="359" height="78" fill="#fff" stroke="#c8c5bf"/>
+<text x="1366" y="389" class="sans tiny ink" font-weight="700">Author profile · photo · name · slug · email · bio</text>
+<text x="1366" y="410" class="sans tiny muted">Location / address · website / social links</text>
+<text x="1366" y="431" class="sans tiny muted">Author page and profile preview</text>
+
+<!-- Settings expands to the four real groups -->
+<g>
+  <rect x="1350" y="454" width="359" height="56" fill="#fff" stroke="#c8c5bf"/>
+  <text x="1366" y="475" class="sans tiny ink" font-weight="700">Website settings</text>
+  <text x="1366" y="496" class="sans tiny muted">General · menus · partners · site details · SEO</text>
+  <rect x="1350" y="522" width="359" height="56" fill="#fff" stroke="#c8c5bf"/>
+  <text x="1366" y="543" class="sans tiny ink" font-weight="700">Membership settings</text>
+  <text x="1366" y="564" class="sans tiny muted">Tiers · access · newsletter · analytics</text>
+  <rect x="1350" y="590" width="359" height="56" fill="#fff" stroke="#c8c5bf"/>
+  <text x="1366" y="611" class="sans tiny ink" font-weight="700">Account settings</text>
+  <text x="1366" y="632" class="sans tiny muted">Personal info · security · language · notices</text>
+  <rect x="1350" y="658" width="359" height="56" fill="#fff" stroke="#c8c5bf"/>
+  <text x="1366" y="679" class="sans tiny ink" font-weight="700">Advanced settings</text>
+  <text x="1366" y="700" class="sans tiny muted">Embed code · operation history</text>
+</g>
+
+<!-- Feedback splits into the actual tabs -->
+<rect x="1350" y="770" width="359" height="66" fill="#fff" stroke="#c8c5bf"/>
+<text x="1366" y="794" class="sans tiny ink" font-weight="700">Problem messages</text>
+<text x="1366" y="816" class="sans tiny muted">Issue · feedback · subscription · attachments</text>
+<rect x="1350" y="848" width="359" height="66" fill="#fff" stroke="#c8c5bf"/>
+<text x="1366" y="872" class="sans tiny ink" font-weight="700">Reply records</text>
+<text x="1366" y="894" class="sans tiny muted">Ticket status · replies · progress history</text>
+
+<!-- Sidebar utility, visually separate from Account routes -->
+<rect x="1350" y="934" width="359" height="72" fill="#faf9f6" stroke="#b8b4ad" stroke-dasharray="5 4"/>
+<text x="1366" y="957" class="mono tiny muted">SIDEBAR UTILITY</text>
+<text x="1366" y="978" class="sans tiny ink" font-weight="700">Free / Plus / Business · member limits · themes</text>
+<text x="1366" y="997" class="sans tiny muted">Billing period · history · platform fee</text>
+
+<!-- Scope and phase boundary -->
+<rect x="64" y="1164" width="1672" height="214" fill="#fff" stroke="#777" stroke-width="1.5"/>
+<text x="88" y="1217" class="mono eyebrow red">SCOPE / PHASE BOUNDARY</text>
+<line x1="568" y1="1184" x2="568" y2="1358" stroke="#c9c6c0"/>
+<line x1="1128" y1="1184" x2="1128" y2="1358" stroke="#c9c6c0"/>
+<text x="88" y="1256" class="sans body ink" font-weight="700">2024 early MVP</text>
+<text x="88" y="1286" class="sans small muted">Workspace foundation and the content core:</text>
+<text x="88" y="1310" class="sans small muted">article library · editor · publishing.</text>
+<text x="594" y="1256" class="sans body ink" font-weight="700">2026 interactive reconstruction</text>
+<text x="594" y="1286" class="sans small muted">The current prototype shows the wider system:</text>
+<text x="594" y="1310" class="sans small muted">site · domain · members · support · tags · settings · Explore.</text>
+<text x="1154" y="1256" class="sans body ink" font-weight="700">How to read this map</text>
+<text x="1154" y="1286" class="sans small muted">Every main route is present. The article workflow</text>
+<text x="1154" y="1310" class="sans small muted">opens deeper; supporting areas show real sections</text>
+<text x="1154" y="1334" class="sans small muted">or a short summary, not every control.</text>
+</svg>
