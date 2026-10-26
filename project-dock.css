@@ -17,7 +17,7 @@
   transform: translateX(-50%);
   opacity: 1;
   visibility: visible;
-  transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1), opacity 180ms ease, visibility 180ms ease;
+  transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1), opacity 600ms ease, visibility 600ms ease;
 }
 
 .project-dock::before {

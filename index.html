@@ -703,6 +703,14 @@
 </style>
 </head>
 <body>
+<!-- Page-transition cover, in the HTML itself like the case-study pages: when a visitor arrives from a case study the
+     slide-in cover is still covering the screen, so it must exist at first paint. fx.js only builds it once the document
+     has finished loading, which showed the home page for a moment before the cover came back. fx.js animates this one out. -->
+<div id="pfx-transition" aria-hidden="true" style="position:fixed;inset:0;z-index:9990;pointer-events:auto;">
+  <div data-pfx-layer="orange" style="position:absolute;inset:0;background:#F07040;transform:translateY(0%);"></div>
+  <div data-pfx-layer="charcoal" style="position:absolute;inset:0;background:#101013;transform:translateY(0%);"></div>
+  <div data-pfx-layer="brand" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:700 13px/1 &quot;Space Mono&quot;,monospace;letter-spacing:.5em;color:rgba(244,242,238,0.9);text-indent:.5em;">TOM·LIN</div>
+</div>
 <header class="p-nav">
   <a class="p-nav__brand" href="#top"><img src="logo/logo.svg" alt="">TOM·LIN</a>
   <nav class="p-nav__links" aria-label="Sections">
