@@ -75,6 +75,8 @@
   .guides .sl { position: fixed; z-index: 3; top: 80px; bottom: auto; right: calc(100% - var(--m) + var(--rp) + 18px); display: none; writing-mode: vertical-rl; transform: rotate(180deg);
     font: 10px var(--mono); letter-spacing: .24em; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
   .guides .sl span { display: inline-block; animation: slin .6s var(--ease-out); }
+  /* Chinese characters stay upright in vertical text: the 180deg turn that makes the English read upward would flip them upside down */
+  :root:lang(zh-Hant) .guides .sl { transform: none; letter-spacing: .14em; }
   @keyframes slin { from { opacity: 0; transform: translateY(-10px); } }
   @media (min-width: 1361px) { .guides .ruler, .guides .mk { display: block; } .guides .ph, .guides .sl { display: block; } }
   .p-nav__links a.nav-active { color: var(--accent); }
