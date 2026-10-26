@@ -1,0 +1,14 @@
+/* Compact Chinese labels retain the original one-row rhythm and editorial tracking. */
+html[lang^="zh"] :is(.mono, .cap span, .side-nav a, .p-nav__links a, .tool, .w-cta, .ibadge,
+  .sh-lab, .sh-foot span, .pe-head-label, .pe-head-status-full, .pe-head-status-short, .pe-chip,
+  .ax-p header, .bd-add, .resolve) {
+  letter-spacing: .04em;
+}
+html[lang^="zh"] .board.is-placing::after {
+  content: '點擊留言板任意處放置留言 · 按 Esc 取消';
+}
+@media (max-width: 1000px) {
+  html[lang^="zh"] .board.is-placing::after {
+    content: '點按留言板放置留言 · 再點「新增留言」即可取消';
+  }
+}
