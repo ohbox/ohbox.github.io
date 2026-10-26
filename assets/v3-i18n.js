@@ -11,7 +11,7 @@
     'case studies': '作品案例', 'who & how': '關於我', 'kind words': '合作回饋', 'say hello': '聯絡我',
     'LET\'S CHAT': '聊聊合作', 'Let\'s chat': '聊聊合作', 'Available for work': '開放合作',
     'Hi, I am': '嗨，我是', 'Text · Tom.': '文字 · Tom.',
-    'A UI/UX Designer turning complex product problems into intuitive digital experiences through systems thinking and thoughtful interface design.': '我擅長以系統化思考梳理複雜的產品問題與使用流程，並從使用者的需求出發，設計直覺、清晰且易於操作的數位體驗。',
+    'A UI/UX Designer turning complex product problems into intuitive digital experiences through systems thinking and thoughtful interface design.': '我擅長以系統化思考梳理複雜的產品問題與使用流程，從使用者需求和實際情境出發，釐清各階段需要傳達的資訊與互動方式，再設計直覺、清晰且易於操作的數位體驗。',
     'Process': '設計流程', 'Design process': '設計流程', 'Research': '研究', 'Craft': '設計', 'Animate': '動畫', 'Handoff': '交付',
     'Taipei, Taiwan —': '台灣・台北 —', 'Scroll': '往下看', 'Scroll to work': '前往作品',
     'Now, the good stuff': '精選作品', 'A selection of': '精選', 'Recent Works': '近期作品',
