@@ -65,7 +65,7 @@ section.ax { padding-bottom: var(--section-pad, clamp(76px, 10vh, 160px)); }
 .ax-filter button { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 8px; font: 10px var(--mono); letter-spacing: .1em; text-transform: uppercase;
   color: var(--ink-3); border: 1px solid var(--line); transition: color .2s, border-color .2s, background .2s; }
 .ax-filter svg { width: 12px; height: 12px; }
-.ax-filter button:hover { color: var(--ink); border-color: var(--line-2); }
+.ax-filter button:hover { border-color: var(--ink); color: var(--ink); }
 .ax-filter button[aria-pressed="true"] { color: var(--on-accent); background: var(--accent); border-color: var(--accent); }
 .ax-chips { display: flex; flex-wrap: wrap; gap: 5px; }
 .ax-chips span { padding: 3px 7px; font-size: 11px; font-weight: 300; color: var(--ink-1); background: rgba(var(--fg-rgb), .03); border: .5px solid rgba(var(--fg-rgb), .18);

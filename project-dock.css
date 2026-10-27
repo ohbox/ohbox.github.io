@@ -72,7 +72,7 @@
 .project-dock__item:hover,
 .project-dock__item:focus-visible {
   z-index: 2;
-  border-color: rgba(240, 112, 64, 0.65);
+  border-color: var(--ink);
   background: var(--dock-item-hover);
   box-shadow: 0 8px 22px rgba(var(--shadow-rgb), calc(0.28 * var(--shadow-k)));
 }
