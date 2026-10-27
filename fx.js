@@ -30,7 +30,7 @@
       // no native cursor anywhere (no hand, grab or crosshair next to the custom one); the Feedback board's own cursor zone switches this off
       'html.pfx-cursor,html.pfx-cursor *,html.pfx-cursor *::before,html.pfx-cursor *::after{cursor:none!important}' +
       '.pfx-brk{position:fixed;top:0;left:0;width:0;height:0;pointer-events:none;z-index:9998;opacity:0;transition:opacity .18s ease;will-change:transform,width,height}' +
-      '.pfx-brk i{position:absolute;width:8px;height:8px;border:0 solid #F07040;animation:pfx-brk 1.4s ease-in-out infinite alternate}' +
+      '.pfx-brk i{position:absolute;width:8px;height:8px;border:0 solid #F07040;animation:pfx-brk .8s ease-in-out infinite alternate}' +
       '.pfx-brk i:nth-child(1){left:0;top:0;border-width:1.5px 0 0 1.5px;--bx:-3px;--by:-3px}.pfx-brk i:nth-child(2){right:0;top:0;border-width:1.5px 1.5px 0 0;--bx:3px;--by:-3px}' +
       '.pfx-brk i:nth-child(3){left:0;bottom:0;border-width:0 0 1.5px 1.5px;--bx:-3px;--by:3px}.pfx-brk i:nth-child(4){right:0;bottom:0;border-width:0 1.5px 1.5px 0;--bx:3px;--by:3px}' +
       // breathing: the corners drift outward and fade a little, then settle back
