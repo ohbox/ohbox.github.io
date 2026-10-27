@@ -1599,9 +1599,11 @@
     var k = P.reduced ? 1 : 0.2;
     box = box ? { x: lerp(box.x, target.x, k), y: lerp(box.y, target.y, k), w: lerp(box.w, target.w, k), h: lerp(box.h, target.h, k) } : target;
     tracker.style.transform = 'translate(' + box.x + 'px,' + box.y + 'px)'; tracker.style.width = box.w + 'px'; tracker.style.height = box.h + 'px';
-    // the new-comment composer and its pin sit above the selection: cut them out of the frame's lines instead of letting the lines cross them
-    var cut = '';
-    if (board.classList.contains('is-composing')) $$('.composer, .vpin', board).forEach(function (n) {
+    // popovers sit above the selection (the new-comment composer and its pin, the Belief editor's open Think / Text menu):
+    // cut them out of the frame's lines instead of letting the lines cross them
+    var cut = '', pops = $$('.pe-dd.open .pe-menu');
+    if (board.classList.contains('is-composing')) pops = pops.concat($$('.composer, .vpin', board));
+    pops.forEach(function (n) {
       var o = n.getBoundingClientRect(); if (!o.width) return;
       var x0 = o.left - box.x, y0 = o.top - box.y;
       cut += ' M' + x0 + ' ' + y0 + 'H' + (x0 + o.width) + 'V' + (y0 + o.height) + 'H' + x0 + 'Z';
