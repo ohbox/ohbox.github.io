@@ -309,7 +309,9 @@ window.mountCharacter = function (root, opts) {
       var cr = Math.cos(ry), sr = Math.sin(ry), cX = Math.cos(rx), sX = Math.sin(rx), breathe = 1 + Math.sin(t * 1.1) * 0.03;
       var bAmp = BUMPS.map(function (b) { return b.amp * (0.55 + 0.45 * Math.sin(t * b.sp + b.ph)); });
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
-      ctx.globalCompositeOperation = 'lighter';
+      // on paper, additive light washes out: draw normally and let the rims and glyph darken instead of glow
+      var lt = document.documentElement.getAttribute('data-theme') === 'light', rs = lt ? -60 : 40, gl = lt ? -70 : 25;
+      ctx.globalCompositeOperation = lt ? 'source-over' : 'lighter';
       for (var i = 0; i < P.length; i++) {
         var p = P[i], disp = 0;
         for (var k = 0; k < BUMPS.length; k++) {
@@ -333,7 +335,7 @@ window.mountCharacter = function (root, opts) {
         var kick = Math.min(1, Math.sqrt(p.vx * p.vx + p.vy * p.vy) / 6);
         var front = (z2 / (1 + Math.abs(disp)) + 1) / 2, rim = Math.pow(1 - Math.min(1, Math.abs(z2)), 2.2); // edges glow, like a lit silhouette
         var c = mix((x1 * 0.62 - y1 * 0.42 + 1.05) / 2.1), a = 0.06 + front * 0.32 + rim * 0.5 + kick * 0.6; // flying particles flare
-        ctx.fillStyle = 'rgba(' + (c[0] + rim * 40 | 0) + ',' + (c[1] + rim * 40 | 0) + ',' + (c[2] + rim * 30 | 0) + ',' + Math.min(1, a).toFixed(3) + ')';
+        ctx.fillStyle = 'rgba(' + (c[0] + rim * rs | 0) + ',' + (c[1] + rim * rs | 0) + ',' + (c[2] + rim * rs * .75 | 0) + ',' + Math.min(1, a).toFixed(3) + ')';
         var sz = 0.55 + front * 0.75; ctx.fillRect(sx + p.ox - sz / 2, sy + p.oy - sz / 2, sz, sz);
       }
       // dust drifting around the ball
@@ -348,7 +350,7 @@ window.mountCharacter = function (root, opts) {
       var gs = R / 74;
       for (var g2 = 0; g2 < G.length; g2++) {
         var e = G[g2], tw = 0.6 + 0.4 * Math.sin(t * 2.4 + e.ph), cg = mix(0.05 + (e.y / 70 + 0.5) * 0.5);
-        ctx.fillStyle = 'rgba(' + (cg[0] + 20 | 0) + ',' + (cg[1] + 30 | 0) + ',' + (cg[2] + 30 | 0) + ',' + (0.55 + tw * 0.45).toFixed(3) + ')';
+        ctx.fillStyle = 'rgba(' + (cg[0] + gl * .8 | 0) + ',' + (cg[1] + gl | 0) + ',' + (cg[2] + gl | 0) + ',' + (0.55 + tw * 0.45).toFixed(3) + ')';
         ctx.fillRect(cx + e.x * gs - 0.6, cy + e.y * gs + Math.sin(t * 1.6 + e.x * 0.08) * 0.6 - 0.6, 1.2, 1.2);
       }
       mouse.sp *= 0.85; mouse.vx *= 0.85; mouse.vy *= 0.85; // a resting pointer stops blasting

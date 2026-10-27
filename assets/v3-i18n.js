@@ -33,6 +33,7 @@
     'Back to top ↑': '回到頂端 ↑', 'Home': '首頁', 'Home and project navigation': '首頁與作品導覽',
     'Main menu': '主選單', 'Sections': '頁面區塊', 'Section navigation': '區塊導覽',
     'Open menu': '開啟選單', 'Close menu': '關閉選單', 'Switch language': '切換語言', 'Switch language / 切換語言': '切換語言',
+    'Color theme': '顏色主題', 'Light': '淺色', 'Dark': '深色', 'System': '跟隨系統',
     'Design process tools': '設計流程工具', 'Research': '研究', 'Craft': '設計', 'Animate': '動畫', 'Handoff': '交付',
     'Available for work': '開放合作', 'Scroll to work': '前往作品',
 

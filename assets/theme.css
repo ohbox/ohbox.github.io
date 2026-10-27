@@ -1,0 +1,125 @@
+/* Design tokens for the whole site, in two themes. Components only use these names, never raw colours,
+   so a theme is just a different set of values. Dark is the original look; light is the same system on paper.
+   theme.js sets <html data-theme="dark|light"> before first paint. */
+
+:root {
+  color-scheme: dark;
+
+  /* surfaces, back to front */
+  --bg: #0C0C0E;                /* page */
+  --bg-rgb: 12, 12, 14;         /* page colour for fades and scrims */
+  --bg-2: #0F0F12;              /* sunken: boards, export card, badge box */
+  --bg-3: #141418;              /* raised: tooltips, select options */
+  --well: #0A0A0C;              /* inputs, code blocks, timelines */
+  --panel-rgb: 15, 15, 18;      /* floating panels, always with alpha */
+  --tip-bg: #252529;            /* dock tooltips */
+  --muted: #2A2A30;             /* off dots, disabled controls, scrollbar thumb */
+  --curtain: #101013;           /* page-transition sheet */
+  --chip-bg: rgba(255, 255, 255, .14);  /* embossed #tags */
+  --scrim-k: 1;                 /* strength of the page-colour fade laid over cover images */
+
+  /* dock chrome */
+  --dock-bg: rgba(26, 26, 29, .88);
+  --dock-item: rgba(43, 43, 47, .44);
+  --dock-item-hover: rgba(55, 55, 60, .54);
+  --dock-item-active: rgba(88, 51, 43, .58);
+
+  /* ink: one colour, four strengths */
+  --ink: #F4F2EE;
+  --ink-rgb: 244, 242, 238;
+  --ink-1: rgba(244, 242, 238, .86);   /* quotes, chips, long reads */
+  --ink-2: rgba(244, 242, 238, .64);   /* secondary copy */
+  --ink-3: rgba(244, 242, 238, .42);   /* meta, labels, placeholders */
+  --fg-rgb: 255, 255, 255;             /* hairlines and washes, always with alpha */
+  --line: rgba(255, 255, 255, .08);
+  --line-2: rgba(255, 255, 255, .16);
+
+  /* brand */
+  --accent: #F07040;            /* fills, frames, bullets */
+  --accent-rgb: 240, 112, 64;
+  --accent-hover: #FF8A5C;
+  --accent-ink: #F07040;        /* orange used as text */
+  --accent-soft: rgba(240, 112, 64, .14);
+  --on-accent: #0C0C0E;         /* text and marks on an orange fill */
+  --peach: #F9B286;             /* secondary orange labels */
+  --code-key: #B3A4F5;          /* property names in code blocks */
+  --red: #FF4D6D;               /* redlines */
+  --ok: #3DDC97;
+
+  /* depth: shadows are tinted and scaled per theme */
+  --shadow-rgb: 0, 0, 0;
+  --shadow-k: 1;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: #F4F2EE;
+  --bg-rgb: 244, 242, 238;
+  --bg-2: #EDEAE4;
+  --bg-3: #FFFFFF;
+  --well: #F0EDE7;
+  --panel-rgb: 251, 250, 247;
+  --tip-bg: #FFFFFF;
+  --muted: #D5D1C9;
+  --curtain: #EAE7E1;
+  --chip-bg: rgba(20, 18, 16, .06);
+  --scrim-k: .4;                /* a paper-coloured fade over dark screenshots reads as haze, so keep it faint */
+
+  --dock-bg: rgba(251, 250, 247, .9);
+  --dock-item: rgba(20, 18, 16, .035);
+  --dock-item-hover: rgba(255, 255, 255, .96);
+  --dock-item-active: rgba(240, 112, 64, .16);
+
+  --ink: #141416;
+  --ink-rgb: 20, 20, 22;
+  --ink-1: rgba(20, 20, 22, .86);
+  --ink-2: rgba(20, 20, 22, .7);
+  --ink-3: rgba(20, 20, 22, .52);
+  --fg-rgb: 20, 18, 16;
+  --line: rgba(20, 18, 16, .1);
+  --line-2: rgba(20, 18, 16, .2);
+
+  --accent-hover: #E35F2D;
+  --accent-ink: #BF4A1A;        /* the brand orange is too light for small text on paper (2.6:1); this one reads at 4.5:1 */
+  --peach: #B5552A;
+  --code-key: #6B54D8;
+  --red: #D92B4A;
+  --ok: #1FA870;
+
+  --shadow-rgb: 60, 44, 28;
+  --shadow-k: .32;
+}
+
+/* ---------- theme switch: icon button + Light / Dark / System menu, next to the language switch ---------- */
+.pfx-theme { position: relative; flex-shrink: 0; }
+.pfx-theme-btn { position: relative; display: grid; place-items: center; width: 28px; height: 28px; box-sizing: border-box; border: 1px solid var(--line-2);
+  background: var(--bg-2); color: var(--ink-2); cursor: pointer; -webkit-tap-highlight-color: transparent; transition: border-color .2s, color .2s; }
+.pfx-theme-btn:hover, .pfx-theme-btn[aria-expanded="true"] { border-color: rgba(var(--accent-rgb), .55); color: var(--ink); }
+.pfx-theme-btn svg { width: 14px; height: 14px; }
+.pfx-theme-btn svg:not(.is-on) { display: none; }
+.pfx-theme-menu { position: absolute; z-index: 60; right: 0; top: calc(100% + 8px); min-width: 148px; margin: 0; padding: 4px; list-style: none;
+  background: rgba(var(--panel-rgb), .98); border: 1px solid var(--line-2); box-shadow: 0 18px 44px rgba(var(--shadow-rgb), calc(.55 * var(--shadow-k)));
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  opacity: 0; visibility: hidden; transform: translateY(-4px); transition: opacity .18s, transform .3s var(--ease-out, ease), visibility .18s; }
+.pfx-theme.is-open .pfx-theme-menu { opacity: 1; visibility: visible; transform: none; }
+.pfx-theme-menu button { display: grid; grid-template-columns: 14px 1fr 12px; align-items: center; gap: 10px; width: 100%; height: 34px; padding: 0 10px;
+  border: 0; border-left: 2px solid transparent; background: none; color: var(--ink-2); font: 11px 'Space Mono', monospace; letter-spacing: .12em; text-transform: uppercase;
+  text-align: left; cursor: pointer; outline: 0; transition: background .15s, color .15s; }
+.pfx-theme-menu button:hover, .pfx-theme-menu button:focus-visible { background: rgba(var(--fg-rgb), .05); color: var(--ink); }
+.pfx-theme-menu button[aria-checked="true"] { border-left-color: var(--accent); color: var(--ink); background: rgba(var(--accent-rgb), .08); }
+.pfx-theme-menu svg { width: 14px; height: 14px; }
+.pfx-theme-menu .ck { width: 12px; height: 12px; color: var(--accent-ink); visibility: hidden; }
+.pfx-theme-menu button[aria-checked="true"] .ck { visibility: visible; }
+/* phones: same 28px look inside a 44px hit area, like the language switch */
+@media (max-width: 880px) {
+  .pfx-theme-btn { width: 44px; height: 44px; border: 0; background: transparent; }
+  .pfx-theme-btn::before { content: ''; position: absolute; inset: 8px; border: 1px solid var(--line-2); background: var(--bg-2); transition: border-color .2s; }
+  .pfx-theme-btn:hover::before, .pfx-theme-btn[aria-expanded="true"]::before { border-color: rgba(var(--accent-rgb), .55); }
+  .pfx-theme-btn svg { position: relative; }
+  .pfx-theme-menu { top: calc(100% + 2px); }
+}
+
+/* theme change: a circle of the new theme opens from the switch (theme.js), instead of the default crossfade */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-new(root) { z-index: 1; }

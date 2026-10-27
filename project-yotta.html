@@ -5,30 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Yotta — Tom Lin</title>
   <link rel="icon" href="logo/favicon.ico">
+  <script src="assets/theme.js"></script>
+  <link rel="stylesheet" href="assets/theme.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="fx.js"></script>
+  <script src="fx.js?v=theme1"></script>
   <script src="i18n.js"></script>
-  <link rel="stylesheet" href="project-dock.css">
+  <link rel="stylesheet" href="project-dock.css?v=theme1">
   <script src="project-dock.js" defer></script>
   <style>
-    html{scroll-behavior:smooth}body{margin:0;background:#0C0C0E;color:#F4F2EE;font-family:'Space Grotesk',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}::selection{background:#F07040;color:#0C0C0E}::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#0C0C0E}::-webkit-scrollbar-thumb{background:#2A2A30}::-webkit-scrollbar-thumb:hover{background:#F07040}
+    html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:'Space Grotesk',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}::selection{background:#F07040;color:var(--on-accent)}::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--muted)}::-webkit-scrollbar-thumb:hover{background:#F07040}
     @keyframes pfx-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.78)}}
     .pfx-btn-sm{width:32px;height:32px;box-sizing:border-box}
     .pfx-caption-badge{border:0.4px solid rgba(240,112,64,0.2);padding:6px 12px;box-sizing:border-box}
-    .pfx-indent-badge{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.16em;background:rgba(255,255,255,0.14);color:rgba(244,242,238,0.84);padding:4px 8px;display:flex;align-items:center;box-shadow:inset 2px 2px 8px 1px rgba(0,0,0,0.4),inset -0.6px -0.6px 0 0 rgba(255,255,255,0.12);box-sizing:border-box;white-space:nowrap}
+    .pfx-indent-badge{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.16em;background:var(--chip-bg);color:var(--ink-1);padding:4px 8px;display:flex;align-items:center;box-shadow:inset 2px 2px 8px 1px rgba(var(--shadow-rgb),calc(.4 * var(--shadow-k))),inset -0.6px -0.6px 0 0 rgba(var(--fg-rgb),0.12);box-sizing:border-box;white-space:nowrap}
     .pfx-indent-badge::before{content:'#'}
     @media (max-width:680px){.project-hero{min-height:0!important;display:flex!important;flex-direction:column!important}.project-hero-media{display:none!important}}
     /* hover states (converted from dc style-hover) */
-    .pfx-hov-1:hover { color:#F07040 !important; }
+    .pfx-hov-1:hover { color:var(--accent-ink) !important; }
     .pfx-hov-2:hover { border-color:rgba(240,112,64,0.6) !important; }
     .pfx-hov-3:hover { border-color:rgba(240,112,64,0.6) !important; }
-    .pfx-hov-9:hover { color:#F07040 !important; gap:6px !important; }
-    .pfx-hov-10:hover { color:#F07040 !important; gap:6px !important; }
-    .pfx-hov-11:hover { color:#F07040 !important; }
+    .pfx-hov-9:hover { color:var(--accent-ink) !important; gap:6px !important; }
+    .pfx-hov-10:hover { color:var(--accent-ink) !important; gap:6px !important; }
+    .pfx-hov-11:hover { color:var(--accent-ink) !important; }
 
     /* Category icon animations */
     .proj-icon-wrap{display:flex;flex-wrap:wrap;gap:24px;justify-content:center;align-items:center;padding:24px;width:100%;box-sizing:border-box}
@@ -83,25 +85,25 @@
 <body>
 <div id="pfx-transition" aria-hidden="true" style="position:fixed;inset:0;z-index:9990;pointer-events:auto;">
   <div data-pfx-layer="orange" style="position:absolute;inset:0;background:#F07040;transform:translateY(0%);"></div>
-  <div data-pfx-layer="charcoal" style="position:absolute;inset:0;background:#101013;transform:translateY(0%);"></div>
-  <div data-pfx-layer="brand" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:700 13px/1 &quot;Space Mono&quot;,monospace;letter-spacing:.5em;color:rgba(244,242,238,0.9);text-indent:.5em;">TOM·LIN</div>
+  <div data-pfx-layer="charcoal" style="position:absolute;inset:0;background:var(--curtain);transform:translateY(0%);"></div>
+  <div data-pfx-layer="brand" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:700 13px/1 &quot;Space Mono&quot;,monospace;letter-spacing:.5em;color:var(--ink-1);text-indent:.5em;">TOM·LIN</div>
 </div>
-<div style="background:#0C0C0E;min-height:100vh;">
+<div style="background:var(--bg);min-height:100vh;">
 
   <!-- HERO -->
   <section class="project-hero" style="min-height:100svh;display:grid;grid-template-columns:1fr 1fr;">
-    <div style="display:flex;flex-direction:column;justify-content:center;padding:clamp(48px,8vh,96px) clamp(28px,4vw,72px) clamp(48px,8vh,96px) clamp(20px,4vw,60px);border-right:1px solid rgba(255,255,255,0.07);">
+    <div style="display:flex;flex-direction:column;justify-content:center;padding:clamp(48px,8vh,96px) clamp(28px,4vw,72px) clamp(48px,8vh,96px) clamp(20px,4vw,60px);border-right:1px solid rgba(var(--fg-rgb),0.07);">
       <div data-hero-badge="true" class="pfx-caption-badge" style="display:inline-flex;align-items:center;gap:10px;margin-bottom:clamp(24px,4vh,40px);width:fit-content;">
         <span style="width:6px;height:6px;border-radius:50%;background:#F07040;animation:pfx-pulse 1.8s ease-in-out infinite;"></span>
-        <span style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.28em;color:#F07040;" data-i18n="proj.yotta.badge">CASE STUDY — 02</span>
+        <span style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.28em;color:var(--accent-ink);" data-i18n="proj.yotta.badge">CASE STUDY — 02</span>
       </div>
-      <h1 data-hero-title="true" style="margin:0;font-size:clamp(56px,9vw,112px);font-weight:700;letter-spacing:-.03em;line-height:.9;">YOTTA<span style="color:#F07040;">.</span></h1>
-      <p data-hero-desc="true" data-i18n="project.yotta.desc" style="margin:clamp(20px,3vh,32px) 0 0 0;max-width:480px;font-size:clamp(15px,1.4vw,18px);font-weight:300;line-height:1.7;color:rgba(244,242,238,0.62);text-wrap:pretty;">An online learning platform. Courses cover fascinating subjects in a wide range of fields — life, language, business, engineering and more.</p>
-      <div data-hero-meta="true" style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.07);margin-top:clamp(28px,4vh,44px);font-family:'Space Mono',monospace;">
-        <div style="background:#0C0C0E;padding:16px 18px;"><span style="display:block;font-size:9px;letter-spacing:.26em;color:rgba(244,242,238,.4);" data-i18n="proj.timeline">TIMELINE</span><span style="display:block;margin-top:6px;font-size:12px;">June 2020 — July 2022</span></div>
-        <div style="background:#0C0C0E;padding:16px 18px;"><span style="display:block;font-size:9px;letter-spacing:.26em;color:rgba(244,242,238,.4);" data-i18n="proj.category">CATEGORY</span><span style="display:block;margin-top:6px;font-size:12px;" data-i18n="proj.yotta.category.value">Learning Platform</span></div>
-        <div style="background:#0C0C0E;padding:16px 18px;"><span style="display:block;font-size:9px;letter-spacing:.26em;color:rgba(244,242,238,.4);" data-i18n="proj.role">ROLE</span><span style="display:block;margin-top:6px;font-size:12px;">UI/UX Designer</span></div>
-        <div style="background:#0C0C0E;padding:16px 18px;"><span style="display:block;font-size:9px;letter-spacing:.26em;color:rgba(244,242,238,.4);" data-i18n="proj.highlights">HIGHLIGHTS</span><span style="display:block;margin-top:6px;font-size:12px;" data-i18n="proj.yotta.highlights.value">Multiple-status Elements + Ecommerce</span></div>
+      <h1 data-hero-title="true" style="margin:0;font-size:clamp(56px,9vw,112px);font-weight:700;letter-spacing:-.03em;line-height:.9;">YOTTA<span style="color:var(--accent-ink);">.</span></h1>
+      <p data-hero-desc="true" data-i18n="project.yotta.desc" style="margin:clamp(20px,3vh,32px) 0 0 0;max-width:480px;font-size:clamp(15px,1.4vw,18px);font-weight:300;line-height:1.7;color:var(--ink-2);text-wrap:pretty;">An online learning platform. Courses cover fascinating subjects in a wide range of fields — life, language, business, engineering and more.</p>
+      <div data-hero-meta="true" style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(var(--fg-rgb),0.07);border:1px solid rgba(var(--fg-rgb),0.07);margin-top:clamp(28px,4vh,44px);font-family:'Space Mono',monospace;">
+        <div style="background:var(--bg);padding:16px 18px;"><span style="display:block;font-size:9px;letter-spacing:.26em;color:var(--ink-3);" data-i18n="proj.timeline">TIMELINE</span><span style="display:block;margin-top:6px;font-size:12px;">June 2020 — July 2022</span></div>
+        <div style="background:var(--bg);padding:16px 18px;"><span style="display:block;font-size:9px;letter-spacing:.26em;color:var(--ink-3);" data-i18n="proj.category">CATEGORY</span><span style="display:block;margin-top:6px;font-size:12px;" data-i18n="proj.yotta.category.value">Learning Platform</span></div>
+        <div style="background:var(--bg);padding:16px 18px;"><span style="display:block;font-size:9px;letter-spacing:.26em;color:var(--ink-3);" data-i18n="proj.role">ROLE</span><span style="display:block;margin-top:6px;font-size:12px;">UI/UX Designer</span></div>
+        <div style="background:var(--bg);padding:16px 18px;"><span style="display:block;font-size:9px;letter-spacing:.26em;color:var(--ink-3);" data-i18n="proj.highlights">HIGHLIGHTS</span><span style="display:block;margin-top:6px;font-size:12px;" data-i18n="proj.yotta.highlights.value">Multiple-status Elements + Ecommerce</span></div>
       </div>
       <div data-hero-meta="true" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:18px;">
         <span class="pfx-indent-badge" data-i18n="badge.uiux">UI/UX DESIGN</span>
@@ -115,20 +117,20 @@
       <div aria-hidden="true" style="position:absolute;top:14px;right:14px;width:14px;height:14px;border-top:1px solid rgba(240,112,64,.7);border-right:1px solid rgba(240,112,64,.7);z-index:2;"></div>
       <div aria-hidden="true" style="position:absolute;bottom:14px;left:14px;width:14px;height:14px;border-bottom:1px solid rgba(240,112,64,.7);border-left:1px solid rgba(240,112,64,.7);z-index:2;"></div>
       <img src="image/projects/2.png" alt="Yotta" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;">
-      <div style="position:absolute;inset:0;background:linear-gradient(270deg,rgba(12,12,14,0) 60%,rgba(12,12,14,0.5) 100%);"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(270deg,rgba(var(--bg-rgb),0) 60%,rgba(var(--bg-rgb),0.5) 100%);opacity:var(--scrim-k);"></div>
     </div>
   </section>
 
   <!-- CONTENT -->
-  <section style="border-top:1px solid rgba(255,255,255,0.07);padding:clamp(60px,10vh,120px) 0 clamp(80px,14vh,160px);">
+  <section style="border-top:1px solid rgba(var(--fg-rgb),0.07);padding:clamp(60px,10vh,120px) 0 clamp(80px,14vh,160px);">
     <div style="max-width:1440px;margin:0 auto;padding:0;display:flex;flex-direction:column;gap:clamp(16px,3vw,28px);">
 
       <div style="display:flex;align-items:center;gap:16px;padding:0 12px;">
         <span style="width:7px;height:7px;background:#F07040;"></span>
-        <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.3em;color:#F07040;" data-i18n="proj.content">PROJECT CONTENT</span>
+        <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.3em;color:var(--accent-ink);" data-i18n="proj.content">PROJECT CONTENT</span>
       </div>
 
-      <div style="padding:12px;border:1px solid rgba(255,255,255,0.07);">
+      <div style="padding:12px;border:1px solid rgba(var(--fg-rgb),0.07);">
       <div style="background:#fff;display:flex;flex-direction:column;">
 
       <img data-reveal-img="true" src="project-yotta/yotta-mockup.png" alt="" style="width:100%;height:auto;display:block;">
@@ -216,15 +218,15 @@
   </section>
 
   <!-- NEXT PROJECT -->
-  <div style="border-top:1px solid rgba(255,255,255,0.07);padding:clamp(40px,6vh,72px) clamp(20px,4vw,48px);display:flex;align-items:center;justify-content:space-between;max-width:1320px;margin:0 auto;gap:24px;flex-wrap:wrap;">
-    <a href="project-gopublics.html" data-nav="true" class="pfx-hov-9" style="display:inline-flex;align-items:center;gap:14px;font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.2em;color:rgba(244,242,238,.45);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.15);padding-bottom:8px;transition:color .2s,gap .2s;"><span>←</span> GOPUBLICS</a>
-    <a href="project-cupo.html" data-nav="true" data-magnetic="true" class="pfx-hov-10" style="display:inline-flex;align-items:center;gap:14px;font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.2em;color:rgba(244,242,238,.45);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.15);padding-bottom:8px;transition:color .2s,gap .2s;">CUPO <span>→</span></a>
+  <div style="border-top:1px solid rgba(var(--fg-rgb),0.07);padding:clamp(40px,6vh,72px) clamp(20px,4vw,48px);display:flex;align-items:center;justify-content:space-between;max-width:1320px;margin:0 auto;gap:24px;flex-wrap:wrap;">
+    <a href="project-gopublics.html" data-nav="true" class="pfx-hov-9" style="display:inline-flex;align-items:center;gap:14px;font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.2em;color:var(--ink-3);text-decoration:none;border-bottom:1px solid rgba(var(--fg-rgb),.15);padding-bottom:8px;transition:color .2s,gap .2s;"><span>←</span> GOPUBLICS</a>
+    <a href="project-cupo.html" data-nav="true" data-magnetic="true" class="pfx-hov-10" style="display:inline-flex;align-items:center;gap:14px;font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.2em;color:var(--ink-3);text-decoration:none;border-bottom:1px solid rgba(var(--fg-rgb),.15);padding-bottom:8px;transition:color .2s,gap .2s;">CUPO <span>→</span></a>
   </div>
 
-  <footer style="border-top:1px solid rgba(255,255,255,0.07);">
+  <footer style="border-top:1px solid rgba(var(--fg-rgb),0.07);">
     <div style="max-width:1320px;margin:0 auto;padding:22px clamp(20px,4vw,48px);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
-      <span style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;color:rgba(244,242,238,.35);">©2026 POHUNG LIN — UI/UX DESIGN PORTFOLIO</span>
-      <a href="#top" class="pfx-hov-11" data-i18n="footer.top" style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;color:rgba(244,242,238,.35);text-decoration:none;transition:color .2s;">BACK TO TOP ↑</a>
+      <span style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;color:var(--ink-3);">©2026 POHUNG LIN — UI/UX DESIGN PORTFOLIO</span>
+      <a href="#top" class="pfx-hov-11" data-i18n="footer.top" style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;color:var(--ink-3);text-decoration:none;transition:color .2s;">BACK TO TOP ↑</a>
     </div>
   </footer>
 </div>

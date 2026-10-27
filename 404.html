@@ -6,24 +6,25 @@
   <title>Page not found — Tom Lin</title>
   <meta name="robots" content="noindex">
   <link rel="icon" href="/logo/favicon.ico">
+  <script src="/assets/theme.js"></script>
+  <link rel="stylesheet" href="/assets/theme.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    :root { color-scheme: dark; }
     * { box-sizing: border-box; }
-    body { margin: 0; min-height: 100svh; display: grid; place-items: center; padding: 24px; background: #0C0C0E; color: #F4F2EE; font-family: 'Space Grotesk', system-ui, sans-serif; }
+    body { margin: 0; min-height: 100svh; display: grid; place-items: center; padding: 24px; background: var(--bg); color: var(--ink); font-family: 'Space Grotesk', system-ui, sans-serif; }
     main { max-width: 560px; }
-    .cap { display: flex; align-items: center; gap: 14px; margin: 0 0 24px; font: 11px 'Space Mono', monospace; letter-spacing: .3em; text-transform: uppercase; color: #F07040; }
-    .cap i { width: 7px; height: 7px; background: #F07040; }
+    .cap { display: flex; align-items: center; gap: 14px; margin: 0 0 24px; font: 11px 'Space Mono', monospace; letter-spacing: .3em; text-transform: uppercase; color: var(--accent-ink); }
+    .cap i { width: 7px; height: 7px; background: var(--accent); }
     h1 { margin: 0; font-size: clamp(40px, 9vw, 76px); font-weight: 300; letter-spacing: -0.03em; line-height: 1.05; }
     h1 b { font-weight: 500; }
-    p { margin: 22px 0 0; max-width: 46ch; font-size: 17px; font-weight: 300; line-height: 1.7; color: rgba(244,242,238,.66); }
+    p { margin: 22px 0 0; max-width: 46ch; font-size: 17px; font-weight: 300; line-height: 1.7; color: var(--ink-2); }
     nav { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
-    a { display: inline-flex; align-items: center; height: 42px; padding: 0 18px; font: 11px 'Space Mono', monospace; letter-spacing: .18em; text-transform: uppercase; text-decoration: none; border: 1px solid rgba(255,255,255,.16); color: #F4F2EE; transition: border-color .2s, color .2s, background .2s; }
-    a:hover, a:focus-visible { border-color: #F07040; color: #F07040; outline: 0; }
-    a.pri { background: #F07040; border-color: #F07040; color: #0C0C0E; font-weight: 700; }
-    a.pri:hover, a.pri:focus-visible { background: #ff8a5c; color: #0C0C0E; }
+    a { display: inline-flex; align-items: center; height: 42px; padding: 0 18px; font: 11px 'Space Mono', monospace; letter-spacing: .18em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--line-2); color: var(--ink); transition: border-color .2s, color .2s, background .2s; }
+    a:hover, a:focus-visible { border-color: var(--accent); color: var(--accent-ink); outline: 0; }
+    a.pri { background: var(--accent); border-color: var(--accent); color: var(--on-accent); font-weight: 700; }
+    a.pri:hover, a.pri:focus-visible { background: var(--accent-hover); color: var(--on-accent); }
   </style>
 </head>
 <body>

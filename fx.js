@@ -89,10 +89,10 @@
       orangeLayer.style.cssText = 'position:absolute;inset:0;background:#F07040;transform:translateY(0%);';
       var charcoalLayer = document.createElement('div');
       charcoalLayer.setAttribute('data-pfx-layer', 'charcoal');
-      charcoalLayer.style.cssText = 'position:absolute;inset:0;background:#101013;transform:translateY(0%);';
+      charcoalLayer.style.cssText = 'position:absolute;inset:0;background:var(--curtain,#101013);transform:translateY(0%);';
       var brandLayer = document.createElement('div');
       brandLayer.setAttribute('data-pfx-layer', 'brand');
-      brandLayer.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:700 13px/1 "Space Mono",monospace;letter-spacing:.5em;color:rgba(244,242,238,0.9);text-indent:.5em;';
+      brandLayer.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:700 13px/1 "Space Mono",monospace;letter-spacing:.5em;color:var(--ink-1,rgba(244,242,238,0.9));text-indent:.5em;';
       brandLayer.textContent = 'TOM\u00b7LIN';
       wrap.appendChild(orangeLayer);
       wrap.appendChild(charcoalLayer);
