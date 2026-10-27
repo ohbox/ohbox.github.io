@@ -851,7 +851,7 @@
         <div class="export" data-reveal="true">
           <header class="mono"><span>Assets — Tom Lin</span><span id="clock2"></span></header>
           <div class="row"><span class="mono">Email</span><span class="v" id="mail"></span><button type="button" id="copyMail">Copy</button></div>
-          <div class="row"><span class="mono">Resume</span><span class="v">Tom_Lin_UIUX_Designer_Resume.pdf</span><a class="act" id="resume2" download>Download</a></div>
+          <div class="row"><span class="mono">Resume</span><span class="v">Tom_Lin_UIUX_Designer_Resume.pdf</span><a class="act" id="resume2" href="resume/Tom_Lin_UIUX_Designer_Resume.pdf" data-resume download>Download</a></div>
         </div>
       </div>
       <form class="share ipanel" id="share" data-focal="Dialog / Share" data-reveal="true" novalidate>
@@ -881,9 +881,9 @@
 
 <script src="fx.js"></script>
 <script src="i18n.js"></script>
-<script src="assets/v3-i18n.js?v=5"></script>
+<script src="assets/v3-i18n.js?v=6"></script>
 <script src="assets/shared.js"></script>
-<script src="assets/about-char.js?v=responsive-accordion-20261024"></script>
+<script src="assets/about-char.js?v=resume-20261027"></script>
 <script src="assets/prompt-belief.js?v=8"></script>
 <script src="assets/presence.js?v=3"></script>
 <script>
@@ -1509,7 +1509,7 @@
 
   /* ---------- about + contact ---------- */
   window.mountCharacter($('#axTrack'), { about: A, reduced: P.reduced });
-  $('#resume2').href = A.resume; $('#mail').textContent = A.email;
+  $('#mail').textContent = A.email;
   $('#copyMail').addEventListener('click', function () { P.copy(A.email, 'Email copied — talk soon'); });
   // Share dialog: compose an invite and hand it to the visitor's own mail app
   $('.sh-chips').addEventListener('click', function (e) {

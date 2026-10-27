@@ -103,7 +103,7 @@ window.mountCharacter = function (root, opts) {
   // unlock order alternates sides; anchors are points on the character image (percent of its box)
   var PANELS = [
     { id: 'sum', side: 'l', name: 'Summary', st: 'Lv.06 · Taipei', at: [50, 16], body: '<div class="ax-in ax-sum"><h4>' + A.hi + '</h4><p>' + shortBio + '</p><blockquote>“' + A.quote + '”</blockquote>' +
-        '<a class="btn btn--fill" href="' + A.resume + '" download>Download resume ↓</a></div>' },
+        '<a class="btn btn--fill" href="' + A.resume + '" data-resume download>Download resume ↓</a></div>' },
     { id: 'str', side: 'r', name: 'Strengths', st: 'avg 7.7', at: [52, 44], body: '<div class="ax-in">' + STRENGTHS.map(function (s) {
         return '<div class="ax-row"><div class="k">' + s[0] + '<b>LV.' + s[1] + '</b></div>' + bar(Math.round(s[1] * 4), 40) + '</div>'; }).join('') + '</div>' },
     { id: 'badge', side: 'l', name: 'ID badge', st: 'Holder · Po-Hung Lin', at: [41, 39], body: '<div class="ax-badge"><div class="ab-lc" id="ab-lc"></div></div>' },

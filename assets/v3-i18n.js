@@ -24,7 +24,7 @@
     'Think I’d fit': '讓我一起加入', 'your project': '你的專案吧', '?': '？',
     'Get in touch with me about a project, a collaboration, or just to say hello.': '無論是專案合作、交流想法，或單純打聲招呼，都歡迎聯絡我。',
     'Assets — Tom Lin': 'Tom Lin 的聯絡資料', 'Email': '電子郵件', 'Copy': '複製',
-    'Resume': '履歷', 'Tom_Lin_UIUX_Designer_Resume.pdf': 'Tom_Lin_UIUX_Designer_Resume.pdf',
+    'Resume': '履歷', 'Tom_Lin_UIUX_Designer_Resume.pdf': 'Tom_Lin_UIUX_Designer_Resume_zh.pdf',
     'Download': '下載', 'Share': '分享', 'Taipei · GMT+8': '台北 · GMT+8',
     'Invite Tom to your project': '邀請 Tom 合作', 'What are we building?': '想討論什麼？',
     'Product design': '產品設計', 'Design system': '設計系統', 'Prototype': '原型製作', 'Something else': '其他',
@@ -304,7 +304,16 @@
     if (next !== raw) el.setAttribute(name, next);
   }
 
+  /* the resume download follows the page language: any link marked data-resume points at the matching PDF */
+  var RESUME = { en: 'resume/Tom_Lin_UIUX_Designer_Resume.pdf', zh: 'resume/Tom_Lin_UIUX_Designer_Resume_zh.pdf' };
+  function localizeResume(root) {
+    var links = root.querySelectorAll ? [].slice.call(root.querySelectorAll('[data-resume]')) : [];
+    if (root.matches && root.matches('[data-resume]')) links.push(root);
+    links.forEach(function (a) { a.setAttribute('href', RESUME[lang]); });
+  }
+
   function walk(node) {
+    if (node.nodeType === 1) localizeResume(node);
     if (node.nodeType === 3) {
       var parent = node.parentElement;
       if (!parent || parent.closest('script, style, noscript, code, pre')) return;
