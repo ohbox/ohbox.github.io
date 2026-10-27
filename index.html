@@ -883,7 +883,7 @@
 
 <nav class="hdock is-away" id="hdock" aria-label="Home and project navigation"></nav>
 
-<script src="fx.js?v=theme1"></script>
+<script src="fx.js?v=cursor1"></script>
 <script src="i18n.js"></script>
 <script src="assets/v3-i18n.js?v=7"></script>
 <script src="assets/shared.js"></script>
@@ -897,7 +897,8 @@
   var playIntro = !P.reduced && scrollY < 40;
   if (playIntro) body.classList.add('pre', 'intro');
   P.boot('v3');
-  if (window.PortfolioFX) PortfolioFX.initCursor();
+  // primary orange buttons keep the filled cursor ring; everything else clickable gets corner brackets
+  if (window.PortfolioFX) { PortfolioFX.cursorPrimary = '[data-magnetic], .btn--fill, .r-cta, .pe-send, .composer .go'; PortfolioFX.initCursor(); }
   P.clock(document.getElementById('clock')); P.clock(document.getElementById('clock2'));
   var $ = function (s, c) { return (c || document).querySelector(s); }, $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
   var clamp = function (v, a, b) { return Math.min(b, Math.max(a, v)); }, lerp = function (a, b, t) { return a + (b - a) * t; };

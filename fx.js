@@ -4,25 +4,50 @@
   var fine = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
 
   /* ---------------- Custom cursor ---------------- */
+  /* Rest: dot + ring. Hovering something clickable: the ring steps aside and four orange corner brackets frame the element,
+     like a selection in a design tool, so nothing covers what you're about to click. Labelled targets ([data-cursor], e.g.
+     VIEW / DRAG) and primary buttons keep the filled orange ring; pages list their primary buttons in FX.cursorPrimary. */
+  FX.cursorPrimary = '[data-magnetic]';
+  var CLICKABLE = 'a[href],button,[role="button"],[role="option"],[role="menuitemradio"],[role="switch"],select,summary,label[for],input[type="range"],input[type="checkbox"],[tabindex="0"]';
   FX.initCursor = function () {
     if (!fine) return;
     var dot = document.createElement('div');
     var ring = document.createElement('div');
+    var brk = document.createElement('div');
     dot.setAttribute('aria-hidden', 'true');
     ring.setAttribute('aria-hidden', 'true');
+    brk.setAttribute('aria-hidden', 'true');
     dot.style.cssText = 'position:fixed;top:0;left:0;width:8px;height:8px;border-radius:50%;background:#F07040;pointer-events:none;z-index:9999;transform:translate(-100px,-100px);will-change:transform;transition:opacity .2s ease;';
     ring.style.cssText = 'position:fixed;top:0;left:0;width:38px;height:38px;border-radius:50%;border:1px solid rgba(240,112,64,0.55);pointer-events:none;z-index:9998;transform:translate(-100px,-100px);transition:width .25s ease,height .25s ease,border-color .25s ease,background .25s ease,opacity .2s ease;will-change:transform;display:flex;align-items:center;justify-content:center;font:600 9px/1 "Space Mono",monospace;letter-spacing:.14em;color:#0C0C0E;';
+    brk.style.cssText = 'position:fixed;top:0;left:0;width:0;height:0;pointer-events:none;z-index:9998;opacity:0;transition:opacity .18s ease;will-change:transform,width,height;';
+    brk.innerHTML = ['left:0;top:0;border-width:1.5px 0 0 1.5px', 'right:0;top:0;border-width:1.5px 1.5px 0 0', 'left:0;bottom:0;border-width:0 0 1.5px 1.5px', 'right:0;bottom:0;border-width:0 1.5px 1.5px 0']
+      .map(function (c) { return '<i style="position:absolute;width:8px;height:8px;border:0 solid #F07040;' + c + '"></i>'; }).join('');
     document.body.appendChild(ring);
+    document.body.appendChild(brk);
     document.body.appendChild(dot);
-    document.documentElement.style.cursor = 'none';
-    var addNoCursor = document.createElement('style');
-    addNoCursor.textContent = 'a,button,[data-cursor]{cursor:none!important}';
-    document.head.appendChild(addNoCursor);
+    // no native cursor anywhere (no hand, grab or crosshair next to the custom one); the Feedback board's own cursor zone switches this off
+    var root = document.documentElement;
+    var noNative = document.createElement('style');
+    noNative.textContent = 'html.pfx-cursor,html.pfx-cursor *,html.pfx-cursor *::before,html.pfx-cursor *::after{cursor:none!important}';
+    document.head.appendChild(noNative);
+    root.classList.add('pfx-cursor');
 
     var mx = -100, my = -100, rx = -100, ry = -100;
-    var inSvgZone = false;
+    var inSvgZone = false, framed = null, bx = 0, by = 0, bw = 0, bh = 0, PAD = 5;
 
     window.addEventListener('mousemove', function (e) { mx = e.clientX; my = e.clientY; });
+
+    function rest() {
+      ring.style.width = '38px'; ring.style.height = '38px';
+      ring.style.background = 'transparent';
+      ring.style.borderColor = 'rgba(240,112,64,0.55)';
+      ring.textContent = '';
+    }
+    function frame(t) {
+      if (!framed) { var r = t.getBoundingClientRect(); bx = r.left - PAD; by = r.top - PAD; bw = r.width + PAD * 2; bh = r.height + PAD * 2; } // first frame snaps; moves between targets glide
+      framed = t; brk.style.opacity = '1'; ring.style.opacity = '0';
+    }
+    function unframe() { framed = null; brk.style.opacity = '0'; ring.style.opacity = '1'; }
 
     document.addEventListener('mouseover', function (e) {
       /* SVG zone: hide custom cursor, let native pointer interact with SVG */
@@ -30,23 +55,28 @@
       if (svgZone) {
         if (!inSvgZone) {
           inSvgZone = true;
-          document.documentElement.style.cursor = 'default';
+          root.classList.remove('pfx-cursor');
+          root.style.cursor = 'default';
           dot.style.opacity = '0';
           ring.style.opacity = '0';
+          unframe(); brk.style.opacity = '0';
         }
         return;
       }
       /* Leaving SVG zone */
       if (inSvgZone) {
         inSvgZone = false;
-        document.documentElement.style.cursor = 'none';
+        root.classList.add('pfx-cursor');
+        root.style.cursor = '';
         dot.style.opacity = '1';
         ring.style.opacity = '1';
       }
 
-      var t = e.target.closest && e.target.closest('a,button,[data-cursor]');
-      if (t) {
-        var label = t.getAttribute('data-cursor');
+      var t = e.target.closest && e.target.closest('[data-cursor],' + CLICKABLE);
+      if (t && (t.disabled || t.getAttribute('aria-disabled') === 'true')) t = null;
+      var label = t && t.getAttribute('data-cursor');
+      if (t && (label || t.matches(FX.cursorPrimary))) {
+        unframe();
         ring.style.width = label ? '74px' : '58px';
         ring.style.height = label ? '74px' : '58px';
         ring.style.background = 'rgba(240,112,64,0.92)';
@@ -54,13 +84,12 @@
         ring.textContent = label || '';
         dot.style.opacity = label ? '0' : '1';
       } else {
-        ring.style.width = '38px'; ring.style.height = '38px';
-        ring.style.background = 'transparent';
-        ring.style.borderColor = 'rgba(240,112,64,0.55)';
-        ring.textContent = '';
+        rest();
         dot.style.opacity = '1';
+        if (t) frame(t); else unframe();
       }
     });
+    document.addEventListener('mouseleave', function () { unframe(); });
 
     (function loop() {
       requestAnimationFrame(loop);
@@ -69,6 +98,12 @@
       dot.style.transform = 'translate(' + (mx - 4) + 'px,' + (my - 4) + 'px)';
       var half = ring.offsetWidth / 2;
       ring.style.transform = 'translate(' + (rx - half) + 'px,' + (ry - half) + 'px)';
+      if (framed) { // follow the element as it scrolls or animates; ease toward it so moving between targets slides
+        if (!framed.isConnected) { unframe(); return; }
+        var r = framed.getBoundingClientRect(), k = 0.3;
+        bx += (r.left - PAD - bx) * k; by += (r.top - PAD - by) * k; bw += (r.width + PAD * 2 - bw) * k; bh += (r.height + PAD * 2 - bh) * k;
+        brk.style.transform = 'translate(' + bx + 'px,' + by + 'px)'; brk.style.width = bw + 'px'; brk.style.height = bh + 'px';
+      }
     })();
   };
 
