@@ -92,7 +92,7 @@
 .r-text .w { opacity: 0; transition: opacity .35s; }
 .r-text .w.on { opacity: 1; }
 .r-cta { display: inline-flex; align-items: center; gap: 10px; margin-top: 22px; height: 40px; padding: 0 16px; background: var(--accent); color: var(--on-accent);
-  font: 11px var(--mono); letter-spacing: .18em; text-transform: uppercase; opacity: 0; transform: translateY(6px); transition: opacity .4s, transform .5s var(--ease-out), background .2s; }
+  font: 11px var(--mono); font-weight: 700; letter-spacing: .18em; text-transform: uppercase; opacity: 0; transform: translateY(6px); transition: opacity .4s, transform .5s var(--ease-out), background .2s; }
 .r-cta.on { opacity: 1; transform: none; }
 .r-cta:hover { background: var(--accent-hover); }
 
