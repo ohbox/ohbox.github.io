@@ -22,10 +22,10 @@
 <meta name="twitter:image:alt" content="Tom Lin UI/UX Designer portfolio preview">
 <link rel="icon" href="logo/favicon.ico">
 <script src="assets/theme.js"></script>
-<link rel="stylesheet" href="assets/theme.css?v=cursor2">
-<link rel="stylesheet" href="assets/shared.css?v=cursor2">
-<link rel="stylesheet" href="assets/about-char.css?v=13">
-<link rel="stylesheet" href="assets/prompt-belief.css?v=10">
+<link rel="stylesheet" href="assets/theme.css?v=hover1">
+<link rel="stylesheet" href="assets/shared.css?v=hover1">
+<link rel="stylesheet" href="assets/about-char.css?v=14">
+<link rel="stylesheet" href="assets/prompt-belief.css?v=11">
 <link rel="stylesheet" href="assets/presence.css?v=5">
 <link rel="stylesheet" href="assets/v3-i18n.css?v=1">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -185,7 +185,7 @@
   .swatches button[aria-pressed="true"] { outline: 1px solid var(--ink); outline-offset: 2px; }
   .pbtn { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; height: 36px; padding: 0 14px; border: 1px solid var(--line-2);
     font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; transition: border-color .2s, color .2s; }
-  .pbtn:hover { border-color: var(--ink); color: var(--ink); }
+  .pbtn:hover { border-color: var(--hover-line); color: var(--ink); }
   .seg { position: relative; display: flex; margin-top: 12px; border: 1px solid var(--line-2); }
   .seg button { position: relative; z-index: 1; flex: 1; height: 30px; font-family: var(--mono); font-size: 10px; letter-spacing: .1em; color: var(--ink-3); transition: color .25s; }
   .seg button[aria-pressed="true"] { color: var(--bg); }
@@ -203,7 +203,7 @@
   .curve { display: block; margin-top: 12px; width: 100%; height: 64px; background: var(--well); border: 1px solid var(--line); }
   .keys { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
   .keys button { font-family: var(--mono); font-size: 11px; padding: 6px 9px; border: 1px solid var(--line-2); color: var(--ink-2); transition: border-color .2s, color .2s; }
-  .keys button:hover { border-color: var(--ink); color: var(--ink); }
+  .keys button:hover { border-color: var(--hover-line); color: var(--ink); }
   .keys kbd { font-family: inherit; color: var(--accent-ink); margin-right: 6px; }
 
   /* animate: per-letter timeline */
@@ -297,7 +297,7 @@
     transition: border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease; }
   .hdock__item img, .hdock__item svg { display: block; width: 50%; height: 50%; object-fit: contain; pointer-events: none; }
   .hdock__item .bright { filter: brightness(1.4); }
-  .hdock__item:hover, .hdock__item:focus-visible { z-index: 2; border-color: var(--ink); background: var(--dock-item-hover); box-shadow: 0 8px 22px rgba(var(--shadow-rgb), calc(.28 * var(--shadow-k))); }
+  .hdock__item:hover, .hdock__item:focus-visible { z-index: 2; border-color: var(--hover-line); background: var(--dock-item-hover); box-shadow: 0 8px 22px rgba(var(--shadow-rgb), calc(.28 * var(--shadow-k))); }
   .hdock__sep { flex: none; width: 1px; height: 24px; margin-bottom: 8px; background: rgba(var(--fg-rgb), .18); }
   .hdock__tip { position: absolute; bottom: calc(100% + 12px); left: 50%; padding: 7px 10px; border: 1px solid rgba(var(--fg-rgb), .18); background: var(--tip-bg); color: var(--ink);
     font: 11px/1 var(--mono); letter-spacing: .02em; white-space: nowrap; opacity: 0; pointer-events: none; transform: translate(-50%, 4px); transition: opacity 140ms ease, transform 140ms ease; }
@@ -346,7 +346,7 @@
   .btn { display: inline-flex; align-items: center; gap: 10px; height: 46px; padding: 0 22px; font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
     transition: background .2s, border-color .2s, color .2s; }
   .btn--fill { background: var(--accent); color: var(--on-accent); font-weight: 700; } .btn--fill:hover { background: var(--accent-hover); }
-  .btn--line { border: 1px solid var(--line-2); } .btn--line:hover { border-color: var(--ink); color: var(--ink); }
+  .btn--line { border: 1px solid var(--line-2); } .btn--line:hover { border-color: var(--hover-line); color: var(--ink); }
 
   .work { position: relative; border-top: 1px solid var(--line); padding-bottom: var(--section-pad); }
   .w-head { padding: var(--section-pad) var(--gutter) 0; }
@@ -437,14 +437,14 @@
   .resolve { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border: 1px solid var(--line-2); font: 10px var(--mono); letter-spacing: .12em;
     text-transform: uppercase; color: var(--ink-2); transition: background .2s, color .2s, border-color .2s; }
   .resolve svg { width: 13px; height: 13px; }
-  .resolve:hover { border-color: var(--ink); color: var(--ink); }
+  .resolve:hover { border-color: var(--hover-line); color: var(--ink); }
   .board .comment.is-done p { color: var(--ink-3); }
   .board .comment .reopen { margin-top: 14px; }
   .bd-tools { position: absolute; z-index: 4; left: 14px; top: 14px; display: flex; align-items: center; gap: 12px; }
   .bd-add { display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; font: 11px var(--mono); letter-spacing: .12em; text-transform: uppercase;
     color: var(--ink-2); border: 1px solid var(--line-2); background: rgba(var(--bg-rgb), .6); transition: color .2s, border-color .2s, background .2s; }
   .bd-add svg { width: 15px; height: 15px; }
-  .bd-add:hover { border-color: var(--ink); color: var(--ink); }
+  .bd-add:hover { border-color: var(--hover-line); color: var(--ink); }
   .bd-add[aria-pressed="true"] { color: var(--on-accent); background: var(--accent); border-color: var(--accent); }
   .bd-count { font-size: 10px; letter-spacing: .14em; color: var(--ink-3); text-transform: uppercase; }
   .board.is-placing { cursor: crosshair; }
@@ -467,7 +467,7 @@
   .composer textarea:focus { border-color: var(--accent); }
   .composer .acts { display: flex; gap: 8px; margin-top: 10px; }
   .composer .acts button { height: 32px; padding: 0 12px; font: 10px var(--mono); letter-spacing: .12em; text-transform: uppercase; border: 1px solid var(--line-2); color: var(--ink-2); }
-  .composer .acts button:not(.go):hover { border-color: var(--ink); color: var(--ink); }
+  .composer .acts button:not(.go):hover { border-color: var(--hover-line); color: var(--ink); }
   .composer .acts .go { background: var(--accent); color: var(--on-accent); border-color: var(--accent); } .composer .acts .go:hover { background: var(--accent-hover); }
   .board .comment p { margin: 14px 0 0; font-size: clamp(16px, 1.6vw, 19px); font-weight: 300; line-height: 1.55; color: var(--ink-1); }
   .board .comment .prog { position: absolute; left: 0; bottom: 0; height: 3px; width: 100%; background: var(--accent); transform-origin: left; transform: scaleX(0); }
@@ -502,7 +502,7 @@
   .export .row:last-child { border-bottom: 0; }
   .export .row span:first-child { color: var(--accent-ink); } .export .row .v { color: var(--ink-2); overflow-wrap: anywhere; font-size: 14px; }
   .export .row button, .export .row a.act { font: 11px var(--mono); letter-spacing: .16em; border: 1px solid var(--line-2); padding: 8px 12px; text-transform: uppercase; transition: border-color .2s, color .2s; }
-  .export .row button:hover, .export .row a.act:hover { border-color: var(--ink); color: var(--ink); }
+  .export .row button:hover, .export .row a.act:hover { border-color: var(--hover-line); color: var(--ink); }
   /* contact as a Share dialog: invite Tom to your project (opens the visitor's mail app) */
   .contact { grid-template-columns: minmax(0, 1fr) minmax(0, 520px) !important; align-items: start !important; }
   .contact .export { margin-top: 36px; }
@@ -523,7 +523,7 @@
   .sh-lab { margin: 18px 0 8px; font-size: 10px; letter-spacing: .16em; color: var(--ink-3); text-transform: uppercase; }
   .sh-chips { display: flex; flex-wrap: wrap; gap: 6px; }
   .sh-chips button { height: 30px; padding: 0 11px; border: 1px solid var(--line-2); font: 11px var(--mono); letter-spacing: .06em; color: var(--ink-2); transition: color .2s, border-color .2s, background .2s; }
-  .sh-chips button:hover { border-color: var(--ink); color: var(--ink); }
+  .sh-chips button:hover { border-color: var(--hover-line); color: var(--ink); }
   .sh-chips button[aria-checked="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
   .share textarea { display: block; width: 100%; min-height: 96px; margin-top: 14px; padding: 10px 12px; resize: vertical; border: 1px solid var(--line-2); background: var(--well); color: var(--ink);
     font: 14px/1.5 var(--sans); outline: none; transition: border-color .2s; }
@@ -643,7 +643,7 @@
     /* Match the live switch's 28px visual height inside a 44px hit area. */
     .pfx-lang-toggle { width: 58px; height: 44px; padding: 2px; border: 0; background: transparent; }
     .pfx-lang-toggle::before { content: ''; position: absolute; z-index: 0; inset: 8px 0; border: 1px solid rgba(var(--fg-rgb), .14); background: var(--bg-2); pointer-events: none; }
-    .pfx-lang-toggle:hover::before { border-color: var(--ink); }
+    .pfx-lang-toggle:hover::before { border-color: var(--hover-line); }
     .pfx-lang-toggle .pfx-lang-toggle-thumb { z-index: 1; top: 11px; bottom: 11px; }
     .pfx-lang-toggle .pfx-lang-toggle-opt { z-index: 2; }
 

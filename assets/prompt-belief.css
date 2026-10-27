@@ -25,7 +25,7 @@
   font: 11px var(--mono); letter-spacing: .06em; white-space: nowrap; transition: border-color .2s, color .2s, background .2s; }
 .pe-chip svg { width: 14px; height: 14px; flex: none; }
 .pe-chip .ch { width: 9px; height: 9px; transition: transform .3s var(--ease-out); }
-.pe-chip:hover:not(:disabled) { border-color: var(--ink); color: var(--ink); }
+.pe-chip:hover:not(:disabled) { border-color: var(--hover-line); color: var(--ink); }
 .pe-chip[aria-expanded="true"] { border-color: var(--accent); color: var(--ink); }
 .pe-chip[aria-expanded="true"] .ch { transform: rotate(180deg); }
 .pe-chip:disabled { opacity: .45; cursor: default; }

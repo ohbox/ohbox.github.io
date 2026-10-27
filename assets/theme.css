@@ -37,6 +37,7 @@
   /* brand */
   --accent: #F07040;            /* fills, frames, bullets */
   --accent-rgb: 240, 112, 64;
+  --hover-line: rgba(240, 112, 64, .55);   /* border of a bordered button on hover; its text goes to --ink */
   --accent-hover: #FF8A5C;
   --accent-ink: #F07040;        /* orange used as text */
   --accent-soft: rgba(240, 112, 64, .14);
@@ -95,7 +96,7 @@
 .pfx-theme { position: relative; flex-shrink: 0; }
 .pfx-theme-btn { position: relative; display: grid; place-items: center; width: 28px; height: 28px; box-sizing: border-box; border: 1px solid var(--line-2);
   background: var(--bg-2); color: var(--ink-2); cursor: pointer; -webkit-tap-highlight-color: transparent; transition: border-color .2s, color .2s; }
-.pfx-theme-btn:hover { border-color: var(--ink); color: var(--ink); }
+.pfx-theme-btn:hover { border-color: var(--hover-line); color: var(--ink); }
 .pfx-theme-btn[aria-expanded="true"] { border-color: rgba(var(--accent-rgb), .55); color: var(--ink); }
 .pfx-theme-btn svg { width: 14px; height: 14px; }
 .pfx-theme-btn svg:not(.is-on) { display: none; }
@@ -116,7 +117,7 @@
 @media (max-width: 880px) {
   .pfx-theme-btn { width: 44px; height: 44px; border: 0; background: transparent; }
   .pfx-theme-btn::before { content: ''; position: absolute; inset: 8px; border: 1px solid var(--line-2); background: var(--bg-2); transition: border-color .2s; }
-  .pfx-theme-btn:hover::before { border-color: var(--ink); }
+  .pfx-theme-btn:hover::before { border-color: var(--hover-line); }
   .pfx-theme-btn[aria-expanded="true"]::before { border-color: rgba(var(--accent-rgb), .55); }
   .pfx-theme-btn svg { position: relative; }
   .pfx-theme-menu { top: calc(100% + 2px); }
