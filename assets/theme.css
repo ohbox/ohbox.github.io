@@ -37,7 +37,7 @@
   /* brand */
   --accent: #F07040;            /* fills, frames, bullets */
   --accent-rgb: 240, 112, 64;
-  --hover-line: rgba(240, 112, 64, .55);   /* border of a bordered button on hover; its text goes to --ink */
+  --hover-line: var(--ink-3);   /* border of a bordered button on hover (grey lifts to a soft white); its text and icon go to --ink */
   --accent-hover: #FF8A5C;
   --accent-ink: #F07040;        /* orange used as text */
   --accent-soft: rgba(240, 112, 64, .14);
