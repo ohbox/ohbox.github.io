@@ -54,42 +54,44 @@
 
 :root[data-theme="light"] {
   color-scheme: light;
+  /* "Studio": a neutral design-tool canvas. The ink is the dark theme's page colour, so the two themes mirror each other,
+     and the brand orange is the only colour on the page. */
 
-  --bg: #F4F2EE;
-  --bg-rgb: 244, 242, 238;
-  --bg-2: #EDEAE4;
+  --bg: #F5F5F5;
+  --bg-rgb: 245, 245, 245;
+  --bg-2: #EAEAEA;
   --bg-3: #FFFFFF;
-  --well: #F0EDE7;
-  --panel-rgb: 251, 250, 247;
+  --well: #F6F6F6;
+  --panel-rgb: 255, 255, 255;
   --tip-bg: #FFFFFF;
-  --muted: #D5D1C9;
-  --curtain: #EAE7E1;
-  --chip-bg: rgba(20, 18, 16, .06);
-  --scrim-k: .4;                /* a paper-coloured fade over dark screenshots reads as haze, so keep it faint */
+  --muted: #D6D6D6;
+  --curtain: #E8E8E8;
+  --chip-bg: rgba(12, 12, 14, .05);
+  --scrim-k: .3;                /* a light fade over dark screenshots reads as haze, so keep it faint */
 
-  --dock-bg: rgba(251, 250, 247, .9);
-  --dock-item: rgba(20, 18, 16, .035);
-  --dock-item-hover: rgba(255, 255, 255, .96);
-  --dock-item-active: rgba(240, 112, 64, .16);
+  --dock-bg: rgba(255, 255, 255, .92);
+  --dock-item: rgba(12, 12, 14, .03);
+  --dock-item-hover: #FFFFFF;
+  --dock-item-active: rgba(240, 112, 64, .14);
 
-  --ink: #141416;
-  --ink-rgb: 20, 20, 22;
-  --ink-1: rgba(20, 20, 22, .86);
-  --ink-2: rgba(20, 20, 22, .7);
-  --ink-3: rgba(20, 20, 22, .52);
-  --fg-rgb: 20, 18, 16;
-  --line: rgba(20, 18, 16, .1);
-  --line-2: rgba(20, 18, 16, .2);
+  --ink: #0C0C0E;
+  --ink-rgb: 12, 12, 14;
+  --ink-1: rgba(12, 12, 14, .86);
+  --ink-2: rgba(12, 12, 14, .64);
+  --ink-3: rgba(12, 12, 14, .48);
+  --fg-rgb: 12, 12, 14;
+  --line: rgba(12, 12, 14, .09);
+  --line-2: rgba(12, 12, 14, .16);
 
-  --accent-hover: #E35F2D;
-  --accent-ink: #BF4A1A;        /* the brand orange is too light for small text on paper (2.6:1); this one reads at 4.5:1 */
-  --peach: #B5552A;
-  --code-key: #6B54D8;
-  --red: #D92B4A;
-  --ok: #1FA870;
+  --accent-hover: #E5602D;
+  --accent-ink: #C8470F;        /* the brand orange is too light for small text on a light page (2.6:1); this one reads at 4.3:1 */
+  --peach: #B3552B;
+  --code-key: #5B4BD6;
+  --red: #E0284A;
+  --ok: #14A06A;
 
-  --shadow-rgb: 60, 44, 28;
-  --shadow-k: .32;
+  --shadow-rgb: 0, 0, 0;
+  --shadow-k: .14;
 }
 
 /* ---------- theme switch: icon button + Light / Dark / System menu, next to the language switch ---------- */

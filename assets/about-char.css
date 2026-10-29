@@ -48,7 +48,7 @@ section.ax { padding-bottom: var(--section-pad, clamp(76px, 10vh, 160px)); }
 .ax-sum p { margin: 10px 0 0; font-size: 13.5px; font-weight: 300; line-height: 1.7; color: var(--ink-2); }
 .ax-sum blockquote { margin: 12px 0 0; padding-left: 12px; border-left: 1px solid var(--accent); font-size: 14px; font-weight: 300; color: var(--ink-1); }
 .ax-sum .btn { margin-top: 14px; height: 38px; padding: 0 16px; }
-.ax-badge .ab-lc { height: 380px; border: 0; }
+.ax-badge .ab-lc { height: 380px; border: 0; background: transparent; } /* inside a panel the badge box is the panel's own surface */
 .ax-badge .ab-lc::before, .ax-badge .ab-lc::after, .ax-badge .ab-c-tr, .ax-badge .ab-c-bl { display: none; }
 .ax-badge .ab-lbl-tl, .ax-badge .ab-lbl-tr { top: 18px; } .ax-badge .ab-lbl-tl { left: 18px; } .ax-badge .ab-lbl-tr { right: 18px; }
 .ax-badge .ab-lbl-bl { left: 18px; bottom: 18px; } .ax-badge .ab-hint { right: 18px; bottom: 18px; }
@@ -74,7 +74,7 @@ section.ax { padding-bottom: var(--section-pad, clamp(76px, 10vh, 160px)); }
 .ax-chips span.dim { opacity: .28; }
 
 .ax-int { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
-.ax-int div { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 10px 4px; background: rgba(var(--fg-rgb), .02); box-shadow: 0 2px 10px rgba(var(--shadow-rgb), calc(.45 * var(--shadow-k)));
+.ax-int div { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 10px 4px; background: rgba(var(--fg-rgb), .02); box-shadow: 0 1px 3px rgba(var(--shadow-rgb), calc(.45 * var(--shadow-k)));
   transition: transform .35s var(--ease-out), background .2s; }
 .ax-int div:hover { transform: translateY(-3px); background: rgba(240,112,64,.08); }
 .ax-int img { width: 28px; height: 28px; object-fit: contain; }
