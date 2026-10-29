@@ -239,10 +239,37 @@ window.mountCharacter = function (root, opts) {
   });
 
   /* ---------- X-ray lens: follows the pointer over him, otherwise rests on the newest panel's anchor ---------- */
-  var lp = { x: 50, y: 40 }, lt = { x: 50, y: 40 }, over = false, lr = 0;
-  ch.addEventListener('pointermove', function (e) { var r = fig.getBoundingClientRect(); over = true; lt.x = (e.clientX - r.left) / r.width * 100; lt.y = (e.clientY - r.top) / r.height * 100; });
-  ch.addEventListener('pointerleave', function () { over = false; });
-  if (!fine) ch.addEventListener('click', function (e) { var r = fig.getBoundingClientRect(); lt.x = (e.clientX - r.left) / r.width * 100; lt.y = (e.clientY - r.top) / r.height * 100; });
+  var lp = { x: 50, y: 40 }, lt = { x: 50, y: 40 }, over = false, lr = 0, touching = false;
+  function setTarget(cx, cy) { var r = fig.getBoundingClientRect(); lt.x = (cx - r.left) / r.width * 100; lt.y = (cy - r.top) / r.height * 100; }
+  if (fine) {
+    ch.addEventListener('pointermove', function (e) { over = true; setTarget(e.clientX, e.clientY); });
+    ch.addEventListener('pointerleave', function () { over = false; });
+  } else {
+    /* touch: a tap sends the lens to the finger, and dragging moves it freely under the finger. A swipe that starts as a mostly
+       vertical move away from the lens is left to the page, so the character never traps scrolling. After the finger lifts the lens
+       stays put for a moment, then drifts back to the newest panel's anchor. */
+    var ts = null, backT = 0;
+    ch.addEventListener('touchstart', function (e) {
+      if (e.touches.length !== 1) { ts = null; return; }
+      var t = e.touches[0], r = fig.getBoundingClientRect();
+      var lx = r.left + r.width * lp.x / 100, ly = r.top + r.height * lp.y / 100; // where the lens is right now
+      ts = { x: t.clientX, y: t.clientY, near: Math.hypot(t.clientX - lx, t.clientY - ly) < Math.max(lr, 46) * 1.15, mode: '' };
+      clearTimeout(backT); over = true; touching = true; setTarget(t.clientX, t.clientY);
+    }, { passive: true });
+    ch.addEventListener('touchmove', function (e) {
+      if (!ts) return;
+      var t = e.touches[0];
+      if (!ts.mode) {
+        var dx = t.clientX - ts.x, dy = t.clientY - ts.y;
+        if (Math.abs(dx) + Math.abs(dy) < 6) return;
+        ts.mode = !ts.near && Math.abs(dy) > Math.abs(dx) * 1.4 ? 'scroll' : 'drag';
+      }
+      if (ts.mode === 'drag') { if (e.cancelable) e.preventDefault(); setTarget(t.clientX, t.clientY); }
+    }, { passive: false });
+    var lift = function () { if (!ts) return; ts = null; touching = false; clearTimeout(backT); backT = setTimeout(function () { over = false; }, 2600); };
+    ch.addEventListener('touchend', lift); ch.addEventListener('touchcancel', lift);
+    ch.addEventListener('contextmenu', function (e) { e.preventDefault(); }); // a long press must not open the image
+  }
 
   // pinned labels (a filter is on) must not sit on each other: push later ones down until they clear
   function declutter() {
@@ -429,7 +456,7 @@ window.mountCharacter = function (root, opts) {
     if (els.skills.el.classList.contains('is-open')) radarTick(performance.now());
     var latest = wires(), last = PANELS.filter(function (q, i) { return i < unlocked; }).pop();
     if (!over && last) { var a = (pinned.r && els[pinned.r].p) || (pinned.l && els[pinned.l].p) || last; lt.x = a.at[0]; lt.y = a.at[1]; }
-    lp.x += (lt.x - lp.x) * 0.12; lp.y += (lt.y - lp.y) * 0.12;
+    var lk = touching ? 0.45 : 0.12; lp.x += (lt.x - lp.x) * lk; lp.y += (lt.y - lp.y) * lk; // held by a finger, the lens keeps up with it
     var want = (unlocked > 0 || over) ? Math.max(46, fig.clientWidth * 0.17) : 0; lr += (want - lr) * 0.12;
     fig.style.setProperty('--lx', lp.x.toFixed(2) + '%'); fig.style.setProperty('--ly', lp.y.toFixed(2) + '%'); fig.style.setProperty('--lr', lr.toFixed(1) + 'px');
     lens.style.setProperty('--lr', lr.toFixed(1) + 'px');

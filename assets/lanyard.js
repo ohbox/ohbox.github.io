@@ -217,7 +217,8 @@ export async function mountLanyard(lc, base = './') {
 
   let W_PX = lc.clientWidth || 560, H_PX = lc.clientHeight || 620;
   const renderer = new THREE.WebGLRenderer({ canvas: cvEl, antialias: true, alpha: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  // phones render the glass at 1.5x at most: a 3x screen at 2x was what pushed them under 60 fps
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, matchMedia('(pointer: coarse)').matches ? 1.5 : 2));
   renderer.setSize(W_PX, H_PX);
   renderer.setClearColor(0x000000, 0);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -346,26 +347,36 @@ export async function mountLanyard(lc, base = './') {
   let lerpReady = false, prevT = 0, visible = true, raf = 0;
   const MAX_SPD = 50, MIN_SPD = 0;
 
+  // Physics runs on a fixed 1/60 s clock, whatever the frame rate: one step per frame made the badge move in slow motion
+  // whenever a phone dropped below 60 fps. A frame that took twice as long now takes two steps.
+  const STEP = 1 / 60, MAX_STEPS = 4;
+  let acc = 0;
+
   function loop(t) {
     raf = visible ? requestAnimationFrame(loop) : 0;
-    const dt = Math.min((t - prevT) / 1000, 1 / 30);
+    const real = Math.min((t - prevT) / 1000, 0.1), dt = Math.min(real, 1 / 30);
     prevT = t;
-    if (!dragging) {
-      const breezeAmp = 0.001 + (Math.sin(t * 0.000317) * 0.6 + Math.sin(t * 0.000571) * 0.4) * 0.0002;
-      const br = (Math.sin(t * 0.00072) * 0.65 + Math.sin(t * 0.00119) * 0.35) * breezeAmp;
-      const bv = { x: br, y: 0, z: 0 };
-      j1Body.applyImpulse(bv, true); j2Body.applyImpulse(bv, true); j3Body.applyImpulse(bv, true); cardBody.applyImpulse(bv, true);
-      const rotCoeff = 0.3 + (Math.sin(t * 0.000413) * 0.6 + Math.sin(t * 0.000731) * 0.4) * 0.1;
-      cardBody.applyTorqueImpulse({ x: 0, y: br * rotCoeff, z: 0 }, true);
+    acc += real;
+    const steps = Math.min(MAX_STEPS, Math.max(0, Math.round(acc / STEP)));
+    acc = steps === MAX_STEPS ? 0 : acc - steps * STEP;
+    for (let i = 0; i < steps; i++) {
+      if (!dragging) {
+        const breezeAmp = 0.001 + (Math.sin(t * 0.000317) * 0.6 + Math.sin(t * 0.000571) * 0.4) * 0.0002;
+        const br = (Math.sin(t * 0.00072) * 0.65 + Math.sin(t * 0.00119) * 0.35) * breezeAmp;
+        const bv = { x: br, y: 0, z: 0 };
+        j1Body.applyImpulse(bv, true); j2Body.applyImpulse(bv, true); j3Body.applyImpulse(bv, true); cardBody.applyImpulse(bv, true);
+        const rotCoeff = 0.3 + (Math.sin(t * 0.000413) * 0.6 + Math.sin(t * 0.000731) * 0.4) * 0.1;
+        cardBody.applyTorqueImpulse({ x: 0, y: br * rotCoeff, z: 0 }, true);
+      }
+      world.step();
+      if (!dragging) {
+        const av = cardBody.angvel(), ro = cardBody.rotation();
+        cardBody.setAngvel({ x: av.x, y: av.y - ro.y * 0.05, z: av.z }, true);
+      }
     }
-    world.step();
     const tr = cardBody.translation(), qt = cardBody.rotation();
     cardVisual.position.set(tr.x, tr.y, tr.z);
     cardVisual.quaternion.set(qt.x, qt.y, qt.z, qt.w);
-    if (!dragging) {
-      const av = cardBody.angvel(), ro = cardBody.rotation();
-      cardBody.setAngvel({ x: av.x, y: av.y - ro.y * 0.05, z: av.z }, true);
-    }
     const j1t = j1Body.translation(), j2t = j2Body.translation(), j3t = j3Body.translation(), ft = fixedBody.translation();
     const j1v = new THREE.Vector3(j1t.x, j1t.y, j1t.z), j2v = new THREE.Vector3(j2t.x, j2t.y, j2t.z);
     if (!lerpReady) { j1Lerp.copy(j1v); j2Lerp.copy(j2v); lerpReady = true; }

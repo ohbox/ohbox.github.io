@@ -24,7 +24,7 @@
 <script src="assets/theme.js"></script>
 <link rel="stylesheet" href="assets/theme.css?v=hover2">
 <link rel="stylesheet" href="assets/shared.css?v=hover1">
-<link rel="stylesheet" href="assets/about-char.css?v=14">
+<link rel="stylesheet" href="assets/about-char.css?v=15">
 <link rel="stylesheet" href="assets/prompt-belief.css?v=11">
 <link rel="stylesheet" href="assets/presence.css?v=5">
 <link rel="stylesheet" href="assets/v3-i18n.css?v=1">
@@ -542,7 +542,7 @@
     .panel { position: relative; right: auto; top: auto; width: auto; margin: 0 var(--gutter) 20px; }
     .panel .body { min-height: 0; }
     .bar { position: relative; left: auto; bottom: auto; width: max-content; max-width: calc(100vw - 24px); margin: 20px auto 28px; padding: 4px; gap: 1px; transform: none; }
-    .bar.is-away { transform: translateY(8px); }
+    .bar.is-away { transform: none; opacity: 1; pointer-events: auto; } /* in the flow of the hero on phones: it scrolls away with the page instead of fading out */
     .tool span.lbl { display: inline; font-size: 9px; letter-spacing: .01em; white-space: nowrap; }
     .tool kbd { display: none; }
     .tool { flex: 1 1 auto; justify-content: center; min-width: 0; height: 44px; padding: 0 6px; gap: 5px; font-size: 10px; }
@@ -889,7 +889,7 @@
 <script src="i18n.js"></script>
 <script src="assets/v3-i18n.js?v=7"></script>
 <script src="assets/shared.js"></script>
-<script src="assets/about-char.js?v=theme-20261027"></script>
+<script src="assets/about-char.js?v=touch-20261029"></script>
 <script src="assets/prompt-belief.js?v=8"></script>
 <script src="assets/presence.js?v=3"></script>
 <script>
@@ -1696,7 +1696,7 @@
 })();
 </script>
 <script type="module">
-  import { mountLanyard, LANYARD_HTML } from './assets/lanyard.js?v=4';
+  import { mountLanyard, LANYARD_HTML } from './assets/lanyard.js?v=5';
   const box = document.getElementById('ab-lc');
   box.innerHTML = LANYARD_HTML;
   mountLanyard(box, './').catch((err) => console.warn('Lanyard failed to load', err));

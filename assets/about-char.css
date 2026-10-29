@@ -85,11 +85,15 @@ section.ax { padding-bottom: var(--section-pad, clamp(76px, 10vh, 160px)); }
 .ax-char { position: relative; z-index: 1; height: 68vh; max-height: 100%; width: calc((68vh - 52px) * .6914); max-width: 100%; justify-self: center; align-self: center; cursor: none; touch-action: pan-y; }
 .ax-fig { position: absolute; inset: 0 0 52px 0; animation: float 6s ease-in-out infinite; }
 @keyframes float { 50% { transform: translateY(-8px); } }
-.ax-fig img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; user-select: none; -webkit-user-drag: none; }
+.ax-fig img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; user-select: none; -webkit-user-drag: none; pointer-events: none; -webkit-touch-callout: none; }
+/* no long-press menu, image preview or selection on the character: the skeleton layer underneath must never surface */
+.ax-char, .ax-char * { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; }
 .ax-fig .xr { -webkit-mask-image: radial-gradient(circle var(--lr, 0px) at var(--lx, 50%) var(--ly, 40%), #000 97%, transparent 100%);
   mask-image: radial-gradient(circle var(--lr, 0px) at var(--lx, 50%) var(--ly, 40%), #000 97%, transparent 100%); }
 .ax-lens { position: absolute; z-index: 3; left: 0; top: 0; width: calc(var(--lr, 0px) * 2); height: calc(var(--lr, 0px) * 2); margin: calc(var(--lr, 0px) * -1) 0 0 calc(var(--lr, 0px) * -1);
   border: 1px solid var(--accent); border-radius: 50%; pointer-events: none; transition: opacity .3s; }
+/* on touch screens the lens is a real handle: a finger that lands on it drags it freely and the page does not scroll */
+@media (pointer: coarse) { .ax-lens { pointer-events: auto; touch-action: none; } }
 .ax-lens::before, .ax-lens::after { content: ''; position: absolute; background: var(--accent); }
 .ax-lens::before { left: 50%; top: -6px; width: 1px; height: 12px; } .ax-lens::after { top: 50%; left: -6px; width: 12px; height: 1px; }
 .ax-lens span { position: absolute; left: calc(100% + 8px); top: 50%; transform: translateY(-50%); padding: 2px 6px; background: var(--accent); color: var(--on-accent); font: 10px var(--mono); letter-spacing: .12em; white-space: nowrap; }
