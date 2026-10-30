@@ -7,10 +7,10 @@
 .ipanel > header i b:first-child { background: var(--accent); }
 
 .ax { position: relative; border-top: 1px solid var(--line); }
-.ax-head { padding: var(--section-pad, clamp(76px, 10vh, 160px)) var(--gutter) 0; }
-section.ax { padding-bottom: var(--section-pad, clamp(76px, 10vh, 160px)); }
-.ax-track { position: relative; height: 540vh; }
-.ax-stage { position: sticky; top: 0; height: 100svh; display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, .9fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 48px);
+.ax-head { padding: var(--section-pad, clamp(76px, calc(10 * var(--vh, 1vh)), 160px)) var(--gutter) 0; }
+section.ax { padding-bottom: var(--section-pad, clamp(76px, calc(10 * var(--vh, 1vh)), 160px)); }
+.ax-track { position: relative; height: calc(540 * var(--vh, 1vh)); }
+.ax-stage { position: sticky; top: 0; height: calc(100 * var(--vh, 1vh)); display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, .9fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 48px);
   align-items: center; padding: 92px var(--gutter) 96px; max-width: calc(var(--cw) + 2 * var(--gutter)); margin: 0 auto; }
 .ax-col { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 10px; max-height: 100%; }
 .ax-col.l { align-items: stretch; }
@@ -82,7 +82,7 @@ section.ax { padding-bottom: var(--section-pad, clamp(76px, 10vh, 160px)); }
 
 /* the character: idle float, floor ring, X-ray lens that shows the skeleton underneath */
 /* the box holds the figure plus a 52px name plate, so the selection frame wraps both */
-.ax-char { position: relative; z-index: 1; height: 68vh; max-height: 100%; width: calc((68vh - 52px) * .6914); max-width: 100%; justify-self: center; align-self: center; cursor: none; touch-action: pan-y; }
+.ax-char { position: relative; z-index: 1; height: calc(68 * var(--vh, 1vh)); max-height: 100%; width: calc((calc(68 * var(--vh, 1vh)) - 52px) * .6914); max-width: 100%; justify-self: center; align-self: center; cursor: none; touch-action: pan-y; }
 .ax-fig { position: absolute; inset: 0 0 52px 0; animation: float 6s ease-in-out infinite; }
 @keyframes float { 50% { transform: translateY(-8px); } }
 .ax-fig img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; user-select: none; -webkit-user-drag: none; pointer-events: none; -webkit-touch-callout: none; }
@@ -120,7 +120,7 @@ section.ax { padding-bottom: var(--section-pad, clamp(76px, 10vh, 160px)); }
 @media (max-width: 1000px) {
   .ax-track { height: auto; }
   .ax-stage { position: relative; height: auto; grid-template-columns: minmax(0, 1fr); row-gap: 10px; padding-top: 40px; padding-bottom: 0; }
-  .ax-char { order: -1; height: 64vh; width: calc((64vh - 52px) * .6914); margin-bottom: 24px; }
+  .ax-char { order: -1; height: calc(64 * var(--vh, 1vh)); width: calc((calc(64 * var(--vh, 1vh)) - 52px) * .6914); margin-bottom: 24px; }
   .ax-sum .btn { width: 100%; height: 44px; justify-content: center; }
   .ax-col { display: contents; }
   .ax-p, .ax-p.is-locked { opacity: 1; }

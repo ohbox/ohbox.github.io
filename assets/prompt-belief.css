@@ -1,6 +1,6 @@
 /* v3 Belief: the quote as a prompt in an AI editor (prompt-belief.js). Same chrome as the other Inspector panels. */
-.belief { position: relative; border-top: 1px solid var(--line); padding: clamp(76px, 10vh, 160px) var(--gutter); overflow-anchor: none; }
-.belief .cap { justify-content: center; margin-bottom: clamp(28px, 5vh, 44px); }
+.belief { position: relative; border-top: 1px solid var(--line); padding: clamp(76px, calc(10 * var(--vh, 1vh)), 160px) var(--gutter); overflow-anchor: none; }
+.belief .cap { justify-content: center; margin-bottom: clamp(28px, calc(5 * var(--vh, 1vh)), 44px); }
 
 .pe { position: relative; max-width: 880px; margin: 0 auto; text-align: left; }
 .pe-head-short, .pe-head-status-short { display: none; }
@@ -163,7 +163,7 @@
 .dim i { position: absolute; top: -5px; width: 1px; height: 9px; background: var(--red); } .dim i { left: 0; }
 .dim::after { content: ''; position: absolute; right: 0; top: -5px; width: 1px; height: 9px; background: var(--red); }
 .dim b { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: 1px 5px; font: 400 11px var(--mono); color: #fff; background: var(--red); }
-.r-fig .bx-panel { margin-top: clamp(40px, 6vh, 56px); }
+.r-fig .bx-panel { margin-top: clamp(40px, calc(6 * var(--vh, 1vh)), 56px); }
 
 @media (max-width: 760px) {
   .pe-comp { padding: 18px 16px 14px; }
